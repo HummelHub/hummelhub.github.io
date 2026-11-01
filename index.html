@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="de" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Eine moderne, animierte Website-Vorlage.">
+  <title>Deine Website</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="site-header" id="top">
+    <a class="brand" href="#top" aria-label="Zur Startseite"><span class="brand-mark">◆</span><span>DEIN<span class="brand-light"> BRAND</span></span></a>
+    <nav class="desktop-nav" aria-label="Hauptnavigation">
+      <a href="#about">Über uns</a><a href="#services">Leistungen</a><a href="#projects">Projekte</a><a href="#contact">Kontakt</a>
+    </nav>
+    <button class="menu-toggle" aria-label="Menü öffnen" aria-expanded="false"><span></span><span></span></button>
+  </header>
+
+  <div class="menu-overlay" aria-hidden="true">
+    <nav aria-label="Mobiles Menü"><a href="#about">Über uns <span>01</span></a><a href="#services">Leistungen <span>02</span></a><a href="#projects">Projekte <span>03</span></a><a href="#contact">Kontakt <span>04</span></a></nav>
+    <p class="menu-note">Gute Ideen verdienen einen starken Auftritt.</p>
+  </div>
+
+  <main>
+    <section class="hero">
+      <div class="hero-media" aria-hidden="true">
+        <!-- Eigenes Video später hier einfügen: <video src="assets/hero.mp4" autoplay muted loop playsinline></video> -->
+        <div class="hero-gradient"></div><div class="hero-grid"></div>
+      </div>
+      <div class="hero-content">
+        <p class="eyebrow reveal">IDEEN. HALTUNG. BEWEGUNG.</p>
+        <h1 class="hero-title"><span>Wir machen</span><span class="outline">Zukunft</span><span>sichtbar.</span></h1>
+        <div class="hero-bottom"><p class="hero-copy reveal">Ein klarer Auftritt für eine starke Idee.<br>Hier beginnt deine Geschichte.</p><a class="circle-link" href="#about" aria-label="Weiter entdecken"><span>↓</span></a></div>
+      </div>
+      <div class="hero-index">01 <span>/</span> 04</div>
+    </section>
+
+    <section class="intro section-pad" id="about">
+      <p class="eyebrow reveal">01 — ÜBER UNS</p>
+      <h2 class="reveal">Wir denken weiter.<br><span class="muted">Und machen es möglich.</span></h2>
+      <div class="intro-foot"><p>Wir verbinden Anspruch mit Ideen und verwandeln Visionen in Lösungen. Mit Neugier, Klarheit und einem Blick nach vorn.</p><a class="text-link" href="#services">Mehr über uns <span>↗</span></a></div>
+    </section>
+    <section class="services section-pad" id="services">
+      <div class="section-heading"><p class="eyebrow reveal">02 — WAS WIR TUN</p><h2 class="reveal">Von der Idee<br>bis zur <span class="muted">Wirkung.</span></h2></div>
+      <div class="service-list">
+        <article class="service-item"><span class="service-num">01</span><h3>Strategie & Konzept</h3><span class="service-arrow">↗</span></article>
+        <article class="service-item"><span class="service-num">02</span><h3>Design & Erlebnis</h3><span class="service-arrow">↗</span></article>
+        <article class="service-item"><span class="service-num">03</span><h3>Digitale Lösungen</h3><span class="service-arrow">↗</span></article>
+      </div>
+    </section>
+    <section class="projects section-pad" id="projects">
+      <div class="projects-head"><p class="eyebrow reveal">03 — AUSGEWÄHLTE ARBEIT</p><h2 class="reveal">Was entsteht,<br><span class="muted">wenn man weiterdenkt?</span></h2></div>
+      <div class="project-grid"><article class="project-card project-large"><div class="project-art art-one"><span>01</span><div class="art-shape"></div></div><div class="project-meta"><h3>Projektname Eins</h3><p>Konzept · Gestaltung</p></div></article><article class="project-card"><div class="project-art art-two"><span>02</span><div class="art-shape"></div></div><div class="project-meta"><h3>Projektname Zwei</h3><p>Digital · Entwicklung</p></div></article></div>
+    </section>
+    <section class="contact section-pad" id="contact"><p class="eyebrow reveal">04 — DEIN NÄCHSTER SCHRITT</p><h2 class="reveal">Eine gute Idee<br>fängt mit <span class="muted">einem Hallo an.</span></h2><a class="contact-link" href="https://discord.com/" target="_blank" rel="noopener">Kontakt über Discord <span>↗</span></a><p class="contact-hint">Der Discord-Link wird später durch deinen Einladungslink ersetzt.</p></section>
+  </main>
+  <footer class="site-footer"><a class="brand" href="#top"><span class="brand-mark">◆</span><span>DEIN<span class="brand-light"> BRAND</span></span></a><p>© <span id="year"></span> Dein Brand. Mit Haltung gestaltet.</p><div class="footer-links"><a href="#">Impressum</a><a href="#">Datenschutz</a></div></footer>
+  <script src="js/main.js"></script>
+</body>
+</html>
