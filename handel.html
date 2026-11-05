@@ -4,10 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <meta name="description" content="Entdecke die Kreaturen von OpferKlopfer. Wähle dein Wunschtier und stelle deine Anfrage zusammen.">
+
     <title>Handel | HummelHub</title>
 
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
 
     <style>
         /* =====================================================
@@ -19,14 +21,19 @@
             --handel-red: #741d27;
             --handel-red-light: #a8323e;
             --handel-gold: #c5a45b;
-            --handel-dark: #151313;
             --handel-panel: #211c1d;
             --handel-border: rgba(197, 164, 91, 0.25);
-            --handel-text: #eee9e3;
             --handel-muted: #aaa19a;
 
-            color: var(--handel-text);
             min-height: 100vh;
+            color: var(--color-text);
+        }
+
+        .handel-page button,
+        .handel-page input,
+        .handel-page select,
+        .handel-page textarea {
+            font-family: inherit;
         }
 
         .handel-container {
@@ -34,17 +41,39 @@
             margin: 0 auto;
         }
 
+        /* =========================
+           NAVIGATION
+           ========================= */
+
+        .handel-page .site-header {
+            position: relative;
+            z-index: 100;
+        }
+
+        .handel-page .brand {
+            color: var(--color-text);
+            text-decoration: none;
+        }
+
+        .handel-page .desktop-nav a {
+            text-decoration: none;
+        }
+
+        /* =========================
+           EINLEITUNG
+           ========================= */
+
         .handel-intro {
             padding: 110px 0 55px;
             text-align: center;
         }
 
         .handel-eyebrow {
+            margin-bottom: 16px;
             color: var(--handel-gold);
             font-size: 0.8rem;
             letter-spacing: 0.22em;
             text-transform: uppercase;
-            margin-bottom: 16px;
         }
 
         .handel-intro h1 {
@@ -86,18 +115,21 @@
         }
 
         .kreatur-card {
-            position: relative;
             display: flex;
             flex-direction: column;
             min-width: 0;
-            overflow: hidden;
             padding: 0;
+            overflow: hidden;
+
+            color: var(--color-text);
             text-align: left;
-            color: var(--handel-text);
+
             background: var(--handel-panel);
             border: 1px solid var(--handel-border);
             border-radius: 12px;
+
             cursor: pointer;
+
             transition:
                 transform 0.25s ease,
                 border-color 0.25s ease,
@@ -122,15 +154,20 @@
             width: 100%;
             aspect-ratio: 16 / 11;
             overflow: hidden;
-            background:
-                linear-gradient(145deg, #302526, #171414);
+
+            background: linear-gradient(
+                145deg,
+                #302526,
+                #171414
+            );
         }
 
         .kreatur-bild img {
+            display: block;
             width: 100%;
             height: 100%;
             object-fit: cover;
-            display: block;
+
             transition: transform 0.35s ease;
         }
 
@@ -141,13 +178,20 @@
         .bild-platzhalter {
             position: absolute;
             inset: 0;
+
             display: flex;
             align-items: center;
             justify-content: center;
+
             padding: 20px;
+
             color: var(--handel-muted);
             font-size: 0.85rem;
             text-align: center;
+        }
+
+        .bild-platzhalter[hidden] {
+            display: none;
         }
 
         .kreatur-inhalt {
@@ -159,8 +203,7 @@
 
         .kreatur-inhalt h3 {
             margin: 0;
-            color: var(--handel-text);
-            font-size: 1.2rem;
+            color: var(--color-text);
         }
 
         .kreatur-level {
@@ -169,7 +212,7 @@
             gap: 4px;
         }
 
-        .kreatur-level span:first-child {
+        .kreatur-level span {
             color: var(--handel-muted);
             font-size: 0.75rem;
             letter-spacing: 0.06em;
@@ -200,9 +243,11 @@
             display: none;
             margin-top: 55px;
             padding: 35px;
+
             background: var(--handel-panel);
             border: 1px solid var(--handel-border);
             border-radius: 14px;
+
             scroll-margin-top: 35px;
         }
 
@@ -236,21 +281,24 @@
         }
 
         .details-kopf p {
-            color: var(--handel-muted);
             margin: 0;
+            color: var(--handel-muted);
         }
 
         .details-schliessen {
             display: flex;
             align-items: center;
             justify-content: center;
+            flex-shrink: 0;
+
             width: 38px;
             height: 38px;
-            flex-shrink: 0;
-            color: var(--handel-text);
+
+            color: var(--color-text);
             background: transparent;
             border: 1px solid var(--handel-border);
             border-radius: 50%;
+
             font-size: 1.2rem;
             cursor: pointer;
         }
@@ -267,14 +315,17 @@
         }
 
         .details-bild {
+            position: relative;
             width: 100%;
             aspect-ratio: 4 / 3;
             overflow: hidden;
+
             background: #171414;
             border-radius: 10px;
         }
 
         .details-bild img {
+            display: block;
             width: 100%;
             height: 100%;
             object-fit: cover;
@@ -283,7 +334,6 @@
         .details-informationen h3 {
             margin: 0 0 16px;
             color: var(--handel-gold);
-            font-size: 1.15rem;
         }
 
         .details-informationen p {
@@ -300,6 +350,7 @@
 
         .details-meta-item {
             padding: 15px;
+
             background: rgba(0, 0, 0, 0.2);
             border: 1px solid var(--handel-border);
             border-radius: 8px;
@@ -308,6 +359,7 @@
         .details-meta-item span {
             display: block;
             margin-bottom: 6px;
+
             color: var(--handel-muted);
             font-size: 0.75rem;
             text-transform: uppercase;
@@ -333,6 +385,7 @@
             margin-bottom: 20px;
             color: var(--handel-muted);
             font-size: 0.9rem;
+            line-height: 1.7;
         }
 
         .varianten-grid {
@@ -346,30 +399,36 @@
             align-items: center;
             gap: 13px;
             padding: 14px;
+
             background: rgba(0, 0, 0, 0.2);
             border: 1px solid var(--handel-border);
             border-radius: 8px;
+
             cursor: pointer;
             transition: border-color 0.2s ease;
         }
 
-        .variante-option:hover {
+        .variante-option:hover,
+        .variante-option:has(input:checked) {
             border-color: var(--handel-gold);
         }
 
         .variante-option input {
+            flex-shrink: 0;
             accent-color: var(--handel-gold);
         }
 
         .farbenpunkte {
             display: flex;
             gap: 4px;
+            flex-shrink: 0;
         }
 
         .farbenpunkt {
             width: 19px;
             height: 19px;
             flex-shrink: 0;
+
             border: 1px solid rgba(255, 255, 255, 0.25);
             border-radius: 50%;
         }
@@ -378,6 +437,7 @@
             display: flex;
             flex-direction: column;
             gap: 4px;
+            min-width: 0;
         }
 
         .variante-text strong {
@@ -387,6 +447,7 @@
         .variante-text small {
             color: var(--handel-muted);
             font-size: 0.76rem;
+            line-height: 1.5;
         }
 
         /* =========================
@@ -430,7 +491,7 @@
 
         .formular-gruppe label,
         .formular-label {
-            color: var(--handel-text);
+            color: var(--color-text);
             font-size: 0.9rem;
             font-weight: 600;
         }
@@ -440,10 +501,12 @@
         .formular-gruppe textarea {
             width: 100%;
             padding: 13px 14px;
-            color: var(--handel-text);
+
+            color: var(--color-text);
             background: #171414;
             border: 1px solid var(--handel-border);
             border-radius: 7px;
+
             font: inherit;
         }
 
@@ -460,8 +523,8 @@
         }
 
         .formular-gruppe select option {
-            color: var(--handel-text);
-            background: var(--handel-dark);
+            color: var(--color-text);
+            background: #171414;
         }
 
         .radio-auswahl {
@@ -476,6 +539,7 @@
             display: flex;
             align-items: center;
             gap: 9px;
+
             color: var(--handel-muted);
             font-weight: 400;
             cursor: pointer;
@@ -515,10 +579,12 @@
             align-items: center;
             gap: 10px;
             padding: 12px;
+
+            color: var(--handel-muted);
             background: rgba(0, 0, 0, 0.2);
             border: 1px solid var(--handel-border);
             border-radius: 7px;
-            color: var(--handel-muted);
+
             font-size: 0.88rem;
             cursor: pointer;
         }
@@ -533,6 +599,7 @@
 
         .element-bereich {
             padding: 20px;
+
             background: rgba(0, 0, 0, 0.2);
             border: 1px solid var(--handel-border);
             border-radius: 9px;
@@ -561,6 +628,7 @@
             display: flex;
             justify-content: space-between;
             margin-top: 7px;
+
             color: var(--handel-muted);
             font-size: 0.78rem;
         }
@@ -573,12 +641,13 @@
         }
 
         /* =========================
-           VORLÄUFIGE BESTELLÜBERSICHT
+           BESTELLÜBERSICHT
            ========================= */
 
         .bestelluebersicht {
             margin-top: 35px;
             padding: 22px;
+
             background: rgba(0, 0, 0, 0.2);
             border: 1px solid var(--handel-border);
             border-radius: 9px;
@@ -594,17 +663,19 @@
             justify-content: space-between;
             gap: 15px;
             padding: 9px 0;
+
             color: var(--handel-muted);
             border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+
             font-size: 0.88rem;
         }
 
-        .uebersicht-zeile:last-child {
+        .uebersicht-zeile:last-of-type {
             border-bottom: none;
         }
 
         .uebersicht-zeile strong {
-            color: var(--handel-text);
+            color: var(--color-text);
             text-align: right;
         }
 
@@ -619,21 +690,32 @@
             width: 100%;
             margin-top: 22px;
             padding: 14px 20px;
+
             color: #b8b0a8;
             background: #393233;
             border: 1px solid #514647;
             border-radius: 7px;
+
             font: inherit;
             font-weight: 600;
+
             cursor: not-allowed;
             opacity: 0.75;
+        }
+
+        /* =========================
+           FOOTER
+           ========================= */
+
+        .handel-page .site-footer {
+            margin-top: 0;
         }
 
         /* =========================
            RESPONSIVE
            ========================= */
 
-        @media (max-width: 950px) {
+        @media (max-width: 900px) {
             .kreaturen-grid {
                 grid-template-columns: repeat(3, minmax(0, 1fr));
             }
@@ -657,10 +739,6 @@
                 padding: 14px;
             }
 
-            .kreatur-inhalt h3 {
-                font-size: 1rem;
-            }
-
             .kreatur-details {
                 padding: 22px 16px;
             }
@@ -680,16 +758,12 @@
 
         @media (max-width: 420px) {
             .kreaturen-grid {
-                grid-template-columns: 1fr 1fr;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
                 gap: 10px;
             }
 
             .kreatur-inhalt {
                 padding: 11px;
-            }
-
-            .kreatur-inhalt h3 {
-                font-size: 0.9rem;
             }
 
             .kreatur-level strong {
@@ -706,6 +780,10 @@
 
             .eigenschaften-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .details-kopf {
+                gap: 12px;
             }
         }
 
@@ -730,30 +808,30 @@
          ========================= -->
 
     <header class="site-header">
-        <div class="header-container">
 
-            <a href="index.html" class="logo" aria-label="HummelHub Startseite">
-                HummelHub
-            </a>
+        <a href="index.html" class="brand" aria-label="HummelHub Startseite">
+            HummelHub
+        </a>
 
-            <nav class="main-navigation" aria-label="Hauptnavigation">
-                <a href="index.html">Home</a>
-                <a href="opferklopfer.html">OpferKlopfer</a>
-                <a href="handel.html" aria-current="page">Handel</a>
-                <a href="rechner.html">Rechner</a>
-                <a href="projekte.html">Projekte</a>
-                <a href="index.html#kontakt">Kontakt</a>
-            </nav>
+        <nav class="desktop-nav" aria-label="Hauptnavigation">
+            <a href="index.html">Home</a>
+            <a href="opferklopfer.html">OpferKlopfer</a>
+            <a href="handel.html" aria-current="page">Handel</a>
+            <a href="rechner.html">Rechner</a>
+            <a href="projekte.html">Projekte</a>
+            <a href="index.html#kontakt">Kontakt</a>
+        </nav>
 
-        </div>
     </header>
 
 
     <!-- =========================
-         EINLEITUNG
+         HAUPTINHALT
          ========================= -->
 
     <main>
+
+        <!-- EINLEITUNG -->
 
         <section class="handel-intro">
             <div class="handel-container">
@@ -776,9 +854,7 @@
         </section>
 
 
-        <!-- =========================
-             KATALOG
-             ========================= -->
+        <!-- KATALOG -->
 
         <section class="handel-section">
             <div class="handel-container">
@@ -792,305 +868,37 @@
                     </p>
                 </div>
 
-
                 <div class="kreaturen-grid" id="kreaturen-grid">
-
-                    <!-- 01 Argentavis -->
-                    <button class="kreatur-card"
-                            type="button"
-                            data-kreatur="argentavis"
-                            aria-expanded="false">
-
-                        <div class="kreatur-bild">
-                            <img src="assets/tiere/argentavis.webp"
-                                 alt="Argentavis"
-                                 onerror="this.style.display='none'">
-                            <span class="bild-platzhalter">
-                                Argentavis – Bild folgt
-                            </span>
-                        </div>
-
-                        <div class="kreatur-inhalt">
-                            <h3>Argentavis</h3>
-
-                            <div class="kreatur-level">
-                                <span>Basisverkaufslevel</span>
-                                <strong>Noch festzulegen</strong>
-                            </div>
-
-                            <div class="kreatur-varianten">
-                                Noch keine Varianten eingetragen
-                            </div>
-
-                            <span class="kreatur-oeffnen">
-                                Details ansehen →
-                            </span>
-                        </div>
-                    </button>
-
-
-                    <!-- 02 Ankylosaurus -->
-                    <button class="kreatur-card"
-                            type="button"
-                            data-kreatur="ankylosaurus"
-                            aria-expanded="false">
-
-                        <div class="kreatur-bild">
-                            <img src="assets/tiere/ankylosaurus.webp"
-                                 alt="Ankylosaurus"
-                                 onerror="this.style.display='none'">
-                            <span class="bild-platzhalter">
-                                Ankylosaurus – Bild folgt
-                            </span>
-                        </div>
-
-                        <div class="kreatur-inhalt">
-                            <h3>Ankylosaurus</h3>
-
-                            <div class="kreatur-level">
-                                <span>Basisverkaufslevel</span>
-                                <strong>Noch festzulegen</strong>
-                            </div>
-
-                            <div class="kreatur-varianten">
-                                Noch keine Varianten eingetragen
-                            </div>
-
-                            <span class="kreatur-oeffnen">
-                                Details ansehen →
-                            </span>
-                        </div>
-                    </button>
-
-
-                    <!-- 03 Baryonyx -->
-                    <button class="kreatur-card"
-                            type="button"
-                            data-kreatur="baryonyx"
-                            aria-expanded="false">
-
-                        <div class="kreatur-bild">
-                            <img src="assets/tiere/baryonyx.webp"
-                                 alt="Baryonyx"
-                                 onerror="this.style.display='none'">
-                            <span class="bild-platzhalter">
-                                Baryonyx – Bild folgt
-                            </span>
-                        </div>
-
-                        <div class="kreatur-inhalt">
-                            <h3>Baryonyx</h3>
-
-                            <div class="kreatur-level">
-                                <span>Basisverkaufslevel</span>
-                                <strong>Noch festzulegen</strong>
-                            </div>
-
-                            <div class="kreatur-varianten">
-                                Noch keine Varianten eingetragen
-                            </div>
-
-                            <span class="kreatur-oeffnen">
-                                Details ansehen →
-                            </span>
-                        </div>
-                    </button>
-
-
-                    <!-- 04 Doedicurus -->
-                    <button class="kreatur-card"
-                            type="button"
-                            data-kreatur="doedicurus"
-                            aria-expanded="false">
-
-                        <div class="kreatur-bild">
-                            <img src="assets/tiere/doedicurus.webp"
-                                 alt="Doedicurus"
-                                 onerror="this.style.display='none'">
-                            <span class="bild-platzhalter">
-                                Doedicurus – Bild folgt
-                            </span>
-                        </div>
-
-                        <div class="kreatur-inhalt">
-                            <h3>Doedicurus</h3>
-
-                            <div class="kreatur-level">
-                                <span>Basisverkaufslevel</span>
-                                <strong>Noch festzulegen</strong>
-                            </div>
-
-                            <div class="kreatur-varianten">
-                                Noch keine Varianten eingetragen
-                            </div>
-
-                            <span class="kreatur-oeffnen">
-                                Details ansehen →
-                            </span>
-                        </div>
-                    </button>
-
-
-                    <!-- 05 Maewing -->
-                    <button class="kreatur-card"
-                            type="button"
-                            data-kreatur="maewing"
-                            aria-expanded="false">
-
-                        <div class="kreatur-bild">
-                            <img src="assets/tiere/maewing.webp"
-                                 alt="Maewing"
-                                 onerror="this.style.display='none'">
-                            <span class="bild-platzhalter">
-                                Maewing – Bild folgt
-                            </span>
-                        </div>
-
-                        <div class="kreatur-inhalt">
-                            <h3>Maewing</h3>
-
-                            <div class="kreatur-level">
-                                <span>Basisverkaufslevel</span>
-                                <strong>Noch festzulegen</strong>
-                            </div>
-
-                            <div class="kreatur-varianten">
-                                Noch keine Varianten eingetragen
-                            </div>
-
-                            <span class="kreatur-oeffnen">
-                                Details ansehen →
-                            </span>
-                        </div>
-                    </button>
-
-
-                    <!-- 06 Shadowmane -->
-                    <button class="kreatur-card"
-                            type="button"
-                            data-kreatur="shadowmane"
-                            aria-expanded="false">
-
-                        <div class="kreatur-bild">
-                            <img src="assets/tiere/shadowmane.webp"
-                                 alt="Shadowmane"
-                                 onerror="this.style.display='none'">
-                            <span class="bild-platzhalter">
-                                Shadowmane – Bild folgt
-                            </span>
-                        </div>
-
-                        <div class="kreatur-inhalt">
-                            <h3>Shadowmane</h3>
-
-                            <div class="kreatur-level">
-                                <span>Basisverkaufslevel</span>
-                                <strong>Noch festzulegen</strong>
-                            </div>
-
-                            <div class="kreatur-varianten">
-                                Noch keine Varianten eingetragen
-                            </div>
-
-                            <span class="kreatur-oeffnen">
-                                Details ansehen →
-                            </span>
-                        </div>
-                    </button>
-
-
-                    <!-- 07 Therizinosaurus -->
-                    <button class="kreatur-card"
-                            type="button"
-                            data-kreatur="therizinosaurus"
-                            aria-expanded="false">
-
-                        <div class="kreatur-bild">
-                            <img src="assets/tiere/therizinosaurus.webp"
-                                 alt="Therizinosaurus"
-                                 onerror="this.style.display='none'">
-                            <span class="bild-platzhalter">
-                                Therizinosaurus – Bild folgt
-                            </span>
-                        </div>
-
-                        <div class="kreatur-inhalt">
-                            <h3>Therizinosaurus</h3>
-
-                            <div class="kreatur-level">
-                                <span>Basisverkaufslevel</span>
-                                <strong>Noch festzulegen</strong>
-                            </div>
-
-                            <div class="kreatur-varianten">
-                                Noch keine Varianten eingetragen
-                            </div>
-
-                            <span class="kreatur-oeffnen">
-                                Details ansehen →
-                            </span>
-                        </div>
-                    </button>
-
-
-                    <!-- 08 Yutyrannus -->
-                    <button class="kreatur-card"
-                            type="button"
-                            data-kreatur="yutyrannus"
-                            aria-expanded="false">
-
-                        <div class="kreatur-bild">
-                            <img src="assets/tiere/yutyrannus.webp"
-                                 alt="Yutyrannus"
-                                 onerror="this.style.display='none'">
-                            <span class="bild-platzhalter">
-                                Yutyrannus – Bild folgt
-                            </span>
-                        </div>
-
-                        <div class="kreatur-inhalt">
-                            <h3>Yutyrannus</h3>
-
-                            <div class="kreatur-level">
-                                <span>Basisverkaufslevel</span>
-                                <strong>Noch festzulegen</strong>
-                            </div>
-
-                            <div class="kreatur-varianten">
-                                Noch keine Varianten eingetragen
-                            </div>
-
-                            <span class="kreatur-oeffnen">
-                                Details ansehen →
-                            </span>
-                        </div>
-                    </button>
-
+                    <!-- Kreaturenkarten werden aus den Daten erzeugt. -->
                 </div>
 
 
-                <!-- =========================
-                     DETAILANSICHT
-                     ========================= -->
+                <!-- DETAILANSICHT -->
 
-                <section class="kreatur-details"
-                         id="kreatur-details"
-                         aria-live="polite"
-                         aria-label="Kreaturdetails">
+                <section
+                    class="kreatur-details"
+                    id="kreatur-details"
+                    aria-live="polite"
+                    aria-label="Kreaturdetails"
+                    aria-hidden="true"
+                >
 
                     <div class="details-kopf">
 
                         <div>
                             <h2 id="details-name">Kreatur</h2>
+
                             <p id="details-beschreibung">
                                 Informationen zur ausgewählten Kreatur.
                             </p>
                         </div>
 
-                        <button class="details-schliessen"
-                                id="details-schliessen"
-                                type="button"
-                                aria-label="Detailansicht schließen">
+                        <button
+                            class="details-schliessen"
+                            id="details-schliessen"
+                            type="button"
+                            aria-label="Detailansicht schließen"
+                        >
                             ×
                         </button>
 
@@ -1100,9 +908,11 @@
                     <div class="details-grid">
 
                         <div class="details-bild">
-                            <img id="details-bild"
-                                 src=""
-                                 alt="">
+                            <img
+                                id="details-bild"
+                                src=""
+                                alt=""
+                            >
                         </div>
 
                         <div class="details-informationen">
@@ -1132,9 +942,7 @@
 
                                 <div class="details-meta-item">
                                     <span>Varianten</span>
-                                    <strong id="details-varianten">
-                                        0
-                                    </strong>
+                                    <strong id="details-varianten">0</strong>
                                 </div>
 
                                 <div class="details-meta-item">
@@ -1168,22 +976,20 @@
                             Farbregionen sind fest vorgegeben.
                         </p>
 
-                        <div class="varianten-grid"
-                             id="varianten-auswahl">
-
+                        <div
+                            class="varianten-grid"
+                            id="varianten-auswahl"
+                        >
                             <p>
                                 Für diese Kreatur wurden noch keine
                                 Farbvarianten hinterlegt.
                             </p>
-
                         </div>
 
                     </div>
 
 
-                    <!-- =========================
-                         BESTELLFORMULAR
-                         ========================= -->
+                    <!-- BESTELLFORMULAR -->
 
                     <div class="bestellung-bereich">
 
@@ -1212,17 +1018,21 @@
                                     <div class="radio-auswahl">
 
                                         <label>
-                                            <input type="radio"
-                                                   name="geschlecht"
-                                                   value="Männlich"
-                                                   checked>
+                                            <input
+                                                type="radio"
+                                                name="geschlecht"
+                                                value="Männlich"
+                                                checked
+                                            >
                                             Männlich
                                         </label>
 
                                         <label>
-                                            <input type="radio"
-                                                   name="geschlecht"
-                                                   value="Weiblich">
+                                            <input
+                                                type="radio"
+                                                name="geschlecht"
+                                                value="Weiblich"
+                                            >
                                             Weiblich
                                         </label>
 
@@ -1242,32 +1052,39 @@
                                     <div class="radio-auswahl">
 
                                         <label>
-                                            <input type="radio"
-                                                   name="sattel"
-                                                   value="Nein"
-                                                   checked>
+                                            <input
+                                                type="radio"
+                                                name="sattel"
+                                                value="Nein"
+                                                checked
+                                            >
                                             Nein
                                         </label>
 
                                         <label>
-                                            <input type="radio"
-                                                   name="sattel"
-                                                   value="Ja">
+                                            <input
+                                                type="radio"
+                                                name="sattel"
+                                                value="Ja"
+                                            >
                                             Ja
                                         </label>
 
                                     </div>
 
-                                    <div class="formular-gruppe sattel-optionen"
-                                         id="sattel-optionen">
+                                    <div
+                                        class="formular-gruppe sattel-optionen"
+                                        id="sattel-optionen"
+                                    >
 
                                         <label for="sattel-version">
                                             Sattelversion
                                         </label>
 
-                                        <select id="sattel-version"
-                                                name="sattel-version">
-
+                                        <select
+                                            id="sattel-version"
+                                            name="sattel-version"
+                                        >
                                             <option value="">
                                                 Bitte auswählen
                                             </option>
@@ -1279,7 +1096,6 @@
                                             <option value="Anderes">
                                                 Andere Version – nach Absprache
                                             </option>
-
                                         </select>
 
                                     </div>
@@ -1295,13 +1111,13 @@
                                         Farbvariante
                                     </label>
 
-                                    <select id="gewaehlte-variante"
-                                            name="variante">
-
+                                    <select
+                                        id="gewaehlte-variante"
+                                        name="variante"
+                                    >
                                         <option value="">
                                             Bitte zuerst eine Variante auswählen
                                         </option>
-
                                     </select>
 
                                 </div>
@@ -1322,44 +1138,56 @@
                                     <div class="eigenschaften-grid">
 
                                         <label class="eigenschaft-option">
-                                            <input type="checkbox"
-                                                   name="eigenschaften"
-                                                   value="Ausdauer">
+                                            <input
+                                                type="checkbox"
+                                                name="eigenschaften"
+                                                value="Ausdauer"
+                                            >
                                             Ausdauer
                                         </label>
 
                                         <label class="eigenschaft-option">
-                                            <input type="checkbox"
-                                                   name="eigenschaften"
-                                                   value="Gewicht">
+                                            <input
+                                                type="checkbox"
+                                                name="eigenschaften"
+                                                value="Gewicht"
+                                            >
                                             Gewicht
                                         </label>
 
                                         <label class="eigenschaft-option">
-                                            <input type="checkbox"
-                                                   name="eigenschaften"
-                                                   value="Nahkampfschaden">
+                                            <input
+                                                type="checkbox"
+                                                name="eigenschaften"
+                                                value="Nahkampfschaden"
+                                            >
                                             Nahkampfschaden
                                         </label>
 
                                         <label class="eigenschaft-option">
-                                            <input type="checkbox"
-                                                   name="eigenschaften"
-                                                   value="Leben">
+                                            <input
+                                                type="checkbox"
+                                                name="eigenschaften"
+                                                value="Leben"
+                                            >
                                             Leben
                                         </label>
 
                                         <label class="eigenschaft-option">
-                                            <input type="checkbox"
-                                                   name="eigenschaften"
-                                                   value="Sauerstoff">
+                                            <input
+                                                type="checkbox"
+                                                name="eigenschaften"
+                                                value="Sauerstoff"
+                                            >
                                             Sauerstoff
                                         </label>
 
                                         <label class="eigenschaft-option">
-                                            <input type="checkbox"
-                                                   name="eigenschaften"
-                                                   value="Nahrung">
+                                            <input
+                                                type="checkbox"
+                                                name="eigenschaften"
+                                                value="Nahrung"
+                                            >
                                             Nahrung
                                         </label>
 
@@ -1390,13 +1218,15 @@
 
                                         </div>
 
-                                        <input type="range"
-                                               id="element-anteil"
-                                               name="element-anteil"
-                                               min="10"
-                                               max="60"
-                                               step="5"
-                                               value="10">
+                                        <input
+                                            type="range"
+                                            id="element-anteil"
+                                            name="element-anteil"
+                                            min="10"
+                                            max="60"
+                                            step="5"
+                                            value="10"
+                                        >
 
                                         <div class="element-skala">
                                             <span>10 %</span>
@@ -1425,11 +1255,14 @@
                                         RS24-Spielername
                                     </label>
 
-                                    <input type="text"
-                                           id="spielername"
-                                           name="spielername"
-                                           placeholder="Dein Ingame-Spielername"
-                                           required>
+                                    <input
+                                        type="text"
+                                        id="spielername"
+                                        name="spielername"
+                                        placeholder="Dein Ingame-Spielername"
+                                        autocomplete="off"
+                                        required
+                                    >
 
                                 </div>
 
@@ -1442,9 +1275,11 @@
                                         Nachricht und besondere Wünsche
                                     </label>
 
-                                    <textarea id="nachricht"
-                                              name="nachricht"
-                                              placeholder="Hast du noch besondere Wünsche oder möchtest du uns etwas mitteilen?"></textarea>
+                                    <textarea
+                                        id="nachricht"
+                                        name="nachricht"
+                                        placeholder="Hast du noch besondere Wünsche oder möchtest du uns etwas mitteilen?"
+                                    ></textarea>
 
                                 </div>
 
@@ -1500,9 +1335,11 @@
                                     verwaltet werden.
                                 </p>
 
-                                <button class="warenkorb-button"
-                                        type="button"
-                                        disabled>
+                                <button
+                                    class="warenkorb-button"
+                                    type="button"
+                                    disabled
+                                >
                                     In den Warenkorb – folgt später
                                 </button>
 
@@ -1525,18 +1362,16 @@
          ========================= -->
 
     <footer class="site-footer">
-        <div class="footer-container">
 
-            <p>
-                © <span id="aktuelles-jahr"></span> HummelHub
-                · Ein Projekt von OpferKlopfer
-            </p>
+        <p>
+            © <span id="aktuelles-jahr"></span> HummelHub
+            · Ein Projekt von OpferKlopfer
+        </p>
 
-            <div class="footer-links">
-                <a href="datenschutz.html">Datenschutz</a>
-            </div>
-
+        <div class="footer-links">
+            <a href="datenschutz.html">Datenschutz</a>
         </div>
+
     </footer>
 
 </div>
@@ -1559,6 +1394,7 @@
             bild: "assets/tiere/argentavis.webp",
             level: "Noch festzulegen",
             preis: "Noch festzulegen",
+            status: "Noch festzulegen",
             varianten: [],
             beschreibung: "Informationen zum Argentavis.",
             zusatz: "Weitere Verkaufsinformationen werden ergänzt."
@@ -1569,6 +1405,7 @@
             bild: "assets/tiere/ankylosaurus.webp",
             level: "Noch festzulegen",
             preis: "Noch festzulegen",
+            status: "Noch festzulegen",
             varianten: [],
             beschreibung: "Informationen zum Ankylosaurus.",
             zusatz: "Weitere Verkaufsinformationen werden ergänzt."
@@ -1579,6 +1416,7 @@
             bild: "assets/tiere/baryonyx.webp",
             level: "Noch festzulegen",
             preis: "Noch festzulegen",
+            status: "Noch festzulegen",
             varianten: [],
             beschreibung: "Informationen zum Baryonyx.",
             zusatz: "Weitere Verkaufsinformationen werden ergänzt."
@@ -1589,6 +1427,7 @@
             bild: "assets/tiere/doedicurus.webp",
             level: "Noch festzulegen",
             preis: "Noch festzulegen",
+            status: "Noch festzulegen",
             varianten: [],
             beschreibung: "Informationen zum Doedicurus.",
             zusatz: "Weitere Verkaufsinformationen werden ergänzt."
@@ -1599,6 +1438,7 @@
             bild: "assets/tiere/maewing.webp",
             level: "Noch festzulegen",
             preis: "Noch festzulegen",
+            status: "Noch festzulegen",
             varianten: [],
             beschreibung: "Informationen zum Maewing.",
             zusatz: "Weitere Verkaufsinformationen werden ergänzt."
@@ -1609,6 +1449,7 @@
             bild: "assets/tiere/shadowmane.webp",
             level: "Noch festzulegen",
             preis: "Noch festzulegen",
+            status: "Noch festzulegen",
             varianten: [],
             beschreibung: "Informationen zum Shadowmane.",
             zusatz: "Weitere Verkaufsinformationen werden ergänzt."
@@ -1619,6 +1460,7 @@
             bild: "assets/tiere/therizinosaurus.webp",
             level: "Noch festzulegen",
             preis: "Noch festzulegen",
+            status: "Noch festzulegen",
             varianten: [],
             beschreibung: "Informationen zum Therizinosaurus.",
             zusatz: "Weitere Verkaufsinformationen werden ergänzt."
@@ -1629,6 +1471,7 @@
             bild: "assets/tiere/yutyrannus.webp",
             level: "Noch festzulegen",
             preis: "Noch festzulegen",
+            status: "Noch festzulegen",
             varianten: [],
             beschreibung: "Informationen zum Yutyrannus.",
             zusatz: "Weitere Verkaufsinformationen werden ergänzt."
@@ -1638,10 +1481,10 @@
 
 
     /* =====================================================
-       DETAILANSICHT ÖFFNEN UND SCHLIESSEN
+       ELEMENTE
        ===================================================== */
 
-    const tierkarten = document.querySelectorAll(".kreatur-card");
+    const kreaturenGrid = document.getElementById("kreaturen-grid");
     const detailbereich = document.getElementById("kreatur-details");
     const schliessenButton = document.getElementById("details-schliessen");
 
@@ -1657,8 +1500,133 @@
     const variantenAuswahl = document.getElementById("varianten-auswahl");
     const gewaehlteVariante = document.getElementById("gewaehlte-variante");
 
+    const bestellformular = document.getElementById("bestellformular");
+
     let aktiveKreatur = null;
 
+
+    /* =====================================================
+       KREATURENKARTEN ERZEUGEN
+       ===================================================== */
+
+    function kartenErzeugen() {
+
+        kreaturenGrid.innerHTML = "";
+
+        Object.entries(kreaturen).forEach(([id, tier]) => {
+
+            const karte = document.createElement("button");
+            karte.type = "button";
+            karte.className = "kreatur-card";
+            karte.dataset.kreatur = id;
+            karte.setAttribute("aria-expanded", "false");
+
+            const bildbereich = document.createElement("div");
+            bildbereich.className = "kreatur-bild";
+
+            const bild = document.createElement("img");
+            bild.src = tier.bild;
+            bild.alt = tier.name;
+            bild.loading = "lazy";
+
+            const platzhalter = document.createElement("span");
+            platzhalter.className = "bild-platzhalter";
+            platzhalter.textContent = tier.name + " – Bild folgt";
+
+            bild.addEventListener("load", () => {
+                platzhalter.hidden = true;
+            });
+
+            bild.addEventListener("error", () => {
+                bild.hidden = true;
+                platzhalter.hidden = false;
+            });
+
+            bildbereich.append(bild, platzhalter);
+
+            const inhalt = document.createElement("div");
+            inhalt.className = "kreatur-inhalt";
+
+            const name = document.createElement("h3");
+            name.textContent = tier.name;
+
+            const levelBereich = document.createElement("div");
+            levelBereich.className = "kreatur-level";
+
+            const levelLabel = document.createElement("span");
+            levelLabel.textContent = "Basisverkaufslevel";
+
+            const levelWert = document.createElement("strong");
+            levelWert.textContent = tier.level;
+
+            levelBereich.append(levelLabel, levelWert);
+
+            const varianten = document.createElement("div");
+            varianten.className = "kreatur-varianten";
+            varianten.textContent =
+                "Es gibt bereits " + tier.varianten.length + " Varianten davon.";
+
+            const oeffnen = document.createElement("span");
+            oeffnen.className = "kreatur-oeffnen";
+            oeffnen.textContent = "Details ansehen →";
+
+            inhalt.append(
+                name,
+                levelBereich,
+                varianten,
+                oeffnen
+            );
+
+            karte.append(bildbereich, inhalt);
+
+            karte.addEventListener("click", () => {
+                detailansichtOeffnen(id, karte);
+            });
+
+            kreaturenGrid.appendChild(karte);
+
+        });
+
+    }
+
+
+    /* =====================================================
+       FORMULAR ZURÜCKSETZEN
+       ===================================================== */
+
+    function formularZuruecksetzen() {
+
+        bestellformular.reset();
+
+        document.getElementById("sattel-optionen")
+            .classList.remove("sichtbar");
+
+        document.getElementById("uebersicht-geschlecht")
+            .textContent = "Männlich";
+
+        document.getElementById("uebersicht-sattel")
+            .textContent = "Nein";
+
+        document.getElementById("uebersicht-element")
+            .textContent = "10 %";
+
+        document.getElementById("uebersicht-variante")
+            .textContent = "Keine ausgewählt";
+
+        document.getElementById("element-prozent")
+            .textContent = "10 %";
+
+        document.getElementById("uebersicht-kreatur")
+            .textContent = aktiveKreatur
+                ? kreaturen[aktiveKreatur].name
+                : "Keine ausgewählt";
+
+    }
+
+
+    /* =====================================================
+       DETAILANSICHT ÖFFNEN
+       ===================================================== */
 
     function detailansichtOeffnen(kreaturId, karte) {
 
@@ -1675,7 +1643,7 @@
 
         aktiveKreatur = kreaturId;
 
-        tierkarten.forEach((element) => {
+        document.querySelectorAll(".kreatur-card").forEach((element) => {
             element.classList.remove("aktiv");
             element.setAttribute("aria-expanded", "false");
         });
@@ -1687,32 +1655,18 @@
         detailsBeschreibung.textContent = tier.beschreibung;
         detailsBild.src = tier.bild;
         detailsBild.alt = tier.name;
+
         detailsLevel.textContent = tier.level;
         detailsPreis.textContent = tier.preis;
         detailsVarianten.textContent = tier.varianten.length;
-        detailsStatus.textContent = "Noch festzulegen";
+        detailsStatus.textContent = tier.status;
         detailsZusatz.textContent = tier.zusatz;
 
+        formularZuruecksetzen();
         variantenDarstellen(tier.varianten);
 
-        document.getElementById("uebersicht-kreatur").textContent = tier.name;
-        document.getElementById("uebersicht-variante").textContent = "Keine ausgewählt";
-
-        gewaehlteVariante.innerHTML = "";
-
-        const standardOption = document.createElement("option");
-        standardOption.value = "";
-        standardOption.textContent = "Bitte eine Variante auswählen";
-        gewaehlteVariante.appendChild(standardOption);
-
-        tier.varianten.forEach((variante, index) => {
-            const option = document.createElement("option");
-            option.value = variante.name;
-            option.textContent = variante.name;
-            gewaehlteVariante.appendChild(option);
-        });
-
         detailbereich.classList.add("sichtbar");
+        detailbereich.setAttribute("aria-hidden", "false");
 
         detailbereich.scrollIntoView({
             behavior: "smooth",
@@ -1722,39 +1676,35 @@
     }
 
 
+    /* =====================================================
+       DETAILANSICHT SCHLIESSEN
+       ===================================================== */
+
     function detailansichtSchliessen() {
 
         detailbereich.classList.remove("sichtbar");
+        detailbereich.setAttribute("aria-hidden", "true");
 
-        tierkarten.forEach((element) => {
+        document.querySelectorAll(".kreatur-card").forEach((element) => {
             element.classList.remove("aktiv");
             element.setAttribute("aria-expanded", "false");
         });
 
         aktiveKreatur = null;
 
-        document.getElementById("uebersicht-kreatur").textContent =
-            "Keine ausgewählt";
+        document.getElementById("uebersicht-kreatur")
+            .textContent = "Keine ausgewählt";
 
-        document.getElementById("uebersicht-variante").textContent =
-            "Keine ausgewählt";
+        document.getElementById("uebersicht-variante")
+            .textContent = "Keine ausgewählt";
 
     }
 
 
-    tierkarten.forEach((karte) => {
-
-        karte.addEventListener("click", () => {
-            detailansichtOeffnen(
-                karte.dataset.kreatur,
-                karte
-            );
-        });
-
-    });
-
-
-    schliessenButton.addEventListener("click", detailansichtSchliessen);
+    schliessenButton.addEventListener(
+        "click",
+        detailansichtSchliessen
+    );
 
 
     /* =====================================================
@@ -1764,17 +1714,31 @@
     function variantenDarstellen(varianten) {
 
         variantenAuswahl.innerHTML = "";
+        gewaehlteVariante.innerHTML = "";
+
+        const standardOption = document.createElement("option");
+        standardOption.value = "";
+        standardOption.textContent = varianten.length
+            ? "Bitte eine Variante auswählen"
+            : "Keine Varianten verfügbar";
+
+        gewaehlteVariante.appendChild(standardOption);
 
         if (!varianten || varianten.length === 0) {
 
             const hinweis = document.createElement("p");
+
             hinweis.textContent =
                 "Für diese Kreatur wurden noch keine Farbvarianten hinterlegt.";
 
             variantenAuswahl.appendChild(hinweis);
 
+            gewaehlteVariante.disabled = true;
+
             return;
         }
+
+        gewaehlteVariante.disabled = false;
 
         varianten.forEach((variante, index) => {
 
@@ -1786,18 +1750,15 @@
             radio.name = "farbvariante";
             radio.value = variante.name;
 
-            if (index === 0) {
-                radio.checked = true;
-            }
-
             const farbenpunkte = document.createElement("span");
             farbenpunkte.className = "farbenpunkte";
 
-            variante.farben.forEach((farbe) => {
+            (variante.farben || []).forEach((farbe) => {
 
                 const punkt = document.createElement("span");
                 punkt.className = "farbenpunkt";
                 punkt.style.backgroundColor = farbe;
+
                 farbenpunkte.appendChild(punkt);
 
             });
@@ -1809,51 +1770,54 @@
             name.textContent = variante.name;
 
             const regionen = document.createElement("small");
-            regionen.textContent = variante.regionen;
+            regionen.textContent = variante.regionen || "";
 
             textbereich.append(name, regionen);
 
-            label.append(radio, farbenpunkte, textbereich);
+            label.append(
+                radio,
+                farbenpunkte,
+                textbereich
+            );
 
             variantenAuswahl.appendChild(label);
+
+            const option = document.createElement("option");
+            option.value = variante.name;
+            option.textContent = variante.name;
+
+            gewaehlteVariante.appendChild(option);
 
             radio.addEventListener("change", () => {
 
                 gewaehlteVariante.value = variante.name;
 
-                document.getElementById("uebersicht-variante").textContent =
-                    variante.name;
+                document.getElementById("uebersicht-variante")
+                    .textContent = variante.name;
 
             });
 
         });
 
-        if (varianten.length > 0) {
-
-            gewaehlteVariante.value = varianten[0].name;
-
-            document.getElementById("uebersicht-variante").textContent =
-                varianten[0].name;
-
-        }
-
+        gewaehlteVariante.value = "";
     }
 
+
+    /* =====================================================
+       FARBVARIANTE ÜBER AUSWAHLFELD
+       ===================================================== */
 
     gewaehlteVariante.addEventListener("change", () => {
 
         const ausgewaehlt = gewaehlteVariante.value;
 
-        document.getElementById("uebersicht-variante").textContent =
-            ausgewaehlt || "Keine ausgewählt";
+        document.getElementById("uebersicht-variante")
+            .textContent = ausgewaehlt || "Keine ausgewählt";
 
-        const radios = document.querySelectorAll(
-            'input[name="farbvariante"]'
-        );
-
-        radios.forEach((radio) => {
-            radio.checked = radio.value === ausgewaehlt;
-        });
+        document.querySelectorAll('input[name="farbvariante"]')
+            .forEach((radio) => {
+                radio.checked = radio.value === ausgewaehlt;
+            });
 
     });
 
@@ -1863,80 +1827,82 @@
        ===================================================== */
 
     const sattelOptionen = document.getElementById("sattel-optionen");
-    const sattelRadios = document.querySelectorAll('input[name="sattel"]');
 
-    sattelRadios.forEach((radio) => {
+    document.querySelectorAll('input[name="sattel"]')
+        .forEach((radio) => {
 
-        radio.addEventListener("change", () => {
+            radio.addEventListener("change", () => {
 
-            const sattelGewuenscht = radio.value === "Ja" && radio.checked;
+                if (!radio.checked) {
+                    return;
+                }
 
-            sattelOptionen.classList.toggle(
-                "sichtbar",
-                sattelGewuenscht
-            );
+                const sattelGewuenscht = radio.value === "Ja";
 
-            document.getElementById("uebersicht-sattel").textContent =
-                radio.value;
+                sattelOptionen.classList.toggle(
+                    "sichtbar",
+                    sattelGewuenscht
+                );
+
+                document.getElementById("uebersicht-sattel")
+                    .textContent = radio.value;
+
+                if (!sattelGewuenscht) {
+                    document.getElementById("sattel-version").value = "";
+                }
+
+            });
 
         });
-
-    });
 
 
     /* =====================================================
        GESCHLECHT IN DER ÜBERSICHT
        ===================================================== */
 
-    const geschlechtRadios = document.querySelectorAll(
-        'input[name="geschlecht"]'
-    );
+    document.querySelectorAll('input[name="geschlecht"]')
+        .forEach((radio) => {
 
-    geschlechtRadios.forEach((radio) => {
+            radio.addEventListener("change", () => {
 
-        radio.addEventListener("change", () => {
+                if (radio.checked) {
 
-            if (radio.checked) {
+                    document.getElementById("uebersicht-geschlecht")
+                        .textContent = radio.value;
 
-                document.getElementById("uebersicht-geschlecht").textContent =
-                    radio.value;
+                }
 
-            }
+            });
 
         });
-
-    });
 
 
     /* =====================================================
        MAXIMAL FÜNF EIGENSCHAFTEN
        ===================================================== */
 
-    const eigenschaftCheckboxen = document.querySelectorAll(
-        'input[name="eigenschaften"]'
-    );
+    document.querySelectorAll('input[name="eigenschaften"]')
+        .forEach((checkbox) => {
 
-    eigenschaftCheckboxen.forEach((checkbox) => {
+            checkbox.addEventListener("change", () => {
 
-        checkbox.addEventListener("change", () => {
-
-            const ausgewaehlt = document.querySelectorAll(
-                'input[name="eigenschaften"]:checked'
-            );
-
-            if (ausgewaehlt.length > 5) {
-
-                checkbox.checked = false;
-
-                alert(
-                    "Du kannst maximal fünf Eigenschaften auswählen."
+                const ausgewaehlt = document.querySelectorAll(
+                    'input[name="eigenschaften"]:checked'
                 );
 
-            }
+                if (ausgewaehlt.length > 5) {
+
+                    checkbox.checked = false;
+
+                    alert(
+                        "Du kannst maximal fünf Eigenschaften auswählen."
+                    );
+
+                }
+
+            });
 
         });
-
-    });
 
 
     /* =====================================================
@@ -1944,22 +1910,25 @@
        ===================================================== */
 
     const elementRegler = document.getElementById("element-anteil");
-    const elementProzent = document.getElementById("element-prozent");
-    const uebersichtElement = document.getElementById("uebersicht-element");
 
     elementRegler.addEventListener("input", () => {
 
         const wert = elementRegler.value + " %";
 
-        elementProzent.textContent = wert;
-        uebersichtElement.textContent = wert;
+        document.getElementById("element-prozent")
+            .textContent = wert;
+
+        document.getElementById("uebersicht-element")
+            .textContent = wert;
 
     });
 
 
     /* =====================================================
-       FOOTER-JAHR
+       INITIALISIERUNG
        ===================================================== */
+
+    kartenErzeugen();
 
     document.getElementById("aktuelles-jahr").textContent =
         new Date().getFullYear();
