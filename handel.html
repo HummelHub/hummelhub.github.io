@@ -1,0 +1,1970 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Entdecke die Kreaturen von OpferKlopfer. Wähle dein Wunschtier und stelle deine Anfrage zusammen.">
+    <title>Handel | HummelHub</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* =====================================================
+           HUMMELHUB – HANDEL
+           Seitenspezifische Gestaltung
+           ===================================================== */
+
+        .handel-page {
+            --handel-red: #741d27;
+            --handel-red-light: #a8323e;
+            --handel-gold: #c5a45b;
+            --handel-dark: #151313;
+            --handel-panel: #211c1d;
+            --handel-border: rgba(197, 164, 91, 0.25);
+            --handel-text: #eee9e3;
+            --handel-muted: #aaa19a;
+
+            color: var(--handel-text);
+            min-height: 100vh;
+        }
+
+        .handel-container {
+            width: min(1200px, 90%);
+            margin: 0 auto;
+        }
+
+        .handel-intro {
+            padding: 110px 0 55px;
+            text-align: center;
+        }
+
+        .handel-eyebrow {
+            color: var(--handel-gold);
+            font-size: 0.8rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .handel-intro h1 {
+            margin-bottom: 20px;
+        }
+
+        .handel-intro p {
+            max-width: 700px;
+            margin: 0 auto;
+            color: var(--handel-muted);
+            line-height: 1.8;
+        }
+
+        .handel-section {
+            padding: 35px 0 80px;
+        }
+
+        .handel-section-heading {
+            margin-bottom: 35px;
+        }
+
+        .handel-section-heading h2 {
+            margin-bottom: 12px;
+        }
+
+        .handel-section-heading p {
+            color: var(--handel-muted);
+            line-height: 1.7;
+        }
+
+        /* =========================
+           KREATUREN-KATALOG
+           ========================= */
+
+        .kreaturen-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 22px;
+        }
+
+        .kreatur-card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            overflow: hidden;
+            padding: 0;
+            text-align: left;
+            color: var(--handel-text);
+            background: var(--handel-panel);
+            border: 1px solid var(--handel-border);
+            border-radius: 12px;
+            cursor: pointer;
+            transition:
+                transform 0.25s ease,
+                border-color 0.25s ease,
+                box-shadow 0.25s ease;
+        }
+
+        .kreatur-card:hover,
+        .kreatur-card:focus-visible {
+            transform: translateY(-5px);
+            border-color: var(--handel-gold);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+            outline: none;
+        }
+
+        .kreatur-card.aktiv {
+            border-color: var(--handel-gold);
+            box-shadow: 0 0 0 1px var(--handel-gold);
+        }
+
+        .kreatur-bild {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 11;
+            overflow: hidden;
+            background:
+                linear-gradient(145deg, #302526, #171414);
+        }
+
+        .kreatur-bild img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.35s ease;
+        }
+
+        .kreatur-card:hover .kreatur-bild img {
+            transform: scale(1.05);
+        }
+
+        .bild-platzhalter {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            color: var(--handel-muted);
+            font-size: 0.85rem;
+            text-align: center;
+        }
+
+        .kreatur-inhalt {
+            display: flex;
+            flex-direction: column;
+            gap: 13px;
+            padding: 19px;
+        }
+
+        .kreatur-inhalt h3 {
+            margin: 0;
+            color: var(--handel-text);
+            font-size: 1.2rem;
+        }
+
+        .kreatur-level {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .kreatur-level span:first-child {
+            color: var(--handel-muted);
+            font-size: 0.75rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        .kreatur-level strong {
+            color: var(--handel-gold);
+            font-size: 1rem;
+        }
+
+        .kreatur-varianten {
+            color: var(--handel-muted);
+            font-size: 0.82rem;
+        }
+
+        .kreatur-oeffnen {
+            margin-top: 4px;
+            color: var(--handel-gold);
+            font-size: 0.85rem;
+        }
+
+        /* =========================
+           DETAILANSICHT
+           ========================= */
+
+        .kreatur-details {
+            display: none;
+            margin-top: 55px;
+            padding: 35px;
+            background: var(--handel-panel);
+            border: 1px solid var(--handel-border);
+            border-radius: 14px;
+            scroll-margin-top: 35px;
+        }
+
+        .kreatur-details.sichtbar {
+            display: block;
+            animation: detailsEinblenden 0.3s ease;
+        }
+
+        @keyframes detailsEinblenden {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .details-kopf {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .details-kopf h2 {
+            margin: 0 0 8px;
+        }
+
+        .details-kopf p {
+            color: var(--handel-muted);
+            margin: 0;
+        }
+
+        .details-schliessen {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 38px;
+            height: 38px;
+            flex-shrink: 0;
+            color: var(--handel-text);
+            background: transparent;
+            border: 1px solid var(--handel-border);
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .details-schliessen:hover {
+            color: var(--handel-gold);
+            border-color: var(--handel-gold);
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+            gap: 35px;
+        }
+
+        .details-bild {
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            overflow: hidden;
+            background: #171414;
+            border-radius: 10px;
+        }
+
+        .details-bild img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .details-informationen h3 {
+            margin: 0 0 16px;
+            color: var(--handel-gold);
+            font-size: 1.15rem;
+        }
+
+        .details-informationen p {
+            color: var(--handel-muted);
+            line-height: 1.7;
+        }
+
+        .details-meta {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+            margin: 25px 0;
+        }
+
+        .details-meta-item {
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--handel-border);
+            border-radius: 8px;
+        }
+
+        .details-meta-item span {
+            display: block;
+            margin-bottom: 6px;
+            color: var(--handel-muted);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+        }
+
+        .details-meta-item strong {
+            color: var(--handel-gold);
+        }
+
+        /* =========================
+           FARBVARIANTEN
+           ========================= */
+
+        .varianten-bereich {
+            margin-top: 35px;
+        }
+
+        .varianten-bereich h3 {
+            margin-bottom: 8px;
+        }
+
+        .varianten-hinweis {
+            margin-bottom: 20px;
+            color: var(--handel-muted);
+            font-size: 0.9rem;
+        }
+
+        .varianten-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .variante-option {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            padding: 14px;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--handel-border);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: border-color 0.2s ease;
+        }
+
+        .variante-option:hover {
+            border-color: var(--handel-gold);
+        }
+
+        .variante-option input {
+            accent-color: var(--handel-gold);
+        }
+
+        .farbenpunkte {
+            display: flex;
+            gap: 4px;
+        }
+
+        .farbenpunkt {
+            width: 19px;
+            height: 19px;
+            flex-shrink: 0;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 50%;
+        }
+
+        .variante-text {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .variante-text strong {
+            font-size: 0.9rem;
+        }
+
+        .variante-text small {
+            color: var(--handel-muted);
+            font-size: 0.76rem;
+        }
+
+        /* =========================
+           BESTELLFORMULAR
+           ========================= */
+
+        .bestellung-bereich {
+            margin-top: 45px;
+            padding-top: 35px;
+            border-top: 1px solid var(--handel-border);
+        }
+
+        .bestellung-bereich h3 {
+            margin-bottom: 10px;
+            color: var(--handel-gold);
+        }
+
+        .formular-hinweis {
+            margin-bottom: 28px;
+            color: var(--handel-muted);
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+
+        .formular-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 24px;
+        }
+
+        .formular-gruppe {
+            display: flex;
+            flex-direction: column;
+            gap: 9px;
+            min-width: 0;
+        }
+
+        .formular-gruppe.ganz {
+            grid-column: 1 / -1;
+        }
+
+        .formular-gruppe label,
+        .formular-label {
+            color: var(--handel-text);
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .formular-gruppe input[type="text"],
+        .formular-gruppe select,
+        .formular-gruppe textarea {
+            width: 100%;
+            padding: 13px 14px;
+            color: var(--handel-text);
+            background: #171414;
+            border: 1px solid var(--handel-border);
+            border-radius: 7px;
+            font: inherit;
+        }
+
+        .formular-gruppe input:focus,
+        .formular-gruppe select:focus,
+        .formular-gruppe textarea:focus {
+            border-color: var(--handel-gold);
+            outline: none;
+        }
+
+        .formular-gruppe textarea {
+            min-height: 110px;
+            resize: vertical;
+        }
+
+        .formular-gruppe select option {
+            color: var(--handel-text);
+            background: var(--handel-dark);
+        }
+
+        .radio-auswahl {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+            padding: 8px 0;
+        }
+
+        .radio-auswahl label,
+        .checkbox-zeile {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            color: var(--handel-muted);
+            font-weight: 400;
+            cursor: pointer;
+        }
+
+        .radio-auswahl input,
+        .checkbox-zeile input {
+            accent-color: var(--handel-gold);
+        }
+
+        .sattel-optionen {
+            display: none;
+            margin-top: 10px;
+        }
+
+        .sattel-optionen.sichtbar {
+            display: flex;
+        }
+
+        /* =========================
+           EIGENSCHAFTEN
+           ========================= */
+
+        .eigenschaften-hinweis {
+            color: var(--handel-muted);
+            font-size: 0.8rem;
+        }
+
+        .eigenschaften-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        .eigenschaft-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--handel-border);
+            border-radius: 7px;
+            color: var(--handel-muted);
+            font-size: 0.88rem;
+            cursor: pointer;
+        }
+
+        .eigenschaft-option input {
+            accent-color: var(--handel-gold);
+        }
+
+        /* =========================
+           ELEMENT-REGLER
+           ========================= */
+
+        .element-bereich {
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--handel-border);
+            border-radius: 9px;
+        }
+
+        .element-kopf {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .element-kopf strong {
+            color: var(--handel-gold);
+            font-size: 1.2rem;
+        }
+
+        .element-bereich input[type="range"] {
+            width: 100%;
+            accent-color: var(--handel-gold);
+            cursor: pointer;
+        }
+
+        .element-skala {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 7px;
+            color: var(--handel-muted);
+            font-size: 0.78rem;
+        }
+
+        .element-erklaerung {
+            margin-top: 15px;
+            color: var(--handel-muted);
+            font-size: 0.82rem;
+            line-height: 1.6;
+        }
+
+        /* =========================
+           VORLÄUFIGE BESTELLÜBERSICHT
+           ========================= */
+
+        .bestelluebersicht {
+            margin-top: 35px;
+            padding: 22px;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--handel-border);
+            border-radius: 9px;
+        }
+
+        .bestelluebersicht h4 {
+            margin: 0 0 15px;
+            color: var(--handel-gold);
+        }
+
+        .uebersicht-zeile {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            padding: 9px 0;
+            color: var(--handel-muted);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            font-size: 0.88rem;
+        }
+
+        .uebersicht-zeile:last-child {
+            border-bottom: none;
+        }
+
+        .uebersicht-zeile strong {
+            color: var(--handel-text);
+            text-align: right;
+        }
+
+        .warenkorb-hinweis {
+            margin-top: 18px;
+            color: var(--handel-muted);
+            font-size: 0.82rem;
+            line-height: 1.6;
+        }
+
+        .warenkorb-button {
+            width: 100%;
+            margin-top: 22px;
+            padding: 14px 20px;
+            color: #b8b0a8;
+            background: #393233;
+            border: 1px solid #514647;
+            border-radius: 7px;
+            font: inherit;
+            font-weight: 600;
+            cursor: not-allowed;
+            opacity: 0.75;
+        }
+
+        /* =========================
+           RESPONSIVE
+           ========================= */
+
+        @media (max-width: 950px) {
+            .kreaturen-grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 700px) {
+            .handel-intro {
+                padding: 85px 0 40px;
+            }
+
+            .kreaturen-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 14px;
+            }
+
+            .kreatur-inhalt {
+                padding: 14px;
+            }
+
+            .kreatur-inhalt h3 {
+                font-size: 1rem;
+            }
+
+            .kreatur-details {
+                padding: 22px 16px;
+            }
+
+            .formular-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .formular-gruppe.ganz {
+                grid-column: auto;
+            }
+
+            .varianten-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .kreaturen-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+            }
+
+            .kreatur-inhalt {
+                padding: 11px;
+            }
+
+            .kreatur-inhalt h3 {
+                font-size: 0.9rem;
+            }
+
+            .kreatur-level strong {
+                font-size: 0.9rem;
+            }
+
+            .kreatur-varianten {
+                font-size: 0.74rem;
+            }
+
+            .details-meta {
+                grid-template-columns: 1fr;
+            }
+
+            .eigenschaften-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .handel-page *,
+            .handel-page *::before,
+            .handel-page *::after {
+                scroll-behavior: auto !important;
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="handel-page">
+
+    <!-- =========================
+         NAVIGATION
+         ========================= -->
+
+    <header class="site-header">
+        <div class="header-container">
+
+            <a href="index.html" class="logo" aria-label="HummelHub Startseite">
+                HummelHub
+            </a>
+
+            <nav class="main-navigation" aria-label="Hauptnavigation">
+                <a href="index.html">Home</a>
+                <a href="opferklopfer.html">OpferKlopfer</a>
+                <a href="handel.html" aria-current="page">Handel</a>
+                <a href="rechner.html">Rechner</a>
+                <a href="projekte.html">Projekte</a>
+                <a href="index.html#kontakt">Kontakt</a>
+            </nav>
+
+        </div>
+    </header>
+
+
+    <!-- =========================
+         EINLEITUNG
+         ========================= -->
+
+    <main>
+
+        <section class="handel-intro">
+            <div class="handel-container">
+
+                <div class="handel-eyebrow">
+                    OpferKlopfer · Kreaturenhandel
+                </div>
+
+                <h1>Unser Handel</h1>
+
+                <p>
+                    Willkommen in unserem Kreaturenhandel.
+                    Hier findest du eine Auswahl unserer angebotenen Tiere
+                    und ihrer verfügbaren Farbvarianten.
+                    Wähle eine Kreatur aus, sieh dir die Details an
+                    und stelle deine Wünsche zusammen.
+                </p>
+
+            </div>
+        </section>
+
+
+        <!-- =========================
+             KATALOG
+             ========================= -->
+
+        <section class="handel-section">
+            <div class="handel-container">
+
+                <div class="handel-section-heading">
+                    <h2>Unsere Kreaturen</h2>
+
+                    <p>
+                        Wähle eine Kreatur aus, um ihre Verkaufsdetails
+                        und verfügbaren Varianten anzusehen.
+                    </p>
+                </div>
+
+
+                <div class="kreaturen-grid" id="kreaturen-grid">
+
+                    <!-- 01 Argentavis -->
+                    <button class="kreatur-card"
+                            type="button"
+                            data-kreatur="argentavis"
+                            aria-expanded="false">
+
+                        <div class="kreatur-bild">
+                            <img src="assets/tiere/argentavis.webp"
+                                 alt="Argentavis"
+                                 onerror="this.style.display='none'">
+                            <span class="bild-platzhalter">
+                                Argentavis – Bild folgt
+                            </span>
+                        </div>
+
+                        <div class="kreatur-inhalt">
+                            <h3>Argentavis</h3>
+
+                            <div class="kreatur-level">
+                                <span>Basisverkaufslevel</span>
+                                <strong>Noch festzulegen</strong>
+                            </div>
+
+                            <div class="kreatur-varianten">
+                                Noch keine Varianten eingetragen
+                            </div>
+
+                            <span class="kreatur-oeffnen">
+                                Details ansehen →
+                            </span>
+                        </div>
+                    </button>
+
+
+                    <!-- 02 Ankylosaurus -->
+                    <button class="kreatur-card"
+                            type="button"
+                            data-kreatur="ankylosaurus"
+                            aria-expanded="false">
+
+                        <div class="kreatur-bild">
+                            <img src="assets/tiere/ankylosaurus.webp"
+                                 alt="Ankylosaurus"
+                                 onerror="this.style.display='none'">
+                            <span class="bild-platzhalter">
+                                Ankylosaurus – Bild folgt
+                            </span>
+                        </div>
+
+                        <div class="kreatur-inhalt">
+                            <h3>Ankylosaurus</h3>
+
+                            <div class="kreatur-level">
+                                <span>Basisverkaufslevel</span>
+                                <strong>Noch festzulegen</strong>
+                            </div>
+
+                            <div class="kreatur-varianten">
+                                Noch keine Varianten eingetragen
+                            </div>
+
+                            <span class="kreatur-oeffnen">
+                                Details ansehen →
+                            </span>
+                        </div>
+                    </button>
+
+
+                    <!-- 03 Baryonyx -->
+                    <button class="kreatur-card"
+                            type="button"
+                            data-kreatur="baryonyx"
+                            aria-expanded="false">
+
+                        <div class="kreatur-bild">
+                            <img src="assets/tiere/baryonyx.webp"
+                                 alt="Baryonyx"
+                                 onerror="this.style.display='none'">
+                            <span class="bild-platzhalter">
+                                Baryonyx – Bild folgt
+                            </span>
+                        </div>
+
+                        <div class="kreatur-inhalt">
+                            <h3>Baryonyx</h3>
+
+                            <div class="kreatur-level">
+                                <span>Basisverkaufslevel</span>
+                                <strong>Noch festzulegen</strong>
+                            </div>
+
+                            <div class="kreatur-varianten">
+                                Noch keine Varianten eingetragen
+                            </div>
+
+                            <span class="kreatur-oeffnen">
+                                Details ansehen →
+                            </span>
+                        </div>
+                    </button>
+
+
+                    <!-- 04 Doedicurus -->
+                    <button class="kreatur-card"
+                            type="button"
+                            data-kreatur="doedicurus"
+                            aria-expanded="false">
+
+                        <div class="kreatur-bild">
+                            <img src="assets/tiere/doedicurus.webp"
+                                 alt="Doedicurus"
+                                 onerror="this.style.display='none'">
+                            <span class="bild-platzhalter">
+                                Doedicurus – Bild folgt
+                            </span>
+                        </div>
+
+                        <div class="kreatur-inhalt">
+                            <h3>Doedicurus</h3>
+
+                            <div class="kreatur-level">
+                                <span>Basisverkaufslevel</span>
+                                <strong>Noch festzulegen</strong>
+                            </div>
+
+                            <div class="kreatur-varianten">
+                                Noch keine Varianten eingetragen
+                            </div>
+
+                            <span class="kreatur-oeffnen">
+                                Details ansehen →
+                            </span>
+                        </div>
+                    </button>
+
+
+                    <!-- 05 Maewing -->
+                    <button class="kreatur-card"
+                            type="button"
+                            data-kreatur="maewing"
+                            aria-expanded="false">
+
+                        <div class="kreatur-bild">
+                            <img src="assets/tiere/maewing.webp"
+                                 alt="Maewing"
+                                 onerror="this.style.display='none'">
+                            <span class="bild-platzhalter">
+                                Maewing – Bild folgt
+                            </span>
+                        </div>
+
+                        <div class="kreatur-inhalt">
+                            <h3>Maewing</h3>
+
+                            <div class="kreatur-level">
+                                <span>Basisverkaufslevel</span>
+                                <strong>Noch festzulegen</strong>
+                            </div>
+
+                            <div class="kreatur-varianten">
+                                Noch keine Varianten eingetragen
+                            </div>
+
+                            <span class="kreatur-oeffnen">
+                                Details ansehen →
+                            </span>
+                        </div>
+                    </button>
+
+
+                    <!-- 06 Shadowmane -->
+                    <button class="kreatur-card"
+                            type="button"
+                            data-kreatur="shadowmane"
+                            aria-expanded="false">
+
+                        <div class="kreatur-bild">
+                            <img src="assets/tiere/shadowmane.webp"
+                                 alt="Shadowmane"
+                                 onerror="this.style.display='none'">
+                            <span class="bild-platzhalter">
+                                Shadowmane – Bild folgt
+                            </span>
+                        </div>
+
+                        <div class="kreatur-inhalt">
+                            <h3>Shadowmane</h3>
+
+                            <div class="kreatur-level">
+                                <span>Basisverkaufslevel</span>
+                                <strong>Noch festzulegen</strong>
+                            </div>
+
+                            <div class="kreatur-varianten">
+                                Noch keine Varianten eingetragen
+                            </div>
+
+                            <span class="kreatur-oeffnen">
+                                Details ansehen →
+                            </span>
+                        </div>
+                    </button>
+
+
+                    <!-- 07 Therizinosaurus -->
+                    <button class="kreatur-card"
+                            type="button"
+                            data-kreatur="therizinosaurus"
+                            aria-expanded="false">
+
+                        <div class="kreatur-bild">
+                            <img src="assets/tiere/therizinosaurus.webp"
+                                 alt="Therizinosaurus"
+                                 onerror="this.style.display='none'">
+                            <span class="bild-platzhalter">
+                                Therizinosaurus – Bild folgt
+                            </span>
+                        </div>
+
+                        <div class="kreatur-inhalt">
+                            <h3>Therizinosaurus</h3>
+
+                            <div class="kreatur-level">
+                                <span>Basisverkaufslevel</span>
+                                <strong>Noch festzulegen</strong>
+                            </div>
+
+                            <div class="kreatur-varianten">
+                                Noch keine Varianten eingetragen
+                            </div>
+
+                            <span class="kreatur-oeffnen">
+                                Details ansehen →
+                            </span>
+                        </div>
+                    </button>
+
+
+                    <!-- 08 Yutyrannus -->
+                    <button class="kreatur-card"
+                            type="button"
+                            data-kreatur="yutyrannus"
+                            aria-expanded="false">
+
+                        <div class="kreatur-bild">
+                            <img src="assets/tiere/yutyrannus.webp"
+                                 alt="Yutyrannus"
+                                 onerror="this.style.display='none'">
+                            <span class="bild-platzhalter">
+                                Yutyrannus – Bild folgt
+                            </span>
+                        </div>
+
+                        <div class="kreatur-inhalt">
+                            <h3>Yutyrannus</h3>
+
+                            <div class="kreatur-level">
+                                <span>Basisverkaufslevel</span>
+                                <strong>Noch festzulegen</strong>
+                            </div>
+
+                            <div class="kreatur-varianten">
+                                Noch keine Varianten eingetragen
+                            </div>
+
+                            <span class="kreatur-oeffnen">
+                                Details ansehen →
+                            </span>
+                        </div>
+                    </button>
+
+                </div>
+
+
+                <!-- =========================
+                     DETAILANSICHT
+                     ========================= -->
+
+                <section class="kreatur-details"
+                         id="kreatur-details"
+                         aria-live="polite"
+                         aria-label="Kreaturdetails">
+
+                    <div class="details-kopf">
+
+                        <div>
+                            <h2 id="details-name">Kreatur</h2>
+                            <p id="details-beschreibung">
+                                Informationen zur ausgewählten Kreatur.
+                            </p>
+                        </div>
+
+                        <button class="details-schliessen"
+                                id="details-schliessen"
+                                type="button"
+                                aria-label="Detailansicht schließen">
+                            ×
+                        </button>
+
+                    </div>
+
+
+                    <div class="details-grid">
+
+                        <div class="details-bild">
+                            <img id="details-bild"
+                                 src=""
+                                 alt="">
+                        </div>
+
+                        <div class="details-informationen">
+
+                            <h3>Verkaufsinformationen</h3>
+
+                            <p>
+                                Hier findest du die wichtigsten Angaben
+                                zur ausgewählten Kreatur.
+                            </p>
+
+                            <div class="details-meta">
+
+                                <div class="details-meta-item">
+                                    <span>Basisverkaufslevel</span>
+                                    <strong id="details-level">
+                                        Noch festzulegen
+                                    </strong>
+                                </div>
+
+                                <div class="details-meta-item">
+                                    <span>Verkaufspreis</span>
+                                    <strong id="details-preis">
+                                        Noch festzulegen
+                                    </strong>
+                                </div>
+
+                                <div class="details-meta-item">
+                                    <span>Varianten</span>
+                                    <strong id="details-varianten">
+                                        0
+                                    </strong>
+                                </div>
+
+                                <div class="details-meta-item">
+                                    <span>Verfügbarkeit</span>
+                                    <strong id="details-status">
+                                        Noch festzulegen
+                                    </strong>
+                                </div>
+
+                            </div>
+
+                            <p id="details-zusatz">
+                                Weitere Angaben zur Kreatur werden ergänzt.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- FARBVARIANTEN -->
+
+                    <div class="varianten-bereich">
+
+                        <h3>Verfügbare Farbvarianten</h3>
+
+                        <p class="varianten-hinweis">
+                            Angeboten werden ausschließlich fertig
+                            zusammengestellte Farbvarianten.
+                            Die Farbzusammenstellung und die verwendeten
+                            Farbregionen sind fest vorgegeben.
+                        </p>
+
+                        <div class="varianten-grid"
+                             id="varianten-auswahl">
+
+                            <p>
+                                Für diese Kreatur wurden noch keine
+                                Farbvarianten hinterlegt.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =========================
+                         BESTELLFORMULAR
+                         ========================= -->
+
+                    <div class="bestellung-bereich">
+
+                        <h3>Deine Auswahl</h3>
+
+                        <p class="formular-hinweis">
+                            Stelle deine gewünschte Kreatur zusammen.
+                            Deine Auswahl wird später in den Warenkorb
+                            übernommen. Der Warenkorb ist derzeit noch
+                            nicht technisch eingebunden.
+                        </p>
+
+
+                        <form id="bestellformular">
+
+                            <div class="formular-grid">
+
+                                <!-- GESCHLECHT -->
+
+                                <div class="formular-gruppe">
+
+                                    <span class="formular-label">
+                                        Geschlecht
+                                    </span>
+
+                                    <div class="radio-auswahl">
+
+                                        <label>
+                                            <input type="radio"
+                                                   name="geschlecht"
+                                                   value="Männlich"
+                                                   checked>
+                                            Männlich
+                                        </label>
+
+                                        <label>
+                                            <input type="radio"
+                                                   name="geschlecht"
+                                                   value="Weiblich">
+                                            Weiblich
+                                        </label>
+
+                                    </div>
+
+                                </div>
+
+
+                                <!-- SATTEL -->
+
+                                <div class="formular-gruppe">
+
+                                    <span class="formular-label">
+                                        Sattel gewünscht?
+                                    </span>
+
+                                    <div class="radio-auswahl">
+
+                                        <label>
+                                            <input type="radio"
+                                                   name="sattel"
+                                                   value="Nein"
+                                                   checked>
+                                            Nein
+                                        </label>
+
+                                        <label>
+                                            <input type="radio"
+                                                   name="sattel"
+                                                   value="Ja">
+                                            Ja
+                                        </label>
+
+                                    </div>
+
+                                    <div class="formular-gruppe sattel-optionen"
+                                         id="sattel-optionen">
+
+                                        <label for="sattel-version">
+                                            Sattelversion
+                                        </label>
+
+                                        <select id="sattel-version"
+                                                name="sattel-version">
+
+                                            <option value="">
+                                                Bitte auswählen
+                                            </option>
+
+                                            <option value="Standard">
+                                                Standard
+                                            </option>
+
+                                            <option value="Anderes">
+                                                Andere Version – nach Absprache
+                                            </option>
+
+                                        </select>
+
+                                    </div>
+
+                                </div>
+
+
+                                <!-- FARBVARIANTE -->
+
+                                <div class="formular-gruppe ganz">
+
+                                    <label for="gewaehlte-variante">
+                                        Farbvariante
+                                    </label>
+
+                                    <select id="gewaehlte-variante"
+                                            name="variante">
+
+                                        <option value="">
+                                            Bitte zuerst eine Variante auswählen
+                                        </option>
+
+                                    </select>
+
+                                </div>
+
+
+                                <!-- EIGENSCHAFTEN -->
+
+                                <div class="formular-gruppe ganz">
+
+                                    <span class="formular-label">
+                                        Gewünschte Eigenschaften
+                                    </span>
+
+                                    <span class="eigenschaften-hinweis">
+                                        Du kannst bis zu fünf Eigenschaften auswählen.
+                                    </span>
+
+                                    <div class="eigenschaften-grid">
+
+                                        <label class="eigenschaft-option">
+                                            <input type="checkbox"
+                                                   name="eigenschaften"
+                                                   value="Ausdauer">
+                                            Ausdauer
+                                        </label>
+
+                                        <label class="eigenschaft-option">
+                                            <input type="checkbox"
+                                                   name="eigenschaften"
+                                                   value="Gewicht">
+                                            Gewicht
+                                        </label>
+
+                                        <label class="eigenschaft-option">
+                                            <input type="checkbox"
+                                                   name="eigenschaften"
+                                                   value="Nahkampfschaden">
+                                            Nahkampfschaden
+                                        </label>
+
+                                        <label class="eigenschaft-option">
+                                            <input type="checkbox"
+                                                   name="eigenschaften"
+                                                   value="Leben">
+                                            Leben
+                                        </label>
+
+                                        <label class="eigenschaft-option">
+                                            <input type="checkbox"
+                                                   name="eigenschaften"
+                                                   value="Sauerstoff">
+                                            Sauerstoff
+                                        </label>
+
+                                        <label class="eigenschaft-option">
+                                            <input type="checkbox"
+                                                   name="eigenschaften"
+                                                   value="Nahrung">
+                                            Nahrung
+                                        </label>
+
+                                    </div>
+
+                                </div>
+
+
+                                <!-- ELEMENT -->
+
+                                <div class="formular-gruppe ganz">
+
+                                    <span class="formular-label">
+                                        Zahlungsanteil in Element
+                                    </span>
+
+                                    <div class="element-bereich">
+
+                                        <div class="element-kopf">
+
+                                            <span>
+                                                Anteil des Kaufpreises
+                                            </span>
+
+                                            <strong id="element-prozent">
+                                                10 %
+                                            </strong>
+
+                                        </div>
+
+                                        <input type="range"
+                                               id="element-anteil"
+                                               name="element-anteil"
+                                               min="10"
+                                               max="60"
+                                               step="5"
+                                               value="10">
+
+                                        <div class="element-skala">
+                                            <span>10 %</span>
+                                            <span>60 %</span>
+                                        </div>
+
+                                        <p class="element-erklaerung">
+                                            Der Element-Anteil beschreibt,
+                                            welcher Teil des Kaufpreises
+                                            in Element bezahlt wird.
+                                            Der restliche Betrag wird in
+                                            anderen Ressourcen beglichen.
+                                            Der Gesamtpreis bleibt unverändert.
+                                        </p>
+
+                                    </div>
+
+                                </div>
+
+
+                                <!-- SPIELERNAME -->
+
+                                <div class="formular-gruppe ganz">
+
+                                    <label for="spielername">
+                                        RS24-Spielername
+                                    </label>
+
+                                    <input type="text"
+                                           id="spielername"
+                                           name="spielername"
+                                           placeholder="Dein Ingame-Spielername"
+                                           required>
+
+                                </div>
+
+
+                                <!-- NACHRICHT -->
+
+                                <div class="formular-gruppe ganz">
+
+                                    <label for="nachricht">
+                                        Nachricht und besondere Wünsche
+                                    </label>
+
+                                    <textarea id="nachricht"
+                                              name="nachricht"
+                                              placeholder="Hast du noch besondere Wünsche oder möchtest du uns etwas mitteilen?"></textarea>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- BESTELLÜBERSICHT -->
+
+                            <div class="bestelluebersicht">
+
+                                <h4>Deine aktuelle Auswahl</h4>
+
+                                <div class="uebersicht-zeile">
+                                    <span>Kreatur</span>
+                                    <strong id="uebersicht-kreatur">
+                                        Keine ausgewählt
+                                    </strong>
+                                </div>
+
+                                <div class="uebersicht-zeile">
+                                    <span>Farbvariante</span>
+                                    <strong id="uebersicht-variante">
+                                        Keine ausgewählt
+                                    </strong>
+                                </div>
+
+                                <div class="uebersicht-zeile">
+                                    <span>Geschlecht</span>
+                                    <strong id="uebersicht-geschlecht">
+                                        Männlich
+                                    </strong>
+                                </div>
+
+                                <div class="uebersicht-zeile">
+                                    <span>Sattel</span>
+                                    <strong id="uebersicht-sattel">
+                                        Nein
+                                    </strong>
+                                </div>
+
+                                <div class="uebersicht-zeile">
+                                    <span>Element-Anteil</span>
+                                    <strong id="uebersicht-element">
+                                        10 %
+                                    </strong>
+                                </div>
+
+                                <p class="warenkorb-hinweis">
+                                    Diese Übersicht zeigt zunächst nur
+                                    die aktuell ausgewählte Kreatur.
+                                    Später können mehrere Kreaturen und
+                                    weitere Positionen gesammelt im Warenkorb
+                                    verwaltet werden.
+                                </p>
+
+                                <button class="warenkorb-button"
+                                        type="button"
+                                        disabled>
+                                    In den Warenkorb – folgt später
+                                </button>
+
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                </section>
+
+            </div>
+        </section>
+
+    </main>
+
+
+    <!-- =========================
+         FOOTER
+         ========================= -->
+
+    <footer class="site-footer">
+        <div class="footer-container">
+
+            <p>
+                © <span id="aktuelles-jahr"></span> HummelHub
+                · Ein Projekt von OpferKlopfer
+            </p>
+
+            <div class="footer-links">
+                <a href="datenschutz.html">Datenschutz</a>
+            </div>
+
+        </div>
+    </footer>
+
+</div>
+
+
+<!-- =========================
+     JAVASCRIPT
+     ========================= -->
+
+<script>
+    /* =====================================================
+       KREATUREN-DATEN
+       Preise, Level und Farbvarianten werden später ergänzt.
+       ===================================================== */
+
+    const kreaturen = {
+
+        argentavis: {
+            name: "Argentavis",
+            bild: "assets/tiere/argentavis.webp",
+            level: "Noch festzulegen",
+            preis: "Noch festzulegen",
+            varianten: [],
+            beschreibung: "Informationen zum Argentavis.",
+            zusatz: "Weitere Verkaufsinformationen werden ergänzt."
+        },
+
+        ankylosaurus: {
+            name: "Ankylosaurus",
+            bild: "assets/tiere/ankylosaurus.webp",
+            level: "Noch festzulegen",
+            preis: "Noch festzulegen",
+            varianten: [],
+            beschreibung: "Informationen zum Ankylosaurus.",
+            zusatz: "Weitere Verkaufsinformationen werden ergänzt."
+        },
+
+        baryonyx: {
+            name: "Baryonyx",
+            bild: "assets/tiere/baryonyx.webp",
+            level: "Noch festzulegen",
+            preis: "Noch festzulegen",
+            varianten: [],
+            beschreibung: "Informationen zum Baryonyx.",
+            zusatz: "Weitere Verkaufsinformationen werden ergänzt."
+        },
+
+        doedicurus: {
+            name: "Doedicurus",
+            bild: "assets/tiere/doedicurus.webp",
+            level: "Noch festzulegen",
+            preis: "Noch festzulegen",
+            varianten: [],
+            beschreibung: "Informationen zum Doedicurus.",
+            zusatz: "Weitere Verkaufsinformationen werden ergänzt."
+        },
+
+        maewing: {
+            name: "Maewing",
+            bild: "assets/tiere/maewing.webp",
+            level: "Noch festzulegen",
+            preis: "Noch festzulegen",
+            varianten: [],
+            beschreibung: "Informationen zum Maewing.",
+            zusatz: "Weitere Verkaufsinformationen werden ergänzt."
+        },
+
+        shadowmane: {
+            name: "Shadowmane",
+            bild: "assets/tiere/shadowmane.webp",
+            level: "Noch festzulegen",
+            preis: "Noch festzulegen",
+            varianten: [],
+            beschreibung: "Informationen zum Shadowmane.",
+            zusatz: "Weitere Verkaufsinformationen werden ergänzt."
+        },
+
+        therizinosaurus: {
+            name: "Therizinosaurus",
+            bild: "assets/tiere/therizinosaurus.webp",
+            level: "Noch festzulegen",
+            preis: "Noch festzulegen",
+            varianten: [],
+            beschreibung: "Informationen zum Therizinosaurus.",
+            zusatz: "Weitere Verkaufsinformationen werden ergänzt."
+        },
+
+        yutyrannus: {
+            name: "Yutyrannus",
+            bild: "assets/tiere/yutyrannus.webp",
+            level: "Noch festzulegen",
+            preis: "Noch festzulegen",
+            varianten: [],
+            beschreibung: "Informationen zum Yutyrannus.",
+            zusatz: "Weitere Verkaufsinformationen werden ergänzt."
+        }
+
+    };
+
+
+    /* =====================================================
+       DETAILANSICHT ÖFFNEN UND SCHLIESSEN
+       ===================================================== */
+
+    const tierkarten = document.querySelectorAll(".kreatur-card");
+    const detailbereich = document.getElementById("kreatur-details");
+    const schliessenButton = document.getElementById("details-schliessen");
+
+    const detailsName = document.getElementById("details-name");
+    const detailsBeschreibung = document.getElementById("details-beschreibung");
+    const detailsBild = document.getElementById("details-bild");
+    const detailsLevel = document.getElementById("details-level");
+    const detailsPreis = document.getElementById("details-preis");
+    const detailsVarianten = document.getElementById("details-varianten");
+    const detailsStatus = document.getElementById("details-status");
+    const detailsZusatz = document.getElementById("details-zusatz");
+
+    const variantenAuswahl = document.getElementById("varianten-auswahl");
+    const gewaehlteVariante = document.getElementById("gewaehlte-variante");
+
+    let aktiveKreatur = null;
+
+
+    function detailansichtOeffnen(kreaturId, karte) {
+
+        const tier = kreaturen[kreaturId];
+
+        if (!tier) {
+            return;
+        }
+
+        if (aktiveKreatur === kreaturId) {
+            detailansichtSchliessen();
+            return;
+        }
+
+        aktiveKreatur = kreaturId;
+
+        tierkarten.forEach((element) => {
+            element.classList.remove("aktiv");
+            element.setAttribute("aria-expanded", "false");
+        });
+
+        karte.classList.add("aktiv");
+        karte.setAttribute("aria-expanded", "true");
+
+        detailsName.textContent = tier.name;
+        detailsBeschreibung.textContent = tier.beschreibung;
+        detailsBild.src = tier.bild;
+        detailsBild.alt = tier.name;
+        detailsLevel.textContent = tier.level;
+        detailsPreis.textContent = tier.preis;
+        detailsVarianten.textContent = tier.varianten.length;
+        detailsStatus.textContent = "Noch festzulegen";
+        detailsZusatz.textContent = tier.zusatz;
+
+        variantenDarstellen(tier.varianten);
+
+        document.getElementById("uebersicht-kreatur").textContent = tier.name;
+        document.getElementById("uebersicht-variante").textContent = "Keine ausgewählt";
+
+        gewaehlteVariante.innerHTML = "";
+
+        const standardOption = document.createElement("option");
+        standardOption.value = "";
+        standardOption.textContent = "Bitte eine Variante auswählen";
+        gewaehlteVariante.appendChild(standardOption);
+
+        tier.varianten.forEach((variante, index) => {
+            const option = document.createElement("option");
+            option.value = variante.name;
+            option.textContent = variante.name;
+            gewaehlteVariante.appendChild(option);
+        });
+
+        detailbereich.classList.add("sichtbar");
+
+        detailbereich.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+
+    }
+
+
+    function detailansichtSchliessen() {
+
+        detailbereich.classList.remove("sichtbar");
+
+        tierkarten.forEach((element) => {
+            element.classList.remove("aktiv");
+            element.setAttribute("aria-expanded", "false");
+        });
+
+        aktiveKreatur = null;
+
+        document.getElementById("uebersicht-kreatur").textContent =
+            "Keine ausgewählt";
+
+        document.getElementById("uebersicht-variante").textContent =
+            "Keine ausgewählt";
+
+    }
+
+
+    tierkarten.forEach((karte) => {
+
+        karte.addEventListener("click", () => {
+            detailansichtOeffnen(
+                karte.dataset.kreatur,
+                karte
+            );
+        });
+
+    });
+
+
+    schliessenButton.addEventListener("click", detailansichtSchliessen);
+
+
+    /* =====================================================
+       FARBVARIANTEN DARSTELLEN
+       ===================================================== */
+
+    function variantenDarstellen(varianten) {
+
+        variantenAuswahl.innerHTML = "";
+
+        if (!varianten || varianten.length === 0) {
+
+            const hinweis = document.createElement("p");
+            hinweis.textContent =
+                "Für diese Kreatur wurden noch keine Farbvarianten hinterlegt.";
+
+            variantenAuswahl.appendChild(hinweis);
+
+            return;
+        }
+
+        varianten.forEach((variante, index) => {
+
+            const label = document.createElement("label");
+            label.className = "variante-option";
+
+            const radio = document.createElement("input");
+            radio.type = "radio";
+            radio.name = "farbvariante";
+            radio.value = variante.name;
+
+            if (index === 0) {
+                radio.checked = true;
+            }
+
+            const farbenpunkte = document.createElement("span");
+            farbenpunkte.className = "farbenpunkte";
+
+            variante.farben.forEach((farbe) => {
+
+                const punkt = document.createElement("span");
+                punkt.className = "farbenpunkt";
+                punkt.style.backgroundColor = farbe;
+                farbenpunkte.appendChild(punkt);
+
+            });
+
+            const textbereich = document.createElement("span");
+            textbereich.className = "variante-text";
+
+            const name = document.createElement("strong");
+            name.textContent = variante.name;
+
+            const regionen = document.createElement("small");
+            regionen.textContent = variante.regionen;
+
+            textbereich.append(name, regionen);
+
+            label.append(radio, farbenpunkte, textbereich);
+
+            variantenAuswahl.appendChild(label);
+
+            radio.addEventListener("change", () => {
+
+                gewaehlteVariante.value = variante.name;
+
+                document.getElementById("uebersicht-variante").textContent =
+                    variante.name;
+
+            });
+
+        });
+
+        if (varianten.length > 0) {
+
+            gewaehlteVariante.value = varianten[0].name;
+
+            document.getElementById("uebersicht-variante").textContent =
+                varianten[0].name;
+
+        }
+
+    }
+
+
+    gewaehlteVariante.addEventListener("change", () => {
+
+        const ausgewaehlt = gewaehlteVariante.value;
+
+        document.getElementById("uebersicht-variante").textContent =
+            ausgewaehlt || "Keine ausgewählt";
+
+        const radios = document.querySelectorAll(
+            'input[name="farbvariante"]'
+        );
+
+        radios.forEach((radio) => {
+            radio.checked = radio.value === ausgewaehlt;
+        });
+
+    });
+
+
+    /* =====================================================
+       SATTEL-AUSWAHL
+       ===================================================== */
+
+    const sattelOptionen = document.getElementById("sattel-optionen");
+    const sattelRadios = document.querySelectorAll('input[name="sattel"]');
+
+    sattelRadios.forEach((radio) => {
+
+        radio.addEventListener("change", () => {
+
+            const sattelGewuenscht = radio.value === "Ja" && radio.checked;
+
+            sattelOptionen.classList.toggle(
+                "sichtbar",
+                sattelGewuenscht
+            );
+
+            document.getElementById("uebersicht-sattel").textContent =
+                radio.value;
+
+        });
+
+    });
+
+
+    /* =====================================================
+       GESCHLECHT IN DER ÜBERSICHT
+       ===================================================== */
+
+    const geschlechtRadios = document.querySelectorAll(
+        'input[name="geschlecht"]'
+    );
+
+    geschlechtRadios.forEach((radio) => {
+
+        radio.addEventListener("change", () => {
+
+            if (radio.checked) {
+
+                document.getElementById("uebersicht-geschlecht").textContent =
+                    radio.value;
+
+            }
+
+        });
+
+    });
+
+
+    /* =====================================================
+       MAXIMAL FÜNF EIGENSCHAFTEN
+       ===================================================== */
+
+    const eigenschaftCheckboxen = document.querySelectorAll(
+        'input[name="eigenschaften"]'
+    );
+
+    eigenschaftCheckboxen.forEach((checkbox) => {
+
+        checkbox.addEventListener("change", () => {
+
+            const ausgewaehlt = document.querySelectorAll(
+                'input[name="eigenschaften"]:checked'
+            );
+
+            if (ausgewaehlt.length > 5) {
+
+                checkbox.checked = false;
+
+                alert(
+                    "Du kannst maximal fünf Eigenschaften auswählen."
+                );
+
+            }
+
+        });
+
+    });
+
+
+    /* =====================================================
+       ELEMENT-ANTEIL
+       ===================================================== */
+
+    const elementRegler = document.getElementById("element-anteil");
+    const elementProzent = document.getElementById("element-prozent");
+    const uebersichtElement = document.getElementById("uebersicht-element");
+
+    elementRegler.addEventListener("input", () => {
+
+        const wert = elementRegler.value + " %";
+
+        elementProzent.textContent = wert;
+        uebersichtElement.textContent = wert;
+
+    });
+
+
+    /* =====================================================
+       FOOTER-JAHR
+       ===================================================== */
+
+    document.getElementById("aktuelles-jahr").textContent =
+        new Date().getFullYear();
+
+</script>
+
+</body>
+</html>
