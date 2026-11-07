@@ -588,18 +588,23 @@ button {
     color: #777773;
 }
 
+/* Einleitungstext mit einzelnen Absätzen */
+
 .intro-foot {
     display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: 3rem;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 1.5rem;
     margin: 4rem 0 0 auto;
     max-width: 850px;
 }
 
 .intro-foot p {
-    flex: 1;
+    display: block;
+    width: 100%;
     max-width: 550px;
+    flex: none;
     margin: 0;
     color: #B4B3AE;
     font-size: var(--font-size-intro-text);
