@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="description" content="Entdecke die Kreaturen von OpferKlopfer. Wähle dein Wunschtier und stelle deine Anfrage zusammen.">
+    <meta name="description" content="Entdecke die Kreaturen von OpferKlopfer. Suche dein Wunschtier und stelle deine Anfrage zusammen.">
 
     <title>Handel | HummelHub</title>
 
@@ -18,11 +18,12 @@
            ===================================================== */
 
         .handel-page {
-            --handel-red: #741d27;
-            --handel-red-light: #a8323e;
+            --handel-red: #9f2634;
+            --handel-red-light: #c43b4b;
+            --handel-red-dark: #641923;
             --handel-gold: #c5a45b;
-            --handel-panel: #211c1d;
-            --handel-border: rgba(197, 164, 91, 0.25);
+            --handel-panel: #21191b;
+            --handel-border: rgba(196, 59, 75, 0.34);
             --handel-muted: #aaa19a;
 
             min-height: 100vh;
@@ -64,7 +65,7 @@
            ========================= */
 
         .handel-intro {
-            padding: 110px 0 55px;
+            padding: 80px 0 55px;
             text-align: center;
         }
 
@@ -124,8 +125,9 @@
             color: var(--color-text);
             text-align: left;
 
-            background: var(--handel-panel);
+            background: linear-gradient(155deg, #281b1e, var(--handel-panel) 58%);
             border: 1px solid var(--handel-border);
+            border-top: 2px solid rgba(196, 59, 75, 0.72);
             border-radius: 12px;
 
             cursor: pointer;
@@ -139,14 +141,14 @@
         .kreatur-card:hover,
         .kreatur-card:focus-visible {
             transform: translateY(-5px);
-            border-color: var(--handel-gold);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+            border-color: var(--handel-red-light);
+            box-shadow: 0 12px 30px rgba(120, 20, 35, 0.28);
             outline: none;
         }
 
         .kreatur-card.aktiv {
-            border-color: var(--handel-gold);
-            box-shadow: 0 0 0 1px var(--handel-gold);
+            border-color: var(--handel-red-light);
+            box-shadow: 0 0 0 1px var(--handel-red-light), 0 0 22px rgba(196, 59, 75, 0.16);
         }
 
         .kreatur-bild {
@@ -229,9 +231,9 @@
             font-size: 0.82rem;
         }
 
-        .kreatur-oeffnen {
+        .kreatur-open {
             margin-top: 4px;
-            color: var(--handel-gold);
+            color: #e16b78;
             font-size: 0.85rem;
         }
 
@@ -244,8 +246,9 @@
             margin-top: 55px;
             padding: 35px;
 
-            background: var(--handel-panel);
-            border: 1px solid var(--handel-border);
+            background: linear-gradient(145deg, #291a1e, var(--handel-panel) 45%);
+            border: 1px solid rgba(196, 59, 75, 0.5);
+            border-top: 3px solid var(--handel-red);
             border-radius: 14px;
 
             scroll-margin-top: 35px;
@@ -295,8 +298,8 @@
             height: 38px;
 
             color: var(--color-text);
-            background: transparent;
-            border: 1px solid var(--handel-border);
+            background: rgba(159, 38, 52, 0.12);
+            border: 1px solid rgba(196, 59, 75, 0.55);
             border-radius: 50%;
 
             font-size: 1.2rem;
@@ -304,8 +307,9 @@
         }
 
         .details-schliessen:hover {
-            color: var(--handel-gold);
-            border-color: var(--handel-gold);
+            color: #f0a0a8;
+            border-color: var(--handel-red-light);
+            background: rgba(159, 38, 52, 0.2);
         }
 
         .details-grid {
@@ -415,7 +419,7 @@
 
         .variante-option input {
             flex-shrink: 0;
-            accent-color: var(--handel-gold);
+            accent-color: var(--handel-red-light);
         }
 
         .farbenpunkte {
@@ -457,7 +461,7 @@
         .bestellung-bereich {
             margin-top: 45px;
             padding-top: 35px;
-            border-top: 1px solid var(--handel-border);
+            border-top: 2px solid rgba(196, 59, 75, 0.58);
         }
 
         .bestellung-bereich h3 {
@@ -513,7 +517,7 @@
         .formular-gruppe input:focus,
         .formular-gruppe select:focus,
         .formular-gruppe textarea:focus {
-            border-color: var(--handel-gold);
+            border-color: var(--handel-red-light);
             outline: none;
         }
 
@@ -547,15 +551,15 @@
 
         .radio-auswahl input,
         .checkbox-zeile input {
-            accent-color: var(--handel-gold);
+            accent-color: var(--handel-red-light);
         }
 
-        .sattel-optionen {
+        .saddle-options {
             display: none;
             margin-top: 10px;
         }
 
-        .sattel-optionen.sichtbar {
+        .saddle-options.sichtbar {
             display: flex;
         }
 
@@ -589,8 +593,20 @@
             cursor: pointer;
         }
 
-        .eigenschaft-option input {
-            accent-color: var(--handel-gold);
+        .eigenschaften-grid input[type="text"] {
+            width: 100%;
+            min-width: 0;
+            padding: 12px;
+            color: var(--color-text);
+            background: #171414;
+            border: 1px solid var(--handel-border);
+            border-radius: 7px;
+            font: inherit;
+        }
+
+        .eigenschaften-grid input[type="text"]:focus {
+            border-color: var(--handel-red-light);
+            outline: none;
         }
 
         /* =========================
@@ -620,7 +636,7 @@
 
         .element-bereich input[type="range"] {
             width: 100%;
-            accent-color: var(--handel-gold);
+            accent-color: var(--handel-red-light);
             cursor: pointer;
         }
 
@@ -641,10 +657,10 @@
         }
 
         /* =========================
-           BESTELLÜBERSICHT
+           BESTELLINFOSICHT
            ========================= */
 
-        .bestelluebersicht {
+        .bestellselection {
             margin-top: 35px;
             padding: 22px;
 
@@ -653,12 +669,12 @@
             border-radius: 9px;
         }
 
-        .bestelluebersicht h4 {
+        .bestellselection h4 {
             margin: 0 0 15px;
             color: var(--handel-gold);
         }
 
-        .uebersicht-zeile {
+        .selection-zeile {
             display: flex;
             justify-content: space-between;
             gap: 15px;
@@ -670,11 +686,11 @@
             font-size: 0.88rem;
         }
 
-        .uebersicht-zeile:last-of-type {
+        .selection-zeile:last-of-type {
             border-bottom: none;
         }
 
-        .uebersicht-zeile strong {
+        .selection-zeile strong {
             color: var(--color-text);
             text-align: right;
         }
@@ -845,9 +861,9 @@
                 <p>
                     Willkommen in unserem Kreaturenhandel.
                     Hier findest du eine Auswahl unserer angebotenen Tiere
-                    und ihrer verfügbaren Farbvarianten.
-                    Wähle eine Kreatur aus, sieh dir die Details an
-                    und stelle deine Wünsche zusammen.
+                    und ihrer vorhandenen Farbvarianten.
+                    Suche dir deine passende Konfiguration aus und trag das
+                    Bestellformular aus.
                 </p>
 
             </div>
@@ -863,8 +879,8 @@
                     <h2>Unsere Kreaturen</h2>
 
                     <p>
-                        Wähle eine Kreatur aus, um ihre Verkaufsdetails
-                        und verfügbaren Varianten anzusehen.
+                        Klicke eine Kreatur an, um ihre Verkaufsdetails
+                        und vorhandene Farbvarianten anzusehen.
                     </p>
                 </div>
 
@@ -889,7 +905,7 @@
                             <h2 id="details-name">Kreatur</h2>
 
                             <p id="details-beschreibung">
-                                Informationen zur ausgewählten Kreatur.
+                                Informationen zur Kreatur.
                             </p>
                         </div>
 
@@ -897,7 +913,7 @@
                             class="details-schliessen"
                             id="details-schliessen"
                             type="button"
-                            aria-label="Detailansicht schließen"
+                            aria-label="Detailansicht zumachen"
                         >
                             ×
                         </button>
@@ -921,7 +937,7 @@
 
                             <p>
                                 Hier findest du die wichtigsten Angaben
-                                zur ausgewählten Kreatur.
+                                zur Kreatur.
                             </p>
 
                             <div class="details-meta">
@@ -934,10 +950,13 @@
                                 </div>
 
                                 <div class="details-meta-item">
-                                    <span>Verkaufspreis</span>
-                                    <strong id="details-preis">
-                                        Noch festzulegen
-                                    </strong>
+                                    <span>Normalpreis</span>
+                                    <strong id="details-normalpreis">Noch festzulegen</strong>
+                                </div>
+
+                                <div class="details-meta-item">
+                                    <span>Kastriertpreis</span>
+                                    <strong id="details-kastriertpreis">Noch festzulegen</strong>
                                 </div>
 
                                 <div class="details-meta-item">
@@ -946,16 +965,16 @@
                                 </div>
 
                                 <div class="details-meta-item">
-                                    <span>Verfügbarkeit</span>
+                                    <span>Zuchtstatus</span>
                                     <strong id="details-status">
-                                        Noch festzulegen
+                                        Aktiv
                                     </strong>
                                 </div>
 
                             </div>
 
                             <p id="details-zusatz">
-                                Weitere Angaben zur Kreatur werden ergänzt.
+                                Weitere Angaben zur Kreatur werden folgen.
                             </p>
 
                         </div>
@@ -967,10 +986,10 @@
 
                     <div class="varianten-bereich">
 
-                        <h3>Verfügbare Farbvarianten</h3>
+                        <h3>Vorhandene Farbvarianten</h3>
 
                         <p class="varianten-hinweis">
-                            Angeboten werden ausschließlich fertig
+                            Angeboten werden nur fertig
                             zusammengestellte Farbvarianten.
                             Die Farbzusammenstellung und die verwendeten
                             Farbregionen sind fest vorgegeben.
@@ -978,10 +997,10 @@
 
                         <div
                             class="varianten-grid"
-                            id="varianten-auswahl"
+                            id="variant-selection"
                         >
                             <p>
-                                Für diese Kreatur wurden noch keine
+                                Bei dieser Kreatur wurden noch keine
                                 Farbvarianten hinterlegt.
                             </p>
                         </div>
@@ -993,12 +1012,12 @@
 
                     <div class="bestellung-bereich">
 
-                        <h3>Deine Auswahl</h3>
+                        <h3>Deine Wahl</h3>
 
                         <p class="formular-hinweis">
-                            Stelle deine gewünschte Kreatur zusammen.
-                            Deine Auswahl wird später in den Warenkorb
-                            übernommen. Der Warenkorb ist derzeit noch
+                            Stelle deine Kreatur zusammen.
+                            Deine Wahl wird in den Warenkorb
+                            gelegt. Der Warenkorb ist derzeit noch
                             nicht technisch eingebunden.
                         </p>
 
@@ -1015,28 +1034,7 @@
                                         Geschlecht
                                     </span>
 
-                                    <div class="radio-auswahl">
-
-                                        <label>
-                                            <input
-                                                type="radio"
-                                                name="geschlecht"
-                                                value="Männlich"
-                                                checked
-                                            >
-                                            Männlich
-                                        </label>
-
-                                        <label>
-                                            <input
-                                                type="radio"
-                                                name="geschlecht"
-                                                value="Weiblich"
-                                            >
-                                            Weiblich
-                                        </label>
-
-                                    </div>
+                                    <div class="radio-auswahl" id="gender-selection"></div>
 
                                 </div>
 
@@ -1046,7 +1044,7 @@
                                 <div class="formular-gruppe">
 
                                     <span class="formular-label">
-                                        Sattel gewünscht?
+                                        Sattel gewollt?
                                     </span>
 
                                     <div class="radio-auswahl">
@@ -1073,8 +1071,8 @@
                                     </div>
 
                                     <div
-                                        class="formular-gruppe sattel-optionen"
-                                        id="sattel-optionen"
+                                        class="formular-gruppe saddle-options"
+                                        id="saddle-options"
                                     >
 
                                         <label for="sattel-version">
@@ -1086,7 +1084,7 @@
                                             name="sattel-version"
                                         >
                                             <option value="">
-                                                Bitte auswählen
+                                                Bitte festlegen
                                             </option>
 
                                             <option value="Standard">
@@ -1107,16 +1105,16 @@
 
                                 <div class="formular-gruppe ganz">
 
-                                    <label for="gewaehlte-variante">
+                                    <label for="selected-variant">
                                         Farbvariante
                                     </label>
 
                                     <select
-                                        id="gewaehlte-variante"
+                                        id="selected-variant"
                                         name="variante"
                                     >
                                         <option value="">
-                                            Bitte zuerst eine Variante auswählen
+                                            Bitte zuerst eine Variante festlegen
                                         </option>
                                     </select>
 
@@ -1128,69 +1126,19 @@
                                 <div class="formular-gruppe ganz">
 
                                     <span class="formular-label">
-                                        Gewünschte Eigenschaften
+                                        ARK Traits
                                     </span>
 
                                     <span class="eigenschaften-hinweis">
-                                        Du kannst bis zu fünf Eigenschaften auswählen.
+                                        Hier kannst du bis zu 5 Traits eintragen.
                                     </span>
 
                                     <div class="eigenschaften-grid">
-
-                                        <label class="eigenschaft-option">
-                                            <input
-                                                type="checkbox"
-                                                name="eigenschaften"
-                                                value="Ausdauer"
-                                            >
-                                            Ausdauer
-                                        </label>
-
-                                        <label class="eigenschaft-option">
-                                            <input
-                                                type="checkbox"
-                                                name="eigenschaften"
-                                                value="Gewicht"
-                                            >
-                                            Gewicht
-                                        </label>
-
-                                        <label class="eigenschaft-option">
-                                            <input
-                                                type="checkbox"
-                                                name="eigenschaften"
-                                                value="Nahkampfschaden"
-                                            >
-                                            Nahkampfschaden
-                                        </label>
-
-                                        <label class="eigenschaft-option">
-                                            <input
-                                                type="checkbox"
-                                                name="eigenschaften"
-                                                value="Leben"
-                                            >
-                                            Leben
-                                        </label>
-
-                                        <label class="eigenschaft-option">
-                                            <input
-                                                type="checkbox"
-                                                name="eigenschaften"
-                                                value="Sauerstoff"
-                                            >
-                                            Sauerstoff
-                                        </label>
-
-                                        <label class="eigenschaft-option">
-                                            <input
-                                                type="checkbox"
-                                                name="eigenschaften"
-                                                value="Nahrung"
-                                            >
-                                            Nahrung
-                                        </label>
-
+                                        <input type="text" name="traits" aria-label="Trait 1" placeholder="Trait 1">
+                                        <input type="text" name="traits" aria-label="Trait 2" placeholder="Trait 2">
+                                        <input type="text" name="traits" aria-label="Trait 3" placeholder="Trait 3">
+                                        <input type="text" name="traits" aria-label="Trait 4" placeholder="Trait 4">
+                                        <input type="text" name="traits" aria-label="Trait 5" placeholder="Trait 5">
                                     </div>
 
                                 </div>
@@ -1239,7 +1187,7 @@
                                             in Element bezahlt wird.
                                             Der restliche Betrag wird in
                                             anderen Ressourcen beglichen.
-                                            Der Gesamtpreis bleibt unverändert.
+                                            Der Gesamtpreis bleibt bleibt gleich.
                                         </p>
 
                                     </div>
@@ -1259,7 +1207,7 @@
                                         type="text"
                                         id="spielername"
                                         name="spielername"
-                                        placeholder="Dein Ingame-Spielername"
+                                        placeholder="Dein Ingame-Spielername auf dem RUhrpott-Cluster"
                                         autocomplete="off"
                                         required
                                     >
@@ -1272,13 +1220,13 @@
                                 <div class="formular-gruppe ganz">
 
                                     <label for="nachricht">
-                                        Nachricht und besondere Wünsche
+                                        Nachricht und besondere Anliegen
                                     </label>
 
                                     <textarea
                                         id="nachricht"
                                         name="nachricht"
-                                        placeholder="Hast du noch besondere Wünsche oder möchtest du uns etwas mitteilen?"
+                                        placeholder="Hast du noch besondere Anliegen oder willst du uns etwas mitteilen?"
                                     ></textarea>
 
                                 </div>
@@ -1286,51 +1234,51 @@
                             </div>
 
 
-                            <!-- BESTELLÜBERSICHT -->
+                            <!-- BESTELLINFOSICHT -->
 
-                            <div class="bestelluebersicht">
+                            <div class="bestellselection">
 
-                                <h4>Deine aktuelle Auswahl</h4>
+                                <h4>Deine aktuelle Wahl</h4>
 
-                                <div class="uebersicht-zeile">
+                                <div class="selection-zeile">
                                     <span>Kreatur</span>
-                                    <strong id="uebersicht-kreatur">
-                                        Keine ausgewählt
+                                    <strong id="selection-kreatur">
+                                        Noch keine Wahl
                                     </strong>
                                 </div>
 
-                                <div class="uebersicht-zeile">
+                                <div class="selection-zeile">
                                     <span>Farbvariante</span>
-                                    <strong id="uebersicht-variante">
-                                        Keine ausgewählt
+                                    <strong id="selection-variante">
+                                        Noch keine Wahl
                                     </strong>
                                 </div>
 
-                                <div class="uebersicht-zeile">
+                                <div class="selection-zeile">
                                     <span>Geschlecht</span>
-                                    <strong id="uebersicht-geschlecht">
-                                        Männlich
+                                    <strong id="selection-gender">
+                                        Male
                                     </strong>
                                 </div>
 
-                                <div class="uebersicht-zeile">
+                                <div class="selection-zeile">
                                     <span>Sattel</span>
-                                    <strong id="uebersicht-sattel">
+                                    <strong id="selection-sattel">
                                         Nein
                                     </strong>
                                 </div>
 
-                                <div class="uebersicht-zeile">
+                                <div class="selection-zeile">
                                     <span>Element-Anteil</span>
-                                    <strong id="uebersicht-element">
+                                    <strong id="selection-element">
                                         10 %
                                     </strong>
                                 </div>
 
                                 <p class="warenkorb-hinweis">
-                                    Diese Übersicht zeigt zunächst nur
-                                    die aktuell ausgewählte Kreatur.
-                                    Später können mehrere Kreaturen und
+                                    Diese Auswahl zeigt erst einmal nur
+                                    die aktuell festgelegte Kreatur.
+                                    Danach lassen sich mehrere Kreaturen und
                                     weitere Positionen gesammelt im Warenkorb
                                     verwaltet werden.
                                 </p>
@@ -1340,7 +1288,7 @@
                                     type="button"
                                     disabled
                                 >
-                                    In den Warenkorb – folgt später
+                                    In den Warenkorb – folgt danach
                                 </button>
 
                             </div>
@@ -1384,7 +1332,9 @@
 <script>
     /* =====================================================
        KREATUREN-DATEN
-       Preise, Level und Farbvarianten werden später ergänzt.
+       Preise, Level, Traits und Farbvarianten werden hier gepflegt.
+       Zuchtstatus: Aktiv, Pausiert, Abgeschlossen oder Abgebrochen.
+       geschlecht: "wahl" zeigt Male/Female; "Neutral" zeigt keine Auswahl.
        ===================================================== */
 
     const kreaturen = {
@@ -1393,88 +1343,104 @@
             name: "Argentavis",
             bild: "assets/tiere/argentavis.webp",
             level: "Noch festzulegen",
-            preis: "Noch festzulegen",
-            status: "Noch festzulegen",
+            preisNormal: "Noch festzulegen",
+            preisKastriert: "Noch festzulegen",
+            zuchtstatus: "Aktiv",
+            geschlecht: "wahl",
             varianten: [],
             beschreibung: "Informationen zum Argentavis.",
-            zusatz: "Weitere Verkaufsinformationen werden ergänzt."
+            zusatz: "Weitere Verkaufsinformationen werden folgen."
         },
 
         ankylosaurus: {
             name: "Ankylosaurus",
             bild: "assets/tiere/ankylosaurus.webp",
             level: "Noch festzulegen",
-            preis: "Noch festzulegen",
-            status: "Noch festzulegen",
+            preisNormal: "Noch festzulegen",
+            preisKastriert: "Noch festzulegen",
+            zuchtstatus: "Aktiv",
+            geschlecht: "wahl",
             varianten: [],
             beschreibung: "Informationen zum Ankylosaurus.",
-            zusatz: "Weitere Verkaufsinformationen werden ergänzt."
+            zusatz: "Weitere Verkaufsinformationen werden folgen."
         },
 
         baryonyx: {
             name: "Baryonyx",
             bild: "assets/tiere/baryonyx.webp",
             level: "Noch festzulegen",
-            preis: "Noch festzulegen",
-            status: "Noch festzulegen",
+            preisNormal: "Noch festzulegen",
+            preisKastriert: "Noch festzulegen",
+            zuchtstatus: "Aktiv",
+            geschlecht: "wahl",
             varianten: [],
             beschreibung: "Informationen zum Baryonyx.",
-            zusatz: "Weitere Verkaufsinformationen werden ergänzt."
+            zusatz: "Weitere Verkaufsinformationen werden folgen."
         },
 
         doedicurus: {
             name: "Doedicurus",
             bild: "assets/tiere/doedicurus.webp",
             level: "Noch festzulegen",
-            preis: "Noch festzulegen",
-            status: "Noch festzulegen",
+            preisNormal: "Noch festzulegen",
+            preisKastriert: "Noch festzulegen",
+            zuchtstatus: "Aktiv",
+            geschlecht: "wahl",
             varianten: [],
             beschreibung: "Informationen zum Doedicurus.",
-            zusatz: "Weitere Verkaufsinformationen werden ergänzt."
+            zusatz: "Weitere Verkaufsinformationen werden folgen."
         },
 
         maewing: {
             name: "Maewing",
             bild: "assets/tiere/maewing.webp",
             level: "Noch festzulegen",
-            preis: "Noch festzulegen",
-            status: "Noch festzulegen",
+            preisNormal: "Noch festzulegen",
+            preisKastriert: "Noch festzulegen",
+            zuchtstatus: "Aktiv",
+            geschlecht: "wahl",
             varianten: [],
             beschreibung: "Informationen zum Maewing.",
-            zusatz: "Weitere Verkaufsinformationen werden ergänzt."
+            zusatz: "Weitere Verkaufsinformationen werden folgen."
         },
 
         shadowmane: {
             name: "Shadowmane",
             bild: "assets/tiere/shadowmane.webp",
             level: "Noch festzulegen",
-            preis: "Noch festzulegen",
-            status: "Noch festzulegen",
+            preisNormal: "Noch festzulegen",
+            preisKastriert: "Noch festzulegen",
+            zuchtstatus: "Aktiv",
+            geschlecht: "wahl",
             varianten: [],
             beschreibung: "Informationen zum Shadowmane.",
-            zusatz: "Weitere Verkaufsinformationen werden ergänzt."
+            zusatz: "Weitere Verkaufsinformationen werden folgen."
         },
 
         therizinosaurus: {
             name: "Therizinosaurus",
             bild: "assets/tiere/therizinosaurus.webp",
             level: "Noch festzulegen",
-            preis: "Noch festzulegen",
-            status: "Noch festzulegen",
+            preisNormal: "Noch festzulegen",
+            preisKastriert: "Noch festzulegen",
+            zuchtstatus: "Aktiv",
+            geschlecht: "wahl",
             varianten: [],
             beschreibung: "Informationen zum Therizinosaurus.",
-            zusatz: "Weitere Verkaufsinformationen werden ergänzt."
+            zusatz: "Weitere Verkaufsinformationen werden folgen."
         },
 
         yutyrannus: {
             name: "Yutyrannus",
             bild: "assets/tiere/yutyrannus.webp",
             level: "Noch festzulegen",
-            preis: "Noch festzulegen",
-            status: "Noch festzulegen",
+            preisNormal: "Noch festzulegen",
+            preisKastriert: "Noch festzulegen",
+            zuchtstatus: "Aktiv",
+            geschlecht: "wahl",
             varianten: [],
             beschreibung: "Informationen zum Yutyrannus.",
-            zusatz: "Weitere Verkaufsinformationen werden ergänzt."
+            zusatz: "Weitere Verkaufsinformationen werden folgen."
         }
 
     };
@@ -1492,24 +1458,26 @@
     const detailsBeschreibung = document.getElementById("details-beschreibung");
     const detailsBild = document.getElementById("details-bild");
     const detailsLevel = document.getElementById("details-level");
-    const detailsPreis = document.getElementById("details-preis");
+    const detailsNormalpreis = document.getElementById("details-normalpreis");
+    const detailsKastriertpreis = document.getElementById("details-kastriertpreis");
     const detailsVarianten = document.getElementById("details-varianten");
     const detailsStatus = document.getElementById("details-status");
+    const genderSelection = document.getElementById("gender-selection");
     const detailsZusatz = document.getElementById("details-zusatz");
 
-    const variantenAuswahl = document.getElementById("varianten-auswahl");
-    const gewaehlteVariante = document.getElementById("gewaehlte-variante");
+    const variantSelection = document.getElementById("variant-selection");
+    const selectedVariant = document.getElementById("selected-variant");
 
     const bestellformular = document.getElementById("bestellformular");
 
-    let aktiveKreatur = null;
+    let activeCreature = null;
 
 
     /* =====================================================
-       KREATURENKARTEN ERZEUGEN
+       KREATURENKARTEN ERSTELLEN
        ===================================================== */
 
-    function kartenErzeugen() {
+    function createCards() {
 
         kreaturenGrid.innerHTML = "";
 
@@ -1566,21 +1534,21 @@
             varianten.textContent =
                 "Es gibt bereits " + tier.varianten.length + " Varianten davon.";
 
-            const oeffnen = document.createElement("span");
-            oeffnen.className = "kreatur-oeffnen";
-            oeffnen.textContent = "Details ansehen →";
+            const open = document.createElement("span");
+            open.className = "kreatur-open";
+            open.textContent = "Details ansehen →";
 
             inhalt.append(
                 name,
                 levelBereich,
                 varianten,
-                oeffnen
+                open
             );
 
             karte.append(bildbereich, inhalt);
 
             karte.addEventListener("click", () => {
-                detailansichtOeffnen(id, karte);
+                openDetails(id, karte);
             });
 
             kreaturenGrid.appendChild(karte);
@@ -1591,44 +1559,72 @@
 
 
     /* =====================================================
-       FORMULAR ZURÜCKSETZEN
+       FORMULAR RESET
        ===================================================== */
 
-    function formularZuruecksetzen() {
+    function renderGender(genderMode) {
+        genderSelection.innerHTML = "";
+
+        // Fester Wert, z. B. "Neutral": keine Auswahl anzeigen.
+        if (genderMode !== "wahl") {
+            const fixedGender = document.createElement("span");
+            fixedGender.textContent = genderMode || "Neutral";
+            genderSelection.appendChild(fixedGender);
+            document.getElementById("selection-gender").textContent =
+                genderMode || "Neutral";
+            return;
+        }
+
+        ["Male", "Female"].forEach((gender, index) => {
+            const label = document.createElement("label");
+            const radio = document.createElement("input");
+
+            radio.type = "radio";
+            radio.name = "geschlecht";
+            radio.value = gender;
+            radio.checked = index === 0;
+
+            label.append(radio, document.createTextNode(gender));
+            genderSelection.appendChild(label);
+        });
+
+        const currentGender = document.querySelector('input[name="geschlecht"]:checked');
+        document.getElementById("selection-gender").textContent =
+            currentGender ? currentGender.value : (activeCreature ? kreaturen[activeCreature].geschlecht : "Neutral");
+    }
+
+    function resetForm() {
 
         bestellformular.reset();
 
-        document.getElementById("sattel-optionen")
+        document.getElementById("saddle-options")
             .classList.remove("sichtbar");
 
-        document.getElementById("uebersicht-geschlecht")
-            .textContent = "Männlich";
-
-        document.getElementById("uebersicht-sattel")
+        document.getElementById("selection-sattel")
             .textContent = "Nein";
 
-        document.getElementById("uebersicht-element")
+        document.getElementById("selection-element")
             .textContent = "10 %";
 
-        document.getElementById("uebersicht-variante")
-            .textContent = "Keine ausgewählt";
+        document.getElementById("selection-variante")
+            .textContent = "Noch keine Wahl";
 
         document.getElementById("element-prozent")
             .textContent = "10 %";
 
-        document.getElementById("uebersicht-kreatur")
-            .textContent = aktiveKreatur
-                ? kreaturen[aktiveKreatur].name
-                : "Keine ausgewählt";
+        document.getElementById("selection-kreatur")
+            .textContent = activeCreature
+                ? kreaturen[activeCreature].name
+                : "Noch keine Wahl";
 
     }
 
 
     /* =====================================================
-       DETAILANSICHT ÖFFNEN
+       DETAILANSICHT ANSEHEN
        ===================================================== */
 
-    function detailansichtOeffnen(kreaturId, karte) {
+    function openDetails(kreaturId, karte) {
 
         const tier = kreaturen[kreaturId];
 
@@ -1636,12 +1632,12 @@
             return;
         }
 
-        if (aktiveKreatur === kreaturId) {
-            detailansichtSchliessen();
+        if (activeCreature === kreaturId) {
+            closeDetails();
             return;
         }
 
-        aktiveKreatur = kreaturId;
+        activeCreature = kreaturId;
 
         document.querySelectorAll(".kreatur-card").forEach((element) => {
             element.classList.remove("aktiv");
@@ -1657,13 +1653,15 @@
         detailsBild.alt = tier.name;
 
         detailsLevel.textContent = tier.level;
-        detailsPreis.textContent = tier.preis;
+        detailsNormalpreis.textContent = tier.preisNormal;
+        detailsKastriertpreis.textContent = tier.preisKastriert;
         detailsVarianten.textContent = tier.varianten.length;
-        detailsStatus.textContent = tier.status;
+        detailsStatus.textContent = tier.zuchtstatus;
         detailsZusatz.textContent = tier.zusatz;
 
-        formularZuruecksetzen();
-        variantenDarstellen(tier.varianten);
+        resetForm();
+        renderGender(tier.geschlecht);
+        renderVariants(tier.varianten);
 
         detailbereich.classList.add("sichtbar");
         detailbereich.setAttribute("aria-hidden", "false");
@@ -1677,10 +1675,10 @@
 
 
     /* =====================================================
-       DETAILANSICHT SCHLIESSEN
+       DETAILANSICHT AUSBLENDEN
        ===================================================== */
 
-    function detailansichtSchliessen() {
+    function closeDetails() {
 
         detailbereich.classList.remove("sichtbar");
         detailbereich.setAttribute("aria-hidden", "true");
@@ -1690,20 +1688,20 @@
             element.setAttribute("aria-expanded", "false");
         });
 
-        aktiveKreatur = null;
+        activeCreature = null;
 
-        document.getElementById("uebersicht-kreatur")
-            .textContent = "Keine ausgewählt";
+        document.getElementById("selection-kreatur")
+            .textContent = "Noch keine Wahl";
 
-        document.getElementById("uebersicht-variante")
-            .textContent = "Keine ausgewählt";
+        document.getElementById("selection-variante")
+            .textContent = "Noch keine Wahl";
 
     }
 
 
     schliessenButton.addEventListener(
         "click",
-        detailansichtSchliessen
+        closeDetails
     );
 
 
@@ -1711,34 +1709,34 @@
        FARBVARIANTEN DARSTELLEN
        ===================================================== */
 
-    function variantenDarstellen(varianten) {
+    function renderVariants(varianten) {
 
-        variantenAuswahl.innerHTML = "";
-        gewaehlteVariante.innerHTML = "";
+        variantSelection.innerHTML = "";
+        selectedVariant.innerHTML = "";
 
         const standardOption = document.createElement("option");
         standardOption.value = "";
         standardOption.textContent = varianten.length
-            ? "Bitte eine Variante auswählen"
-            : "Keine Varianten verfügbar";
+            ? "Bitte eine Variante festlegen"
+            : "Keine Farbvarianten vorhanden";
 
-        gewaehlteVariante.appendChild(standardOption);
+        selectedVariant.appendChild(standardOption);
 
         if (!varianten || varianten.length === 0) {
 
             const hinweis = document.createElement("p");
 
             hinweis.textContent =
-                "Für diese Kreatur wurden noch keine Farbvarianten hinterlegt.";
+                "Bei dieser Kreatur wurden noch keine Farbvarianten hinterlegt.";
 
-            variantenAuswahl.appendChild(hinweis);
+            variantSelection.appendChild(hinweis);
 
-            gewaehlteVariante.disabled = true;
+            selectedVariant.disabled = true;
 
             return;
         }
 
-        gewaehlteVariante.disabled = false;
+        selectedVariant.disabled = false;
 
         varianten.forEach((variante, index) => {
 
@@ -1780,43 +1778,43 @@
                 textbereich
             );
 
-            variantenAuswahl.appendChild(label);
+            variantSelection.appendChild(label);
 
             const option = document.createElement("option");
             option.value = variante.name;
             option.textContent = variante.name;
 
-            gewaehlteVariante.appendChild(option);
+            selectedVariant.appendChild(option);
 
             radio.addEventListener("change", () => {
 
-                gewaehlteVariante.value = variante.name;
+                selectedVariant.value = variante.name;
 
-                document.getElementById("uebersicht-variante")
+                document.getElementById("selection-variante")
                     .textContent = variante.name;
 
             });
 
         });
 
-        gewaehlteVariante.value = "";
+        selectedVariant.value = "";
     }
 
 
     /* =====================================================
-       FARBVARIANTE ÜBER AUSWAHLFELD
+       FARBVARIANTE INFO AUSWAHLFELD
        ===================================================== */
 
-    gewaehlteVariante.addEventListener("change", () => {
+    selectedVariant.addEventListener("change", () => {
 
-        const ausgewaehlt = gewaehlteVariante.value;
+        const selectedValue = selectedVariant.value;
 
-        document.getElementById("uebersicht-variante")
-            .textContent = ausgewaehlt || "Keine ausgewählt";
+        document.getElementById("selection-variante")
+            .textContent = selectedValue || "Noch keine Wahl";
 
         document.querySelectorAll('input[name="farbvariante"]')
             .forEach((radio) => {
-                radio.checked = radio.value === ausgewaehlt;
+                radio.checked = radio.value === selectedValue;
             });
 
     });
@@ -1826,7 +1824,7 @@
        SATTEL-AUSWAHL
        ===================================================== */
 
-    const sattelOptionen = document.getElementById("sattel-optionen");
+    const saddleOptions = document.getElementById("saddle-options");
 
     document.querySelectorAll('input[name="sattel"]')
         .forEach((radio) => {
@@ -1837,17 +1835,17 @@
                     return;
                 }
 
-                const sattelGewuenscht = radio.value === "Ja";
+                const saddleWanted = radio.value === "Ja";
 
-                sattelOptionen.classList.toggle(
+                saddleOptions.classList.toggle(
                     "sichtbar",
-                    sattelGewuenscht
+                    saddleWanted
                 );
 
-                document.getElementById("uebersicht-sattel")
+                document.getElementById("selection-sattel")
                     .textContent = radio.value;
 
-                if (!sattelGewuenscht) {
+                if (!saddleWanted) {
                     document.getElementById("sattel-version").value = "";
                 }
 
@@ -1857,52 +1855,15 @@
 
 
     /* =====================================================
-       GESCHLECHT IN DER ÜBERSICHT
+       GESCHLECHT IN DER AUSWAHL
        ===================================================== */
 
-    document.querySelectorAll('input[name="geschlecht"]')
-        .forEach((radio) => {
-
-            radio.addEventListener("change", () => {
-
-                if (radio.checked) {
-
-                    document.getElementById("uebersicht-geschlecht")
-                        .textContent = radio.value;
-
-                }
-
-            });
-
-        });
-
-
-    /* =====================================================
-       MAXIMAL FÜNF EIGENSCHAFTEN
-       ===================================================== */
-
-    document.querySelectorAll('input[name="eigenschaften"]')
-        .forEach((checkbox) => {
-
-            checkbox.addEventListener("change", () => {
-
-                const ausgewaehlt = document.querySelectorAll(
-                    'input[name="eigenschaften"]:checked'
-                );
-
-                if (ausgewaehlt.length > 5) {
-
-                    checkbox.checked = false;
-
-                    alert(
-                        "Du kannst maximal fünf Eigenschaften auswählen."
-                    );
-
-                }
-
-            });
-
-        });
+    genderSelection.addEventListener("change", (event) => {
+        if (event.target.matches('input[name="geschlecht"]')) {
+            document.getElementById("selection-gender").textContent =
+                event.target.value;
+        }
+    });
 
 
     /* =====================================================
@@ -1918,7 +1879,7 @@
         document.getElementById("element-prozent")
             .textContent = wert;
 
-        document.getElementById("uebersicht-element")
+        document.getElementById("selection-element")
             .textContent = wert;
 
     });
@@ -1928,7 +1889,7 @@
        INITIALISIERUNG
        ===================================================== */
 
-    kartenErzeugen();
+    createCards();
 
     document.getElementById("aktuelles-jahr").textContent =
         new Date().getFullYear();

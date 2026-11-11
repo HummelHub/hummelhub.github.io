@@ -1,163 +1,130 @@
-
 <!DOCTYPE html>
 <html lang="de">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="robots" content="index, follow">
-    <meta name="description" content="Datenschutzerklärung von HummelHub – Informationen zur Verarbeitung personenbezogener Daten gemäß DSGVO und TDDDG.">
-
     <title>Datenschutz | HummelHub</title>
 
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
 
     <style>
-        /* =========================================================
-           HUMMELHUB — DATENSCHUTZ
-           Ergänzende Layout-Regeln
-           ========================================================= */
-
         .privacy-page {
-            width: min(100% - 2.5rem, 1100px);
+            width: min(1100px, 92%);
             margin: 0 auto;
-            padding: 8rem 0 6rem;
+            padding: 100px 0 80px;
         }
 
         .privacy-header {
-            margin-bottom: 5rem;
-        }
-
-        .privacy-header .eyebrow {
-            color: var(--accent, #a855f7);
-            font-family: "Cheflat", sans-serif;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            margin-bottom: 1rem;
+            margin-bottom: 55px;
+            text-align: center;
         }
 
         .privacy-header h1 {
             font-family: "Gloss and Blooms", sans-serif;
-            font-size: clamp(2.8rem, 7vw, 6rem);
-            line-height: 1.05;
-            margin-bottom: 1.5rem;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            color: #ffffff;
+            margin-bottom: 15px;
         }
 
-        .privacy-header .intro {
-            max-width: 750px;
+        .privacy-header p {
             font-family: "Cheflat", sans-serif;
-            font-size: 1.1rem;
-            line-height: 1.8;
-            opacity: 0.8;
+            color: #b8b8c5;
+            font-size: 1rem;
         }
 
         .privacy-content {
-            display: grid;
-            grid-template-columns: minmax(0, 1fr);
-            gap: 3.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
         }
 
         .privacy-section {
-            scroll-margin-top: 120px;
+            padding: 28px;
+            border: 1px solid rgba(160, 100, 220, 0.2);
+            border-radius: 14px;
+            background: rgba(25, 22, 34, 0.75);
+            backdrop-filter: blur(12px);
         }
 
         .privacy-section h2 {
-            font-family: "Gloss and Blooms", sans-serif;
-            font-size: clamp(1.8rem, 4vw, 3rem);
-            line-height: 1.2;
-            margin-bottom: 1.5rem;
+            font-family: "Cheflat", sans-serif;
+            font-size: 1.45rem;
+            color: #c49aff;
+            margin-bottom: 16px;
         }
 
         .privacy-section h3 {
             font-family: "Cheflat", sans-serif;
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin: 2rem 0 0.8rem;
+            font-size: 1.1rem;
+            color: #ffffff;
+            margin: 22px 0 10px;
         }
 
         .privacy-section p,
         .privacy-section li {
             font-family: "Cheflat", sans-serif;
             font-size: 1rem;
-            line-height: 1.85;
-            opacity: 0.85;
+            line-height: 1.8;
+            color: #d0ced8;
         }
 
-        .privacy-section p {
-            margin-bottom: 1rem;
+        .privacy-section p + p {
+            margin-top: 12px;
         }
 
         .privacy-section ul {
-            padding-left: 1.5rem;
-            margin: 1rem 0;
+            padding-left: 22px;
+            margin: 12px 0;
         }
 
         .privacy-section li {
-            margin-bottom: 0.5rem;
+            margin-bottom: 8px;
         }
 
         .privacy-section a {
-            color: var(--accent, #a855f7);
-            text-decoration: underline;
-            text-underline-offset: 3px;
-            overflow-wrap: anywhere;
+            color: #c49aff;
+            text-decoration: none;
+            transition: color 0.2s ease;
         }
 
         .privacy-section a:hover {
-            opacity: 0.7;
+            color: #ffffff;
         }
 
         .privacy-note {
-            padding: 1.5rem;
-            border: 1px solid rgba(168, 85, 247, 0.25);
-            border-radius: 12px;
-            background: rgba(168, 85, 247, 0.04);
-            margin: 2rem 0;
-        }
-
-        .privacy-note p:last-child {
-            margin-bottom: 0;
+            padding: 18px 22px;
+            border-left: 3px solid #a66be8;
+            background: rgba(166, 107, 232, 0.08);
+            border-radius: 0 8px 8px 0;
+            margin-top: 18px;
         }
 
         .privacy-updated {
+            margin-top: 45px;
+            text-align: center;
             font-family: "Cheflat", sans-serif;
-            font-size: 0.85rem;
-            opacity: 0.55;
-            margin-top: 3rem;
+            color: #888592;
+            font-size: 0.9rem;
         }
 
         @media (max-width: 768px) {
             .privacy-page {
-                padding-top: 5rem;
-                padding-bottom: 4rem;
+                padding: 65px 0 55px;
             }
 
-            .privacy-header {
-                margin-bottom: 3rem;
+            .privacy-section {
+                padding: 22px 18px;
             }
 
-            .privacy-content {
-                gap: 2.5rem;
-            }
-
-            .privacy-section h3 {
-                font-size: 1.1rem;
-            }
-
-            .privacy-section p,
-            .privacy-section li {
-                font-size: 0.95rem;
+            .privacy-section h2 {
+                font-size: 1.25rem;
             }
         }
 
         @media (prefers-reduced-motion: reduce) {
-            .privacy-page *,
-            .privacy-page *::before,
-            .privacy-page *::after {
-                scroll-behavior: auto !important;
-                animation-duration: 0.01ms !important;
-                transition-duration: 0.01ms !important;
+            .privacy-section a {
+                transition: none;
             }
         }
     </style>
@@ -165,1055 +132,399 @@
 
 <body>
 
-    <!-- =========================================================
-         HEADER
-         Hier den bestehenden HummelHub-Header einfügen.
-         ========================================================= -->
-
-
     <main class="privacy-page">
 
-        <!-- =====================================================
-             EINLEITUNG
-             ===================================================== -->
-
         <header class="privacy-header">
-
-            <p class="eyebrow">
-                HUMMELHUB / RECHTLICHES
-            </p>
-
             <h1>Datenschutz</h1>
-
-            <p class="intro">
-                Deine Daten gehören dir.
-                Auf dieser Seite erfährst du, welche
-                personenbezogenen Daten beim Besuch
-                von HummelHub verarbeitet werden,
-                warum dies geschieht und welche
-                Rechte dir zustehen.
-            </p>
-
+            <p>Informationen zum Umgang mit personenbezogenen Daten auf HummelHub.</p>
         </header>
-
 
         <div class="privacy-content">
 
-
-            <!-- =================================================
-                 01 — ALLGEMEINE HINWEISE
-                 ================================================= -->
-
-            <section class="privacy-section" id="grundlagen">
-
-                <h2>01 — Allgemeine Hinweise</h2>
-
-                <h3>Datenschutz auf einen Blick</h3>
+            <section class="privacy-section">
+                <h2>01 – Allgemeine Hinweise</h2>
 
                 <p>
-                    Der Schutz deiner personenbezogenen
-                    Daten ist uns wichtig.
-                    Wir verarbeiten personenbezogene
-                    Daten ausschließlich im Rahmen
-                    der geltenden gesetzlichen
-                    Datenschutzbestimmungen,
-                    insbesondere der Datenschutz-
-                    Grundverordnung (DSGVO) und des
-                    Telekommunikation-Digitale-Dienste-
-                    Datenschutz-Gesetzes (TDDDG).
+                    Der Schutz personenbezogener Daten ist uns wichtig.
+                    Auf dieser Seite informieren wir darueber, welche Daten
+                    beim Besuch von HummelHub verarbeitet werden und
+                    warum dies geschieht.
                 </p>
 
                 <p>
-                    HummelHub ist ein privates,
-                    nicht kommerzielles Hobbyprojekt.
-                    Die Website dient der Vorstellung
-                    unseres Tribes, der Präsentation
-                    gemeinschaftlicher Projekte und
-                    der Bereitstellung eines
-                    ARK-Handelsrechners.
+                    Personenbezogene Daten sind alle Angaben, anhand derer
+                    eine Person direkt oder indirekt erkennbar ist.
+                    Beispiele sind IP-Adressen und Kontaktangaben.
                 </p>
 
                 <p>
-                    Über HummelHub werden keine
-                    Werbeeinnahmen erzielt,
-                    keine Sponsoring-Leistungen
-                    angeboten und keine kostenpflichtigen
-                    Inhalte bereitgestellt.
+                    Die Verarbeitung personenbezogener Daten erfolgt nach
+                    den geltenden Datenschutzbestimmungen, insbesondere
+                    nach der Datenschutz-Grundverordnung (DSGVO).
                 </p>
+            </section>
 
-                <h3>Was sind personenbezogene Daten?</h3>
+            <section class="privacy-section">
+                <h2>02 – Verantwortliche Stelle</h2>
 
                 <p>
-                    Personenbezogene Daten sind
-                    alle Informationen, die sich
-                    auf eine identifizierte oder
-                    identifizierbare natürliche
-                    Person beziehen.
+                    HummelHub ist die verantwortliche Instanz bei Fragen
+                    zum Datenschutz.
                 </p>
 
                 <p>
-                    Hierzu zählen beispielsweise
-                    Namen, E-Mail-Adressen,
-                    IP-Adressen oder Informationen
-                    über das Nutzungsverhalten.
+                    <strong>HummelHub</strong><br>
+                    Kontakt: [E-Mail-Adresse]
                 </p>
 
-                <h3>Rechtsgrundlagen</h3>
+                <p>
+                    Bei Fragen zum Datenschutz kannst du dich jederzeit
+                    an die angegebene Kontaktadresse wenden.
+                </p>
+            </section>
+
+            <section class="privacy-section">
+                <h2>03 – Hosting durch GitHub Pages</h2>
 
                 <p>
-                    Die Verarbeitung personenbezogener
-                    Daten erfolgt auf Grundlage
-                    der jeweils einschlägigen
-                    gesetzlichen Bestimmungen.
-                    Hierzu gehören insbesondere:
+                    GitHub Pages stellt diese Website bereit.
+                    Der Hosting-Dienst wird von GitHub Inc. angeboten.
+                </p>
+
+                <p>
+                    Beim Aufruf der Website verarbeiten die Server von
+                    GitHub technische Daten. Erfasst werden insbesondere:
                 </p>
 
                 <ul>
-                    <li>
-                        Art. 6 Abs. 1 lit. a DSGVO –
-                        Einwilligung
-                    </li>
-
-                    <li>
-                        Art. 6 Abs. 1 lit. b DSGVO –
-                        Vertragserfüllung oder
-                        vorvertragliche Maßnahmen
-                    </li>
-
-                    <li>
-                        Art. 6 Abs. 1 lit. c DSGVO –
-                        Erfüllung rechtlicher Verpflichtungen
-                    </li>
-
-                    <li>
-                        Art. 6 Abs. 1 lit. f DSGVO –
-                        Berechtigte Interessen
-                    </li>
-
-                    <li>
-                        § 25 TDDDG –
-                        Speicherung von Informationen
-                        in der Endeinrichtung oder
-                        Zugriff auf dort gespeicherte
-                        Informationen
-                    </li>
-                </ul>
-
-            </section>
-
-
-
-            <!-- =================================================
-                 02 — VERANTWORTLICHER
-                 ================================================= -->
-
-            <section class="privacy-section" id="verantwortlicher">
-
-                <h2>02 — Verantwortlicher</h2>
-
-                <p>
-                    Verantwortlich für die Verarbeitung
-                    personenbezogener Daten im Sinne
-                    der Datenschutz-Grundverordnung
-                    ist der Betreiber von HummelHub.
-                </p>
-
-                <div class="privacy-note">
-
-                    <p>
-                        <strong>HummelHub</strong>
-                    </p>
-
-                    <p>
-                        Kontakt:
-                        <a href="mailto:[E-Mail-Adresse]">
-                            rino.gaming@outlook.de
-                        </a>
-                    </p>
-
-                </div>
-
-                <p>
-                    Für datenschutzbezogene Anliegen,
-                    Fragen zur Verarbeitung deiner
-                    personenbezogenen Daten oder
-                    zur Wahrnehmung deiner Rechte
-                    kannst du uns über die angegebene
-                    E-Mail-Adresse kontaktieren.
-                </p>
-
-            </section>
-
-
-
-            <!-- =================================================
-                 03 — HOSTING UND BEREITSTELLUNG
-                 ================================================= -->
-
-            <section class="privacy-section" id="hosting">
-
-                <h2>03 — Hosting und Bereitstellung</h2>
-
-                <h3>GitHub Pages</h3>
-
-                <p>
-                    Diese Website wird über den
-                    Hosting-Dienst GitHub Pages
-                    bereitgestellt.
-                </p>
-
-                <div class="privacy-note">
-
-                    <p>
-                        <strong>GitHub, Inc.</strong>
-                    </p>
-
-                    <p>
-                        88 Colin P. Kelly Jr. Street
-                        <br>
-                        San Francisco, CA 94107
-                        <br>
-                        USA
-                    </p>
-
-                    <p>
-                        Datenschutzerklärung:
-                        <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement"
-                           target="_blank"
-                           rel="noopener noreferrer">
-                            GitHub Privacy Statement
-                        </a>
-                    </p>
-
-                </div>
-
-                <p>
-                    Beim Aufruf unserer Website verarbeitet
-                    GitHub personenbezogene Daten,
-                    die für die technische Bereitstellung,
-                    Auslieferung und Sicherheit
-                    der Website erforderlich sind.
-                </p>
-
-                <p>
-                    Insbesondere werden dabei
-                    Informationen in sogenannten
-                    Server-Logfiles erfasst.
-                    Hierzu gehört auch die IP-Adresse
-                    des Besuchers.
-                </p>
-
-                <p>
-                    Darüber hinaus können
-                    folgende Informationen
-                    verarbeitet werden:
-                </p>
-
-                <ul>
+                    <li>IP-Adresse des aufrufenden Systems</li>
                     <li>Datum und Uhrzeit des Zugriffs</li>
-                    <li>Abgerufene Seiten und Dateien</li>
-                    <li>Übertragene Datenmenge</li>
-                    <li>Browsertyp und Browserversion</li>
-                    <li>Verwendetes Betriebssystem</li>
-                    <li>Referrer-URL, sofern übermittelt</li>
-                    <li>Statusmeldungen über Anfragen</li>
+                    <li>Aufgerufene Seiten und Dateien</li>
+                    <li>Angaben zum verwendeten Browser</li>
+                    <li>Angaben zum Betriebssystem</li>
                 </ul>
 
                 <p>
-                    Die Verarbeitung dieser Daten
-                    erfolgt zur Gewährleistung eines
-                    sicheren, stabilen und technisch
-                    fehlerfreien Betriebs der Website.
+                    Diese Angaben werden in Server-Logfiles erfasst.
+                    Die Verarbeitung ist notwendig, um die Website
+                    bereitzustellen und einen sicheren Betrieb zu sichern.
                 </p>
 
                 <p>
-                    Rechtsgrundlage ist Art. 6 Abs. 1
-                    lit. f DSGVO.
-                    Unser berechtigtes Interesse
-                    besteht in der zuverlässigen
-                    Bereitstellung sowie dem Schutz
-                    unseres Internetangebots vor
-                    technischen Störungen und
-                    missbräuchlichen Zugriffen.
-                </p>
-
-                <h3>Datenverarbeitung in den USA</h3>
-
-                <p>
-                    GitHub ist ein Unternehmen
-                    mit Sitz in den Vereinigten
-                    Staaten von Amerika.
-                    Im Rahmen der Bereitstellung
-                    unserer Website kann eine
-                    Verarbeitung personenbezogener
-                    Daten in den USA stattfinden.
+                    Weitere Informationen zur Datenverarbeitung durch
+                    GitHub findest du in den
+                    <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement"
+                       target="_blank"
+                       rel="noopener noreferrer">
+                        Datenschutzhinweisen von GitHub
+                    </a>.
                 </p>
 
                 <p>
-                    Eine Übermittlung personenbezogener
-                    Daten in ein Drittland erfolgt
-                    unter Beachtung der Voraussetzungen
-                    der Art. 44 ff. DSGVO.
+                    Anbieter:
+                    <br>
+                    GitHub Inc.
+                    <br>
+                    88 Colin P. Kelly Jr. Street
+                    <br>
+                    San Francisco, CA 94107
+                    <br>
+                    USA
                 </p>
 
                 <p>
-                    Auf die konkrete Speicherdauer
-                    der durch GitHub verarbeiteten
-                    Server-Logfiles haben wir keinen
-                    unmittelbaren Einfluss.
-                    Weitere Informationen hierzu
-                    findest du in der Datenschutz-
-                    erklärung des Anbieters.
+                    Bei der Nutzung von GitHub Pages kann eine
+                    Datenweitergabe in die USA stattfinden. Bei solchen
+                    Datentransfers gelten die Vorgaben der
+                    Artikel 44 ff. DSGVO.
                 </p>
-
             </section>
 
-
-
-            <!-- =================================================
-                 04 — SERVER-LOGFILES
-                 ================================================= -->
-
-            <section class="privacy-section" id="serverlogs">
-
-                <h2>04 — Server-Logfiles</h2>
+            <section class="privacy-section">
+                <h2>04 – Server-Logfiles</h2>
 
                 <p>
-                    Beim Besuch unserer Website
-                    können durch GitHub automatisch
-                    technische Informationen in
-                    Server-Logfiles erfasst werden.
+                    Beim Besuch dieser Website kann der Hosting-Anbieter
+                    technische Zugriffsdaten erfassen und in
+                    Server-Logfiles speichern.
                 </p>
 
                 <p>
-                    Diese Informationen sind
-                    erforderlich, um angeforderte
-                    Inhalte auszuliefern, technische
-                    Fehler zu erkennen und die
-                    Sicherheit sowie Stabilität
-                    des Hosting-Dienstes
-                    zu gewährleisten.
+                    Ein Beispiel ist die IP-Adresse, die zur
+                    Bereitstellung der Website notwendig ist.
                 </p>
 
                 <p>
-                    Die Verarbeitung umfasst
-                    insbesondere die IP-Adresse
-                    des zugreifenden Geräts.
+                    Wir selbst erstellen keine Besucherprofile und
+                    werten die Server-Logfiles nicht zum Zweck der
+                    Analyse des Nutzerverhaltens aus.
                 </p>
 
                 <p>
-                    Eine eigenständige Auswertung
-                    dieser Server-Logfiles zu
-                    Werbe-, Tracking- oder
-                    Profilbildungszwecken durch
-                    HummelHub findet nicht statt.
+                    Auf die Zeit der Speicherung und die konkrete Verarbeitung
+                    der Server-Logfiles durch GitHub haben wir keinen
+                    direkten Einfluss.
                 </p>
-
-                <p>
-                    Rechtsgrundlage für die
-                    Verarbeitung durch uns ist,
-                    soweit wir hierfür verantwortlich
-                    sind, Art. 6 Abs. 1 lit. f DSGVO.
-                </p>
-
-                <p>
-                    Die Speicherung und Löschung
-                    der Server-Logfiles erfolgt
-                    durch GitHub entsprechend
-                    den eigenen Datenschutz-
-                    und Sicherheitsbestimmungen.
-                </p>
-
             </section>
 
-
-
-            <!-- =================================================
-                 05 — COOKIES UND BROWSER-SPEICHERUNG
-                 ================================================= -->
-
-            <section class="privacy-section" id="cookies">
-
-                <h2>05 — Cookies und Browser-Speicherung</h2>
-
-                <h3>Keine Werbung und kein Tracking</h3>
+            <section class="privacy-section">
+                <h2>05 – Cookies und lokale Speicherung</h2>
 
                 <p>
-                    HummelHub verwendet keine
-                    Cookies zu Werbe-, Tracking-
-                    oder Analysezwecken.
+                    HummelHub setzt keine eigenen Analyse- oder
+                    Werbe-Cookies ein.
                 </p>
 
                 <p>
-                    Es werden keine personenbezogenen
-                    Daten zu Marketingzwecken erhoben
-                    oder an Werbe- und Analyseanbieter
-                    weitergegeben.
-                </p>
-
-                <h3>Lokale Speicherung im Browser</h3>
-
-                <p>
-                    Für die ordnungsgemäße Funktion
-                    des HummelHub-Rechners und
-                    des dazugehörigen Warenkorbes
-                    werden bestimmte Informationen
-                    vorübergehend im Browser
-                    deines Endgeräts gespeichert.
+                    Zur Nutzung des Rechners und des Warenkorbs
+                    lassen sich technisch notwendige Angaben lokal im
+                    Browser speichern.
                 </p>
 
                 <p>
-                    Dabei handelt es sich ausschließlich
-                    um Daten, die für die Abwicklung
-                    der Rechner- und Warenkorbfunktionen
-                    benötigt werden.
-                </p>
-
-                <p>
-                    Dazu gehören beispielsweise
-                    ausgewählte Handelspositionen,
-                    Mengenangaben und für die
-                    Berechnung erforderliche
-                    Zwischenergebnisse.
-                </p>
-
-                <p>
-                    Die Verarbeitung dieser Daten
-                    erfolgt lokal in deinem Browser.
-                    Eine Übermittlung dieser
-                    Rechner- und Warenkorbdaten
-                    an HummelHub oder sonstige
-                    Dritte findet nicht statt.
-                </p>
-
-                <h3>Speicherdauer und Löschung</h3>
-
-                <p>
-                    Die Speicherung dieser Daten
-                    ist ausschließlich für die
-                    Dauer der jeweiligen
-                    Browsersitzung vorgesehen.
-                </p>
-
-                <p>
-                    Beim Beenden des Browsers
-                    sollen die im Zusammenhang
-                    mit dem Rechner und dem
-                    Warenkorb gespeicherten
-                    Informationen automatisch
-                    gelöscht werden.
-                </p>
-
-                <p>
-                    Eine dauerhafte Speicherung
-                    über mehrere Browsersitzungen
-                    hinweg ist nicht beabsichtigt.
-                </p>
-
-                <p>
-                    Zusätzlich kannst du
-                    gespeicherte Daten jederzeit
-                    selbst über die Einstellungen
-                    deines Browsers löschen.
-                </p>
-
-                <h3>Rechtliche Grundlage</h3>
-
-                <p>
-                    Soweit für die Speicherung
-                    oder den Zugriff auf
-                    Informationen in deinem
-                    Endgerät eine Einwilligung
-                    erforderlich ist, erfolgt
-                    dies auf Grundlage von
-                    § 25 TDDDG.
-                </p>
-
-                <p>
-                    Die anschließende Verarbeitung
-                    personenbezogener Daten
-                    erfolgt, soweit erforderlich,
-                    auf Grundlage von Art. 6
-                    Abs. 1 lit. f DSGVO.
-                </p>
-
-                <p>
-                    Unser berechtigtes Interesse
-                    liegt in der Bereitstellung
-                    der von dir angeforderten
-                    Rechner- und Warenkorb-
-                    funktionen.
-                </p>
-
-            </section>
-
-
-
-            <!-- =================================================
-                 06 — SCHRIFTARTEN UND EXTERNE INHALTE
-                 ================================================= -->
-
-            <section class="privacy-section" id="medien">
-
-                <h2>06 — Schriftarten und externe Inhalte</h2>
-
-                <h3>Lokale Schriftarten</h3>
-
-                <p>
-                    Die auf HummelHub verwendeten
-                    Schriftarten werden lokal
-                    über die bereitgestellten
-                    Website-Dateien geladen,
-                    sofern sie entsprechend
-                    eingebunden sind.
-                </p>
-
-                <p>
-                    Eine Verbindung zu externen
-                    Schriftarten-Anbietern wie
-                    Google Fonts ist nicht
+                    Diese Angaben dienen ausschliesslich dazu, die
+                    vorgesehenen Funktionen der Website bereitzustellen.
+                    Eine Weitergabe dieser Inhalte an Dritte ist nicht
                     vorgesehen.
                 </p>
 
                 <p>
-                    Dadurch wird vermieden,
-                    dass allein durch das Laden
-                    der Schriftarten personenbezogene
-                    Daten an externe Anbieter
-                    übermittelt werden.
+                    Die Speicherung ist auf die jeweilige Nutzung im
+                    Browser begrenzt. Eine langfristige Speicherung
+                    von Nutzerprofilen findet nicht statt.
                 </p>
-
-                <h3>Externe Verlinkungen</h3>
-
-                <p>
-                    Unsere Website kann
-                    Verlinkungen zu externen
-                    Websites enthalten,
-                    insbesondere zu GitHub
-                    und anderen projektbezogenen
-                    Angeboten.
-                </p>
-
-                <p>
-                    Beim Anklicken eines
-                    solchen Links verlässt
-                    du unsere Website.
-                </p>
-
-                <p>
-                    Für die Verarbeitung
-                    personenbezogener Daten
-                    auf den verlinkten Seiten
-                    sind die jeweiligen
-                    Betreiber verantwortlich.
-                </p>
-
-                <p>
-                    Bitte beachte die
-                    Datenschutzerklärungen
-                    der jeweiligen Anbieter.
-                </p>
-
             </section>
 
-
-
-            <!-- =================================================
-                 07 — ARK-HANDELSRECHNER
-                 ================================================= -->
-
-            <section class="privacy-section" id="rechner">
-
-                <h2>07 — ARK-Handelsrechner</h2>
+            <section class="privacy-section">
+                <h2>06 – Schriftarten und externe Inhalte</h2>
 
                 <p>
-                    Auf HummelHub stellen wir
-                    einen selbst entwickelten
-                    Handelsrechner für das Spiel
-                    ARK zur Verfügung.
+                    HummelHub verwendet eigene Schriftarten und
+                    Gestaltungselemente zur Darstellung der Website.
                 </p>
 
                 <p>
-                    Der Rechner dient
-                    ausschließlich der
-                    Unterstützung bei der
-                    Berechnung spielinterner
-                    Handelswerte sowie
-                    der Darstellung
-                    entsprechender Ergebnisse.
+                    Eine Einbindung externer Schriftarten-Dienste,
+                    beispielsweise Google Fonts, ist nicht vorgesehen.
                 </p>
 
                 <p>
-                    Die Eingaben und Berechnungen
-                    werden direkt im Browser
-                    des Nutzers durchgeführt,
-                    soweit dies technisch
-                    vorgesehen ist.
+                    Externe Inhalte werden nur eingebunden, wenn dies
+                    zur Bereitstellung einer Funktion notwendig ist.
                 </p>
-
-                <p>
-                    Die für die Berechnung
-                    erforderlichen Daten werden
-                    ausschließlich lokal
-                    verarbeitet und nicht
-                    an uns übertragen.
-                </p>
-
-                <p>
-                    Der Rechner verfügt
-                    über keine eigenständige
-                    Benutzerkonten- oder
-                    Registrierungsfunktion.
-                </p>
-
-                <p>
-                    HummelHub erhebt über
-                    den Rechner keine
-                    personenbezogenen Daten
-                    zu Analyse-, Werbe-
-                    oder Profilbildungszwecken.
-                </p>
-
             </section>
 
-
-
-            <!-- =================================================
-                 08 — KONTAKTAUFNAHME
-                 ================================================= -->
-
-            <section class="privacy-section" id="kontakt">
-
-                <h2>08 — Kontaktaufnahme</h2>
+            <section class="privacy-section">
+                <h2>07 – Nutzung des ARK-Rechners</h2>
 
                 <p>
-                    Wenn du uns per E-Mail
-                    kontaktierst, werden
-                    die von dir übermittelten
-                    personenbezogenen Daten
-                    verarbeitet.
+                    Der auf HummelHub bereitgestellte Rechner dient der
+                    Berechnung und Darstellung von Spiel- und Handelspreisen
+                    innerhalb von ARK.
                 </p>
 
                 <p>
-                    Dazu können insbesondere
-                    gehören:
+                    Bei der Nutzung des Rechners lassen sich Eingaben
+                    zeitweise im Browser verarbeiten.
+                    Beispiele sind markierte Artikel, Mengen oder Preisangaben.
+                </p>
+
+                <p>
+                    Die Eingaben dienen ausschliesslich der Berechnung
+                    und Darstellung der angeforderten Ergebnisse.
+                    Eine Auswertung zu Werbe- oder Analysezwecken
+                    findet nicht statt.
+                </p>
+
+                <p>
+                    Der Rechner braucht keine Registrierung und
+                    erfasst keine Benutzerkonten.
+                </p>
+            </section>
+
+            <section class="privacy-section">
+                <h2>08 – Kontaktaufnahme</h2>
+
+                <p>
+                    Wenn du uns per E-Mail kontaktierst, verarbeiten wir
+                    die von dir gesendeten Angaben, um deine Anfrage
+                    zu bearbeiten.
+                </p>
+
+                <p>
+                    Beispiele dafuer sind:
                 </p>
 
                 <ul>
                     <li>Deine E-Mail-Adresse</li>
                     <li>Dein Name, sofern angegeben</li>
                     <li>Der Inhalt deiner Nachricht</li>
-                    <li>Weitere freiwillige Angaben</li>
+                    <li>Weitere Angaben, die du freiwillig mitteilst</li>
                 </ul>
 
                 <p>
-                    Die Verarbeitung erfolgt
-                    ausschließlich zur
-                    Bearbeitung deiner Anfrage
-                    und für mögliche
-                    Anschlussfragen.
+                    Die Angaben werden ausschliesslich zur Bearbeitung
+                    deiner Anfrage verwendet und nicht ohne rechtliche
+                    Grundlage an Dritte weitergegeben.
                 </p>
-
-                <p>
-                    Rechtsgrundlage ist
-                    Art. 6 Abs. 1 lit. f DSGVO.
-                    Sofern deine Anfrage auf
-                    vorvertragliche Maßnahmen
-                    oder die Durchführung
-                    eines Vertrags gerichtet ist,
-                    gilt ergänzend Art. 6
-                    Abs. 1 lit. b DSGVO.
-                </p>
-
-                <p>
-                    Die übermittelten Daten
-                    werden gelöscht, sobald
-                    deine Anfrage abschließend
-                    bearbeitet wurde und
-                    keine gesetzlichen
-                    Aufbewahrungspflichten
-                    oder sonstigen berechtigten
-                    Gründe für eine weitere
-                    Speicherung bestehen.
-                </p>
-
             </section>
 
-
-
-            <!-- =================================================
-                 09 — WEITERGABE VON DATEN
-                 ================================================= -->
-
-            <section class="privacy-section" id="weitergabe">
-
-                <h2>09 — Weitergabe personenbezogener Daten</h2>
+            <section class="privacy-section">
+                <h2>09 – Weitergabe von Daten</h2>
 
                 <p>
-                    Eine Weitergabe deiner
-                    personenbezogenen Daten
-                    an Dritte erfolgt durch
-                    uns grundsätzlich nicht.
+                    Eine Weitergabe personenbezogener Daten an Dritte
+                    findet in der Regel nicht statt.
                 </p>
 
                 <p>
-                    Eine Übermittlung kann
-                    jedoch stattfinden, sofern:
+                    Eine Ausnahme besteht, wenn dies zur technischen
+                    Bereitstellung der Website notwendig ist, eine
+                    gesetzliche Pflicht besteht oder eine andere
+                    rechtliche Grundlage die Weitergabe erlaubt.
+                </p>
+            </section>
+
+            <section class="privacy-section">
+                <h2>10 – Zeit der Speicherung</h2>
+
+                <p>
+                    Personenbezogene Daten werden nur so lange
+                    gespeichert, wie dies zum jeweiligen Zweck
+                    notwendig ist oder gesetzliche Vorgaben eine
+                    Speicherung verlangen.
+                </p>
+
+                <p>
+                    Ist der Zweck nicht mehr gegeben und besteht keine
+                    gesetzliche Pflicht zur Aufbewahrung, werden die
+                    betreffenden Daten entfernt.
+                </p>
+            </section>
+
+            <section class="privacy-section">
+                <h2>11 – Deine Datenschutzrechte</h2>
+
+                <p>
+                    Nach den geltenden Datenschutzbestimmungen stehen
+                    dir verschiedene Rechte im Umgang mit deinen
+                    personenbezogenen Daten zu.
                 </p>
 
                 <ul>
                     <li>
-                        du ausdrücklich
-                        eingewilligt hast
+                        <strong>Auskunft:</strong>
+                        Du kannst erfahren, welche personenbezogenen
+                        Daten verarbeitet werden.
                     </li>
 
                     <li>
-                        eine gesetzliche
-                        Verpflichtung besteht
+                        <strong>Berichtigung:</strong>
+                        Du kannst die Korrektur falscher Angaben
+                        verlangen.
                     </li>
 
                     <li>
-                        dies zur Erfüllung
-                        rechtlicher Verpflichtungen
-                        erforderlich ist
+                        <strong>Entfernung:</strong>
+                        Du kannst unter bestimmten Voraussetzungen
+                        die Entfernung deiner Daten verlangen.
                     </li>
 
                     <li>
-                        dies im Rahmen der
-                        technischen Bereitstellung
-                        durch notwendige
-                        Dienstleister erfolgt
+                        <strong>Begrenzung:</strong>
+                        Du kannst unter bestimmten Voraussetzungen
+                        eine Begrenzung der Verarbeitung verlangen.
+                    </li>
+
+                    <li>
+                        <strong>Daten in einem anderen Format:</strong>
+                        Du kannst verlangen, deine bereitgestellten
+                        Daten in einem verbreiteten Format zu erhalten.
+                    </li>
+
+                    <li>
+                        <strong>Widerspruch:</strong>
+                        Du kannst einer Verarbeitung widersprechen,
+                        wenn die gesetzlichen Voraussetzungen
+                        dazu vorliegen.
                     </li>
                 </ul>
 
                 <p>
-                    Eine Verarbeitung zu
-                    Werbe-, Verkaufs-
-                    oder Marketingzwecken
-                    findet nicht statt.
+                    Zur Wahrnehmung deiner Rechte kannst du dich
+                    an die angegebene Kontaktadresse wenden.
                 </p>
-
             </section>
 
-
-
-            <!-- =================================================
-                 10 — SPEICHERDAUER
-                 ================================================= -->
-
-            <section class="privacy-section" id="speicherdauer">
-
-                <h2>10 — Speicherdauer</h2>
+            <section class="privacy-section">
+                <h2>12 – Beschwerderecht</h2>
 
                 <p>
-                    Personenbezogene Daten
-                    werden nur so lange
-                    gespeichert, wie dies
-                    für den jeweiligen
-                    Verarbeitungszweck
-                    erforderlich ist.
+                    Wenn du der Ansicht bist, dass die Verarbeitung
+                    deiner personenbezogenen Daten den geltenden
+                    Datenschutzbestimmungen widerspricht, kannst du
+                    dich bei einer Datenschutzaufsicht beschweren.
                 </p>
 
                 <p>
-                    Sobald der Zweck der
-                    Verarbeitung entfällt,
-                    werden die Daten gelöscht,
-                    sofern keine gesetzlichen
-                    Aufbewahrungspflichten
-                    oder andere rechtlich
-                    zulässige Gründe für
-                    eine weitere Speicherung
-                    bestehen.
+                    Die Datenschutzaufsicht in Nordrhein-Westfalen
+                    erreichst du unter:
                 </p>
 
                 <p>
-                    Für Daten, die durch
-                    den Hosting-Anbieter
-                    verarbeitet werden,
-                    können abweichende
-                    Speicherfristen gelten.
+                    Datenschutzaufsicht NRW
+                    <br>
+                    Kavalleriestrasse 2–4
+                    <br>
+                    40213
+                    <br>
+                    <a href="https://www.ldi.nrw.de/"
+                       target="_blank"
+                       rel="noopener noreferrer">
+                        www.ldi.nrw.de
+                    </a>
                 </p>
-
             </section>
 
-
-
-            <!-- =================================================
-                 11 — DEINE DATENSCHUTZRECHTE
-                 ================================================= -->
-
-            <section class="privacy-section" id="rechte">
-
-                <h2>11 — Deine Datenschutzrechte</h2>
+            <section class="privacy-section">
+                <h2>13 – Datensicherheit</h2>
 
                 <p>
-                    Im Rahmen der geltenden
-                    Datenschutzbestimmungen
-                    stehen dir folgende
-                    Rechte zu:
-                </p>
-
-                <h3>Recht auf Auskunft (Art. 15 DSGVO)</h3>
-
-                <p>
-                    Du hast das Recht,
-                    Auskunft darüber zu erhalten,
-                    ob und welche
-                    personenbezogenen Daten
-                    wir über dich verarbeiten.
-                </p>
-
-                <h3>Recht auf Berichtigung (Art. 16 DSGVO)</h3>
-
-                <p>
-                    Du kannst die Berichtigung
-                    unrichtiger oder die
-                    Vervollständigung
-                    unvollständiger
-                    personenbezogener
-                    Daten verlangen.
-                </p>
-
-                <h3>Recht auf Löschung (Art. 17 DSGVO)</h3>
-
-                <p>
-                    Du kannst unter den
-                    gesetzlichen Voraussetzungen
-                    die Löschung deiner
-                    personenbezogenen
-                    Daten verlangen.
-                </p>
-
-                <h3>Recht auf Einschränkung (Art. 18 DSGVO)</h3>
-
-                <p>
-                    Du kannst unter bestimmten
-                    Voraussetzungen verlangen,
-                    dass die Verarbeitung deiner
-                    personenbezogenen Daten
-                    eingeschränkt wird.
-                </p>
-
-                <h3>
-                    Recht auf Datenübertragbarkeit
-                    (Art. 20 DSGVO)
-                </h3>
-
-                <p>
-                    Du hast das Recht,
-                    die von dir bereitgestellten
-                    personenbezogenen Daten
-                    in einem strukturierten,
-                    gängigen und maschinenlesbaren
-                    Format zu erhalten,
-                    sofern die gesetzlichen
-                    Voraussetzungen erfüllt sind.
-                </p>
-
-                <h3>Recht auf Widerspruch (Art. 21 DSGVO)</h3>
-
-                <p>
-                    Sofern die Verarbeitung
-                    deiner personenbezogenen
-                    Daten auf Art. 6 Abs. 1
-                    lit. f DSGVO beruht,
-                    kannst du aus Gründen,
-                    die sich aus deiner
-                    besonderen Situation
-                    ergeben, jederzeit
-                    Widerspruch gegen
-                    diese Verarbeitung
-                    einlegen.
+                    Wir treffen angemessene technische Massnahmen,
+                    um die Website und die damit verbundene
+                    Datenverarbeitung vor unbefugtem Zugriff
+                    und Missbrauch zu sichern.
                 </p>
 
                 <p>
-                    HummelHub verarbeitet
-                    keine personenbezogenen
-                    Daten zu Zwecken
-                    der Direktwerbung.
+                    Die Website nutzt eine sichere
+                    HTTPS-Verbindung, sofern GitHub Pages diese
+                    anbietet.
                 </p>
-
-                <h3>
-                    Recht auf Widerruf einer
-                    Einwilligung (Art. 7 DSGVO)
-                </h3>
-
-                <p>
-                    Sofern eine Verarbeitung
-                    auf deiner Einwilligung
-                    beruht, kannst du diese
-                    jederzeit mit Wirkung
-                    für die Zukunft widerrufen.
-                </p>
-
-                <p>
-                    Die Rechtmäßigkeit der
-                    bis zum Widerruf erfolgten
-                    Verarbeitung bleibt
-                    davon unberührt.
-                </p>
-
             </section>
 
-
-
-            <!-- =================================================
-                 12 — BESCHWERDERECHT
-                 ================================================= -->
-
-            <section class="privacy-section" id="beschwerde">
-
-                <h2>12 — Beschwerderecht</h2>
+            <section class="privacy-section">
+                <h2>14 – Anpassungen dieser Datenschutzhinweise</h2>
 
                 <p>
-                    Wenn du der Ansicht bist,
-                    dass die Verarbeitung
-                    deiner personenbezogenen
-                    Daten gegen die
-                    Datenschutz-Grundverordnung
-                    verstößt, hast du das Recht,
-                    Beschwerde bei einer
-                    Datenschutzaufsichtsbehörde
-                    einzulegen.
+                    Diese Datenschutzhinweise lassen sich anpassen,
+                    wenn sich die Website, ihre Funktionen oder die
+                    geltenden rechtlichen Vorgaben wandeln.
                 </p>
 
                 <p>
-                    Du kannst dich insbesondere
-                    an die Aufsichtsbehörde
-                    deines gewöhnlichen
-                    Aufenthaltsortes,
-                    deines Arbeitsplatzes
-                    oder des mutmaßlichen
-                    Verstoßes wenden.
+                    Es gilt stets die derzeitige Fassung dieser
+                    Datenschutzhinweise.
                 </p>
-
-                <p>
-                    Für Nordrhein-Westfalen
-                    ist beispielsweise folgende
-                    Behörde zuständig:
-                </p>
-
-                <div class="privacy-note">
-
-                    <p>
-                        <strong>
-                            Landesbeauftragte für
-                            Datenschutz und
-                            Informationsfreiheit
-                            Nordrhein-Westfalen
-                        </strong>
-                    </p>
-
-                    <p>
-                        Kavalleriestraße 2–4
-                        <br>
-                        40213 Düsseldorf
-                    </p>
-
-                    <p>
-                        Website:
-                        <a href="https://www.ldi.nrw.de/"
-                           target="_blank"
-                           rel="noopener noreferrer">
-                            www.ldi.nrw.de
-                        </a>
-                    </p>
-
-                </div>
-
             </section>
-
-
-
-            <!-- =================================================
-                 13 — DATENSICHERHEIT
-                 ================================================= -->
-
-            <section class="privacy-section" id="sicherheit">
-
-                <h2>13 — Datensicherheit</h2>
-
-                <p>
-                    Wir achten auf angemessene
-                    technische und organisatorische
-                    Maßnahmen, um personenbezogene
-                    Daten vor Verlust,
-                    Manipulation, unberechtigtem
-                    Zugriff oder unbefugter
-                    Offenlegung zu schützen.
-                </p>
-
-                <p>
-                    Die Website wird über
-                    eine verschlüsselte
-                    HTTPS-Verbindung
-                    bereitgestellt.
-                </p>
-
-                <p>
-                    Die Sicherheitsmaßnahmen
-                    werden im Rahmen der
-                    technischen Möglichkeiten
-                    und Anforderungen
-                    überprüft und
-                    gegebenenfalls angepasst.
-                </p>
-
-            </section>
-
-
-
-            <!-- =================================================
-                 14 — ÄNDERUNGEN
-                 ================================================= -->
-
-            <section class="privacy-section" id="aenderungen">
-
-                <h2>14 — Änderungen dieser Datenschutzerklärung</h2>
-
-                <p>
-                    Wir behalten uns vor,
-                    diese Datenschutzerklärung
-                    anzupassen, wenn sich
-                    die rechtlichen Anforderungen,
-                    die technische Umsetzung
-                    oder die Funktionen
-                    von HummelHub ändern.
-                </p>
-
-                <p>
-                    Es gilt jeweils die
-                    auf dieser Website
-                    veröffentlichte
-                    aktuelle Fassung.
-                </p>
-
-                <p>
-                    Wir empfehlen dir daher,
-                    diese Seite gelegentlich
-                    erneut aufzurufen.
-                </p>
-
-            </section>
-
-
-            <!-- =================================================
-                 STAND
-                 ================================================= -->
-
-            <p class="privacy-updated">
-                Stand: 03. November 2026
-            </p>
 
         </div>
 
+        <p class="privacy-updated">
+            Stand: 03. November 2026
+        </p>
+
     </main>
-
-
-    <!-- =========================================================
-         FOOTER
-         Hier den bestehenden HummelHub-Footer einfügen.
-         ========================================================= -->
 
 </body>
 </html>
