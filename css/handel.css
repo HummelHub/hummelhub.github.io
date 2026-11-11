@@ -1,0 +1,278 @@
+/* =====================================================
+           HUMMELHUB – HANDEL
+           Seitenspezifische Gestaltung
+           ===================================================== */
+
+        .handel-page {
+            --handel-red: #9f2634;
+            --handel-red-light: #c43b4b;
+            --handel-red-dark: #641923;
+            --handel-gold: #c5a45b;
+            --handel-panel: #21191b;
+            --handel-border: rgba(196, 59, 75, 0.34);
+            --handel-muted: #aaa19a;
+
+            min-height: 100vh;
+            color: var(--color-text);
+        }
+
+        .handel-page button,
+        .handel-page input,
+        .handel-page select,
+        .handel-page textarea {
+            font-family: inherit;
+        }
+
+        .handel-container {
+            width: min(1200px, 90%);
+            margin: 0 auto;
+        }
+/* =========================
+           EIGENSCHAFTEN
+           ========================= */
+
+        .eigenschaften-hinweis {
+            color: var(--handel-muted);
+            font-size: 0.8rem;
+        }
+
+        .eigenschaften-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        .eigenschaft-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px;
+
+            color: var(--handel-muted);
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--handel-border);
+            border-radius: 7px;
+
+            font-size: 0.88rem;
+            cursor: pointer;
+        }
+
+        .eigenschaften-grid input[type="text"] {
+            width: 100%;
+            min-width: 0;
+            padding: 12px;
+            color: var(--color-text);
+            background: #171414;
+            border: 1px solid var(--handel-border);
+            border-radius: 7px;
+            font: inherit;
+        }
+
+        .eigenschaften-grid input[type="text"]:focus {
+            border-color: var(--handel-red-light);
+            outline: none;
+        }
+
+        /* =========================
+           ELEMENT-REGLER
+           ========================= */
+
+        .element-bereich {
+            padding: 20px;
+
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--handel-border);
+            border-radius: 9px;
+        }
+
+        .element-kopf {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .element-kopf strong {
+            color: var(--handel-gold);
+            font-size: 1.2rem;
+        }
+
+        .element-bereich input[type="range"] {
+            width: 100%;
+            accent-color: var(--handel-red-light);
+            cursor: pointer;
+        }
+
+        .element-skala {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 7px;
+
+            color: var(--handel-muted);
+            font-size: 0.78rem;
+        }
+
+        .element-erklaerung {
+            margin-top: 15px;
+            color: var(--handel-muted);
+            font-size: 0.82rem;
+            line-height: 1.6;
+        }
+
+        /* =========================
+           BESTELLINFOSICHT
+           ========================= */
+
+        .bestellselection {
+            margin-top: 35px;
+            padding: 22px;
+
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--handel-border);
+            border-radius: 9px;
+        }
+
+        .bestellselection h4 {
+            margin: 0 0 15px;
+            color: var(--handel-gold);
+        }
+
+        .selection-zeile {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            padding: 9px 0;
+
+            color: var(--handel-muted);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+
+            font-size: 0.88rem;
+        }
+
+        .selection-zeile:last-of-type {
+            border-bottom: none;
+        }
+
+        .selection-zeile strong {
+            color: var(--color-text);
+            text-align: right;
+        }
+
+        .warenkorb-hinweis {
+            margin-top: 18px;
+            color: var(--handel-muted);
+            font-size: 0.82rem;
+            line-height: 1.6;
+        }
+
+        .warenkorb-button {
+            width: 100%;
+            margin-top: 22px;
+            padding: 14px 20px;
+
+            color: #b8b0a8;
+            background: #393233;
+            border: 1px solid #514647;
+            border-radius: 7px;
+
+            font: inherit;
+            font-weight: 600;
+
+            cursor: not-allowed;
+            opacity: 0.75;
+        }
+
+        /* =========================
+           FOOTER
+           ========================= */
+
+        .handel-page .site-footer {
+            margin-top: 0;
+        }
+
+        /* =========================
+           RESPONSIVE
+           ========================= */
+
+        @media (max-width: 900px) {
+            .kreaturen-grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 700px) {
+            .handel-intro {
+                padding: 85px 0 40px;
+            }
+
+            .kreaturen-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 14px;
+            }
+
+            .kreatur-inhalt {
+                padding: 14px;
+            }
+
+            .kreatur-details {
+                padding: 22px 16px;
+            }
+
+            .formular-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .formular-gruppe.ganz {
+                grid-column: auto;
+            }
+
+            .varianten-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .kreaturen-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 10px;
+            }
+
+            .kreatur-inhalt {
+                padding: 11px;
+            }
+
+            .kreatur-level strong {
+                font-size: 0.9rem;
+            }
+
+            .kreatur-varianten {
+                font-size: 0.74rem;
+            }
+
+            .details-meta {
+                grid-template-columns: 1fr;
+            }
+
+            .eigenschaften-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .details-kopf {
+                gap: 12px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .handel-page *,
+            .handel-page *::before,
+            .handel-page *::after {
+                scroll-behavior: auto !important;
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+        }

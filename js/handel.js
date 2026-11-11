@@ -1,0 +1,435 @@
+/* =====================================================
+   HUMMELHUB – HANDEL
+   Karten, Detailansicht und Bestellformular
+   ===================================================== */
+
+/* =====================================================
+       KREATUREN-DATEN
+       Preise, Level, Traits und Farbvarianten werden hier gepflegt.
+       Zuchtstatus: Aktiv, Pausiert, Abgeschlossen oder Abgebrochen.
+       geschlecht: "wahl" zeigt Male/Female; "Neutral" zeigt keine Auswahl.
+       ===================================================== */
+
+
+
+
+    const kreaturen = window.HUMMELHUB_KREATUREN || {};
+
+    /* =====================================================
+       ELEMENTE
+       ===================================================== */
+
+    const kreaturenGrid = document.getElementById("kreaturen-grid");
+    const detailbereich = document.getElementById("kreatur-details");
+    const schliessenButton = document.getElementById("details-schliessen");
+
+    const detailsName = document.getElementById("details-name");
+    const detailsBeschreibung = document.getElementById("details-beschreibung");
+    const detailsBild = document.getElementById("details-bild");
+    const detailsLevel = document.getElementById("details-level");
+    const detailsNormalpreis = document.getElementById("details-normalpreis");
+    const detailsKastriertpreis = document.getElementById("details-kastriertpreis");
+    const detailsVarianten = document.getElementById("details-varianten");
+    const detailsStatus = document.getElementById("details-status");
+    const genderSelection = document.getElementById("gender-selection");
+    const detailsZusatz = document.getElementById("details-zusatz");
+
+    const variantSelection = document.getElementById("variant-selection");
+    const selectedVariant = document.getElementById("selected-variant");
+
+    const bestellformular = document.getElementById("bestellformular");
+
+    let activeCreature = null;
+
+
+    /* =====================================================
+       KREATURENKARTEN ERSTELLEN
+       ===================================================== */
+
+    function createCards() {
+
+        kreaturenGrid.innerHTML = "";
+
+        if (!kreaturen || Object.keys(kreaturen).length === 0) {
+            const hinweis = document.createElement("p");
+            hinweis.textContent = "Der Kreaturenkatalog konnte nicht geladen werden.";
+            kreaturenGrid.appendChild(hinweis);
+            return;
+        }
+
+        Object.entries(kreaturen).forEach(([id, tier]) => {
+
+            const karte = document.createElement("button");
+            karte.type = "button";
+            karte.className = "kreatur-card";
+            karte.dataset.kreatur = id;
+            karte.setAttribute("aria-expanded", "false");
+
+            const bildbereich = document.createElement("div");
+            bildbereich.className = "kreatur-bild";
+
+            const bild = document.createElement("img");
+            bild.src = tier.bild;
+            bild.alt = tier.name;
+            bild.loading = "lazy";
+
+            const platzhalter = document.createElement("span");
+            platzhalter.className = "bild-platzhalter";
+            platzhalter.textContent = tier.name + " – Bild folgt";
+
+            bild.addEventListener("load", () => {
+                platzhalter.hidden = true;
+            });
+
+            bild.addEventListener("error", () => {
+                bild.hidden = true;
+                platzhalter.hidden = false;
+            });
+
+            bildbereich.append(bild, platzhalter);
+
+            const inhalt = document.createElement("div");
+            inhalt.className = "kreatur-inhalt";
+
+            const name = document.createElement("h3");
+            name.textContent = tier.name;
+
+            const levelBereich = document.createElement("div");
+            levelBereich.className = "kreatur-level";
+
+            const levelLabel = document.createElement("span");
+            levelLabel.textContent = "Basisverkaufslevel";
+
+            const levelWert = document.createElement("strong");
+            levelWert.textContent = tier.level;
+
+            levelBereich.append(levelLabel, levelWert);
+
+            const varianten = document.createElement("div");
+            varianten.className = "kreatur-varianten";
+            varianten.textContent =
+                "Es gibt bereits " + tier.varianten.length + " Varianten davon.";
+
+            const open = document.createElement("span");
+            open.className = "kreatur-open";
+            open.textContent = "Details ansehen →";
+
+            inhalt.append(
+                name,
+                levelBereich,
+                varianten,
+                open
+            );
+
+            karte.append(bildbereich, inhalt);
+
+            karte.addEventListener("click", () => {
+                openDetails(id, karte);
+            });
+
+            kreaturenGrid.appendChild(karte);
+
+        });
+
+    }
+
+
+    /* =====================================================
+       FORMULAR RESET
+       ===================================================== */
+
+    function renderGender(genderMode) {
+        genderSelection.innerHTML = "";
+
+        // Fester Wert, z. B. "Neutral": keine Auswahl anzeigen.
+        if (genderMode !== "wahl") {
+            const fixedGender = document.createElement("span");
+            fixedGender.textContent = genderMode || "Neutral";
+            genderSelection.appendChild(fixedGender);
+            document.getElementById("selection-gender").textContent =
+                genderMode || "Neutral";
+            return;
+        }
+
+        ["Male", "Female"].forEach((gender, index) => {
+            const label = document.createElement("label");
+            const radio = document.createElement("input");
+
+            radio.type = "radio";
+            radio.name = "geschlecht";
+            radio.value = gender;
+            radio.checked = index === 0;
+
+            label.append(radio, document.createTextNode(gender));
+            genderSelection.appendChild(label);
+        });
+
+        const currentGender = document.querySelector('input[name="geschlecht"]:checked');
+        document.getElementById("selection-gender").textContent =
+            currentGender ? currentGender.value : (activeCreature ? kreaturen[activeCreature].geschlecht : "Neutral");
+    }
+
+    function resetForm() {
+
+        bestellformular.reset();
+document.getElementById("selection-sattel")
+            .textContent = "Nein";
+
+        document.getElementById("selection-element")
+            .textContent = "10 %";
+
+        document.getElementById("selection-variante")
+            .textContent = "Noch keine Wahl";
+
+        document.getElementById("element-prozent")
+            .textContent = "10 %";
+
+        document.getElementById("selection-kreatur")
+            .textContent = activeCreature
+                ? kreaturen[activeCreature].name
+                : "Noch keine Wahl";
+
+    }
+
+
+    /* =====================================================
+       DETAILANSICHT ANSEHEN
+       ===================================================== */
+
+    function openDetails(kreaturId, karte) {
+
+        const tier = kreaturen[kreaturId];
+        karte = karte || kreaturenGrid.querySelector(`[data-kreatur="${kreaturId}"]`);
+
+        if (!tier || !karte) {
+            return;
+        }
+
+        if (activeCreature === kreaturId) {
+            closeDetails();
+            return;
+        }
+
+        activeCreature = kreaturId;
+
+        document.querySelectorAll(".kreatur-card").forEach((element) => {
+            element.classList.remove("aktiv");
+            element.setAttribute("aria-expanded", "false");
+        });
+
+        karte.classList.add("aktiv");
+        karte.setAttribute("aria-expanded", "true");
+
+        detailsName.textContent = tier.name;
+        detailsBeschreibung.textContent = tier.beschreibung;
+        detailsBild.src = tier.bild;
+        detailsBild.alt = tier.name;
+
+        detailsLevel.textContent = tier.level;
+        detailsNormalpreis.textContent = tier.preisNormal;
+        detailsKastriertpreis.textContent = tier.preisKastriert;
+        detailsVarianten.textContent = tier.varianten.length;
+        detailsStatus.textContent = tier.zuchtstatus;
+        detailsZusatz.textContent = tier.zusatz;
+
+        resetForm();
+        renderGender(tier.geschlecht);
+        renderVariants(tier.varianten);
+
+        detailbereich.classList.add("sichtbar");
+        detailbereich.setAttribute("aria-hidden", "false");
+
+        detailbereich.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+
+    }
+
+
+    /* =====================================================
+       DETAILANSICHT AUSBLENDEN
+       ===================================================== */
+
+    function closeDetails() {
+
+        detailbereich.classList.remove("sichtbar");
+        detailbereich.setAttribute("aria-hidden", "true");
+
+        document.querySelectorAll(".kreatur-card").forEach((element) => {
+            element.classList.remove("aktiv");
+            element.setAttribute("aria-expanded", "false");
+        });
+
+        activeCreature = null;
+
+        document.getElementById("selection-kreatur")
+            .textContent = "Noch keine Wahl";
+
+        document.getElementById("selection-variante")
+            .textContent = "Noch keine Wahl";
+
+    }
+
+
+    schliessenButton.addEventListener(
+        "click",
+        closeDetails
+    );
+
+
+    /* =====================================================
+       FARBVARIANTEN DARSTELLEN
+       ===================================================== */
+
+    function renderVariants(varianten) {
+
+        variantSelection.innerHTML = "";
+        selectedVariant.innerHTML = "";
+
+        const standardOption = document.createElement("option");
+        standardOption.value = "";
+        standardOption.textContent = varianten.length
+            ? "Bitte eine Variante festlegen"
+            : "Keine Farbvarianten vorhanden";
+
+        selectedVariant.appendChild(standardOption);
+
+        if (!varianten || varianten.length === 0) {
+
+            const hinweis = document.createElement("p");
+
+            hinweis.textContent =
+                "Bei dieser Kreatur wurden noch keine Farbvarianten hinterlegt.";
+
+            variantSelection.appendChild(hinweis);
+
+            selectedVariant.disabled = true;
+
+            return;
+        }
+
+        selectedVariant.disabled = false;
+
+        varianten.forEach((variante, index) => {
+
+            const label = document.createElement("label");
+            label.className = "variante-option";
+
+            const radio = document.createElement("input");
+            radio.type = "radio";
+            radio.name = "farbvariante";
+            radio.value = variante.name;
+
+            const farbenpunkte = document.createElement("span");
+            farbenpunkte.className = "farbenpunkte";
+
+            (variante.farben || []).forEach((farbe) => {
+
+                const punkt = document.createElement("span");
+                punkt.className = "farbenpunkt";
+                punkt.style.backgroundColor = farbe;
+
+                farbenpunkte.appendChild(punkt);
+
+            });
+
+            const textbereich = document.createElement("span");
+            textbereich.className = "variante-text";
+
+            const name = document.createElement("strong");
+            name.textContent = variante.name;
+
+            const regionen = document.createElement("small");
+            regionen.textContent = variante.regionen || "";
+
+            textbereich.append(name, regionen);
+
+            label.append(
+                radio,
+                farbenpunkte,
+                textbereich
+            );
+
+            variantSelection.appendChild(label);
+
+            const option = document.createElement("option");
+            option.value = variante.name;
+            option.textContent = variante.name;
+
+            selectedVariant.appendChild(option);
+
+            radio.addEventListener("change", () => {
+
+                selectedVariant.value = variante.name;
+
+                document.getElementById("selection-variante")
+                    .textContent = variante.name;
+
+            });
+
+        });
+
+        selectedVariant.value = "";
+    }
+
+
+    /* =====================================================
+       FARBVARIANTE INFO AUSWAHLFELD
+       ===================================================== */
+
+    selectedVariant.addEventListener("change", () => {
+
+        const selectedValue = selectedVariant.value;
+
+        document.getElementById("selection-variante")
+            .textContent = selectedValue || "Noch keine Wahl";
+
+        document.querySelectorAll('input[name="farbvariante"]')
+            .forEach((radio) => {
+                radio.checked = radio.value === selectedValue;
+            });
+
+    });
+
+
+
+    /* =====================================================
+       GESCHLECHT IN DER AUSWAHL
+       ===================================================== */
+
+    genderSelection.addEventListener("change", (event) => {
+        if (event.target.matches('input[name="geschlecht"]')) {
+            document.getElementById("selection-gender").textContent =
+                event.target.value;
+        }
+    });
+
+
+    /* =====================================================
+       ELEMENT-ANTEIL
+       ===================================================== */
+
+    const elementRegler = document.getElementById("element-anteil");
+
+    elementRegler.addEventListener("input", () => {
+
+        const wert = elementRegler.value + " %";
+
+        document.getElementById("element-prozent")
+            .textContent = wert;
+
+        document.getElementById("selection-element")
+            .textContent = wert;
+
+    });
+
+
+    /* =====================================================
+       INITIALISIERUNG
+       ===================================================== */
+
+    createCards();
+
+    document.getElementById("aktuelles-jahr").textContent =
+        new Date().getFullYear();
