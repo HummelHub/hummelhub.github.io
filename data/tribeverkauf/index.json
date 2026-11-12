@@ -35,6 +35,18 @@
     "beschreibung": "Informationen zum Baryonyx.",
     "zusatz": "Weitere Verkaufsinformationen werden folgen."
   },
+  "carcha": {
+    "name": "Carcharodontosaurus",
+    "bild": "assets/tiere/carchar.png",
+    "level": "Noch festzulegen",
+    "preisNormal": "Noch festzulegen",
+    "preisKastriert": "Noch festzulegen",
+    "zuchtstatus": "Aktiv",
+    "geschlecht": "wahl",
+    "varianten": [],
+    "beschreibung": "Informationen zum Carchar.",
+    "zusatz": "Weitere Verkaufsinformationen werden folgen."
+  },
   "doedicurus": {
     "name": "Doedicurus",
     "bild": "assets/tiere/doedicurus.webp",
