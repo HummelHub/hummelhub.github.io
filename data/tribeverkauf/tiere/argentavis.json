@@ -1,0 +1,12 @@
+{
+  "name": "Argentavis",
+  "bild": "assets/tiere/argentavis.webp",
+  "level": "Noch festzulegen",
+  "preisNormal": "Noch festzulegen",
+  "preisKastriert": "Noch festzulegen",
+  "zuchtstatus": "Aktiv",
+  "geschlecht": "wahl",
+  "varianten": [],
+  "beschreibung": "Informationen zum Argentavis.",
+  "zusatz": "Weitere Verkaufsinformationen werden folgen."
+}

@@ -1,0 +1,12 @@
+{
+  "name": "Baryonyx",
+  "bild": "assets/tiere/baryonyx.webp",
+  "level": "Noch festzulegen",
+  "preisNormal": "Noch festzulegen",
+  "preisKastriert": "Noch festzulegen",
+  "zuchtstatus": "Aktiv",
+  "geschlecht": "wahl",
+  "varianten": [],
+  "beschreibung": "Informationen zum Baryonyx.",
+  "zusatz": "Weitere Verkaufsinformationen werden folgen."
+}
