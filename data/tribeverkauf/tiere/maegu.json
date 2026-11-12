@@ -1,0 +1,12 @@
+{
+  "name": "Maeguana",
+  "bild": "assets/verkauf/mae.png",
+  "level": "1791",
+  "preisNormal": "45.000 SP",
+  "preisKastriert": "11.250 SP",
+  "zuchtstatus": "Fertig",
+  "geschlecht": "wahl",
+  "varianten": [],
+  "beschreibung": "Informationen zum Maeguana.",
+  "zusatz": "Weitere Verkaufsinformationen werden folgen."
+}

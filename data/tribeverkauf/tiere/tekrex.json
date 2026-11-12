@@ -1,0 +1,12 @@
+{
+  "name": "Tek Rex",
+  "bild": "assets/verkauf/tekrex.png",
+  "level": "1169",
+  "preisNormal": "60.000 SP",
+  "preisKastriert": "15.000 SP",
+  "zuchtstatus": "Pause",
+  "geschlecht": "wahl",
+  "varianten": [],
+  "beschreibung": "Informationen zum Tek Rex.",
+  "zusatz": "Weitere Verkaufsinformationen werden folgen."
+}

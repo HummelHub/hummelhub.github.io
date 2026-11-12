@@ -1,0 +1,12 @@
+{
+  "name": "Araneo",
+  "bild": "assets/verkauf/araneo.png",
+  "level": "Noch festzulegen",
+  "preisNormal": "40.000 SP",
+  "preisKastriert": "10.000 SP",
+  "zuchtstatus": "Aktiv",
+  "geschlecht": "wahl",
+  "varianten": [],
+  "beschreibung": "Informationen zur Araneo.",
+  "zusatz": "Weitere Verkaufsinformationen werden folgen."
+}

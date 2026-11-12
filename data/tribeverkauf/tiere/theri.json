@@ -1,0 +1,12 @@
+{
+  "name": "Paleo Theri",
+  "bild": "assets/verkauf/theri.png",
+  "level": "2087",
+  "preisNormal": "60.000 SP",
+  "preisKastriert": "15.000 SP",
+  "zuchtstatus": "Fertig",
+  "geschlecht": "wahl",
+  "varianten": [],
+  "beschreibung": "Informationen zum Paleo Therizino.",
+  "zusatz": "Weitere Verkaufsinformationen werden folgen."
+}

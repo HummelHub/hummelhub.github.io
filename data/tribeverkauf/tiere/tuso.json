@@ -1,0 +1,12 @@
+{
+  "name": "Tuso",
+  "bild": "assets/verkauf/tuso.png",
+  "level": "1810",
+  "preisNormal": "50.000 SP",
+  "preisKastriert": "12.500 SP",
+  "zuchtstatus": "Fertig",
+  "geschlecht": "wahl",
+  "varianten": [],
+  "beschreibung": "Informationen zum Tusoteuthis.",
+  "zusatz": "Weitere Verkaufsinformationen werden folgen."
+}

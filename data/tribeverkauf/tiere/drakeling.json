@@ -1,0 +1,12 @@
+{
+  "name": "Drakeling",
+  "bild": "assets/verkauf/drakeling.png",
+  "level": "Noch festzulegen",
+  "preisNormal": "10.000 SP",
+  "preisKastriert": "2.500 SP",
+  "zuchtstatus": "Pause",
+  "geschlecht": "wahl",
+  "varianten": [],
+  "beschreibung": "Informationen zum Drakeling.",
+  "zusatz": "Weitere Verkaufsinformationen werden folgen."
+}

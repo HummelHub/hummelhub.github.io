@@ -1,9 +1,9 @@
 {
-  "name": "Carcharodontosaurus",
+  "name": "Carcharo",
   "bild": "assets/tiere/carchar.png",
-  "level": "Noch festzulegen",
-  "preisNormal": "Noch festzulegen",
-  "preisKastriert": "Noch festzulegen",
+  "level": "728",
+  "preisNormal": "120.000 SP",
+  "preisKastriert": "30.000 SP",
   "zuchtstatus": "Aktiv",
   "geschlecht": "wahl",
   "varianten": [],

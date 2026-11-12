@@ -1,0 +1,12 @@
+{
+  "name": "X - Acro",
+  "bild": "assets/verkauf/acro.png",
+  "level": "2105",
+  "preisNormal": "60.000 SP",
+  "preisKastriert": "15.000 SP",
+  "zuchtstatus": "Fertig",
+  "geschlecht": "wahl",
+  "varianten": [],
+  "beschreibung": "Informationen zum Acrocantho.",
+  "zusatz": "Weitere Verkaufsinformationen werden folgen."
+}

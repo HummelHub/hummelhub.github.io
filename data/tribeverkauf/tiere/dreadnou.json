@@ -1,0 +1,12 @@
+{
+  "name": "Dreadnoughtus",
+  "bild": "assets/verkauf/dreadnou.png",
+  "level": "1106",
+  "preisNormal": "120.000 SP",
+  "preisKastriert": "30.000 SP",
+  "zuchtstatus": "Pause",
+  "geschlecht": "wahl",
+  "varianten": [],
+  "beschreibung": "Informationen zum Dreadnoughtus.",
+  "zusatz": "Weitere Verkaufsinformationen werden folgen."
+}
