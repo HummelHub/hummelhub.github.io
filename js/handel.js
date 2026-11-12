@@ -13,7 +13,7 @@
 
 
 
-    const kreaturen = window.HUMMELHUB_KREATUREN || {};
+    let kreaturen = {};
 
     /* =====================================================
        ELEMENTE
@@ -619,7 +619,30 @@ document.getElementById("selection-sattel")
        INITIALISIERUNG
        ===================================================== */
 
-    createCards();
+    async function loadCreatures() {
+        try {
+            const response = await fetch("data/tribeverkauf/index.json", { cache: "no-store" });
+            if (!response.ok) {
+                throw new Error(`Index konnte nicht geladen werden (${response.status}).`);
+            }
+
+            const daten = await response.json();
+            if (!daten || typeof daten !== "object" || Array.isArray(daten)) {
+                throw new Error("Der Kreaturenindex hat ein ungueltiges Format.");
+            }
+
+            kreaturen = daten;
+            createCards();
+        } catch (error) {
+            console.error("Fehler beim Laden des Kreaturenkatalogs:", error);
+            kreaturenGrid.innerHTML = "";
+            const hinweis = document.createElement("p");
+            hinweis.textContent = "Der Kreaturenkatalog konnte nicht geladen werden. Bitte spaeter erneut versuchen.";
+            kreaturenGrid.appendChild(hinweis);
+        }
+    }
+
+    loadCreatures();
 
     document.getElementById("aktuelles-jahr").textContent =
         new Date().getFullYear();
