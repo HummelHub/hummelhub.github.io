@@ -86,7 +86,7 @@
   "greif": {
     "name": "Greif",
     "bild": "assets/verkauf/greif.png",
-    "level": "Noch festzulegen",
+    "level": "2095",
     "preisNormal": "40.000 SP",
     "preisKastriert": "10.000 SP",
     "zuchtstatus": "Fertig",
