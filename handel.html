@@ -214,9 +214,8 @@
 
                         <p class="formular-hinweis">
                             Stelle deine Kreatur zusammen.
-                            Deine Wahl wird in den Warenkorb
-                            gelegt. Der Warenkorb ist derzeit noch
-                            nicht technisch eingebunden.
+                            Stelle deine Kreatur zusammen und lege sie
+                            als eigene Position in deinen Warenkorb.
                         </p>
 
 
@@ -446,19 +445,17 @@
                                 </div>
 
                                 <p class="warenkorb-hinweis">
-                                    Diese Auswahl zeigt erst einmal nur
-                                    die aktuell festgelegte Kreatur.
-                                    Danach lassen sich mehrere Kreaturen und
-                                    weitere Positionen gesammelt im Warenkorb
-                                    verwalten.
+                                    Deine Auswahl wird als eigene Position
+                                    gespeichert. Du kannst danach weitere
+                                    Kreaturen zusammenstellen.
                                 </p>
 
                                 <button
                                     class="warenkorb-button"
+                                    id="warenkorb-hinzufuegen"
                                     type="button"
-                                    disabled
                                 >
-                                    In den Warenkorb – folgt danach
+                                    In den Warenkorb legen
                                 </button>
 
                             </div>
@@ -493,6 +490,35 @@
     </footer>
 
 </div>
+
+
+<!-- =========================
+     WARENKORB
+     ========================= -->
+
+<button class="warenkorb-toggle" id="warenkorb-toggle" type="button" aria-controls="warenkorb-panel" aria-expanded="false">
+    <span aria-hidden="true">🛒</span>
+    <span>Warenkorb</span>
+    <span class="warenkorb-anzahl" id="warenkorb-anzahl">0</span>
+</button>
+
+<aside class="warenkorb-panel" id="warenkorb-panel" aria-hidden="true" aria-label="Dein Warenkorb">
+    <div class="warenkorb-panel-kopf">
+        <div>
+            <span class="handel-eyebrow">HummelHub Handel</span>
+            <h2>Dein Warenkorb</h2>
+        </div>
+        <button class="warenkorb-schliessen" id="warenkorb-schliessen" type="button" aria-label="Warenkorb schliessen">×</button>
+    </div>
+    <div class="warenkorb-positionen" id="warenkorb-positionen">
+        <p class="warenkorb-leer">Dein Warenkorb ist noch leer.</p>
+    </div>
+    <div class="warenkorb-panel-fuss">
+        <p class="warenkorb-session-hinweis">Dein Warenkorb bleibt beim Wechsel zwischen HummelHub-Seiten erhalten und wird beim Schliessen des Tabs verworfen.</p>
+        <button class="warenkorb-leeren" id="warenkorb-leeren" type="button">Warenkorb leeren</button>
+    </div>
+</aside>
+<div class="warenkorb-overlay" id="warenkorb-overlay"></div>
 
 
 <!-- =========================

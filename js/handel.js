@@ -426,6 +426,196 @@ document.getElementById("selection-sattel")
 
 
     /* =====================================================
+       WARENKORB
+       sessionStorage bleibt bei Seitenwechseln im selben Tab erhalten.
+       Beim Schliessen des Tabs endet die Browsersitzung.
+       ===================================================== */
+
+    const WARENKORB_KEY = "hummelhub_handelswarenkorb";
+    const warenkorbToggle = document.getElementById("warenkorb-toggle");
+    const warenkorbPanel = document.getElementById("warenkorb-panel");
+    const warenkorbOverlay = document.getElementById("warenkorb-overlay");
+    const warenkorbPositionen = document.getElementById("warenkorb-positionen");
+    const warenkorbAnzahl = document.getElementById("warenkorb-anzahl");
+    let warenkorb = [];
+
+    try {
+        warenkorb = JSON.parse(sessionStorage.getItem(WARENKORB_KEY) || "[]");
+        if (!Array.isArray(warenkorb)) warenkorb = [];
+    } catch (error) {
+        warenkorb = [];
+    }
+
+    function saveWarenkorb() {
+        try {
+            sessionStorage.setItem(WARENKORB_KEY, JSON.stringify(warenkorb));
+        } catch (error) {
+            console.warn("Der Warenkorb konnte nicht in dieser Sitzung gespeichert werden.", error);
+        }
+        renderWarenkorb();
+    }
+
+    function openWarenkorb() {
+        warenkorbPanel.classList.add("offen");
+        warenkorbOverlay.classList.add("offen");
+        warenkorbPanel.setAttribute("aria-hidden", "false");
+        warenkorbToggle.setAttribute("aria-expanded", "true");
+        document.body.classList.add("warenkorb-geoeffnet");
+    }
+
+    function closeWarenkorb() {
+        warenkorbPanel.classList.remove("offen");
+        warenkorbOverlay.classList.remove("offen");
+        warenkorbPanel.setAttribute("aria-hidden", "true");
+        warenkorbToggle.setAttribute("aria-expanded", "false");
+        document.body.classList.remove("warenkorb-geoeffnet");
+    }
+
+    function addWarenkorbText(parent, tag, text, className) {
+        const element = document.createElement(tag);
+        element.textContent = text;
+        if (className) element.className = className;
+        parent.appendChild(element);
+        return element;
+    }
+
+    function renderWarenkorb() {
+        warenkorbAnzahl.textContent = warenkorb.length;
+        warenkorbPositionen.innerHTML = "";
+
+        if (!warenkorb.length) {
+            addWarenkorbText(warenkorbPositionen, "p", "Dein Warenkorb ist noch leer.", "warenkorb-leer");
+            return;
+        }
+
+        warenkorb.forEach((position, index) => {
+            const artikel = document.createElement("article");
+            artikel.className = "warenkorb-position";
+
+            const kopf = document.createElement("div");
+            kopf.className = "warenkorb-position-kopf";
+            const titelbereich = document.createElement("div");
+            addWarenkorbText(titelbereich, "h3", position.kreatur);
+            addWarenkorbText(titelbereich, "small", "Position " + (index + 1));
+            const entfernen = document.createElement("button");
+            entfernen.type = "button";
+            entfernen.className = "warenkorb-position-entfernen";
+            entfernen.textContent = "Entfernen";
+            entfernen.setAttribute("aria-label", position.kreatur + " aus dem Warenkorb entfernen");
+            entfernen.addEventListener("click", () => {
+                warenkorb.splice(index, 1);
+                saveWarenkorb();
+            });
+            kopf.append(titelbereich, entfernen);
+            artikel.appendChild(kopf);
+
+            const daten = document.createElement("dl");
+            const felder = [
+                ["Geschlecht", position.geschlecht],
+                ["Sattel", position.sattel],
+                ["Farbvariante", position.variante],
+                ["Element-Anteil", position.element],
+                ["Basislevel", position.level],
+                ["Preis", position.preis]
+            ];
+            felder.forEach(([label, wert]) => {
+                const dt = document.createElement("dt");
+                dt.textContent = label;
+                const dd = document.createElement("dd");
+                dd.textContent = wert || "Keine Angabe";
+                daten.append(dt, dd);
+            });
+
+            if (position.traits && position.traits.length) {
+                const traits = document.createElement("div");
+                traits.className = "warenkorb-position-traits";
+                const dt = document.createElement("dt");
+                dt.textContent = "ARK Traits";
+                const dd = document.createElement("dd");
+                dd.textContent = position.traits.join(", ");
+                traits.append(dt, dd);
+                daten.appendChild(traits);
+            }
+            artikel.appendChild(daten);
+
+            if (position.spielername) {
+                const spieler = document.createElement("p");
+                spieler.className = "warenkorb-spielername";
+                spieler.textContent = "Spieler: " + position.spielername;
+                artikel.appendChild(spieler);
+            }
+            if (position.nachricht) {
+                const nachricht = document.createElement("p");
+                nachricht.className = "warenkorb-spielername";
+                nachricht.textContent = "Nachricht: " + position.nachricht;
+                artikel.appendChild(nachricht);
+            }
+            warenkorbPositionen.appendChild(artikel);
+        });
+    }
+
+    function addCurrentSelectionToCart() {
+        if (!activeCreature) {
+            alert("Bitte waehle zuerst eine Kreatur aus.");
+            return;
+        }
+
+        const spielername = document.getElementById("spielername").value.trim();
+        if (!spielername) {
+            document.getElementById("spielername").focus();
+            alert("Bitte trage zuerst deinen RS24-Spielernamen ein.");
+            return;
+        }
+
+        const tier = kreaturen[activeCreature];
+        const genderRadio = document.querySelector('input[name="geschlecht"]:checked');
+        const saddleRadio = document.querySelector('input[name="sattel"]:checked');
+        const traits = Array.from(bestellformular.querySelectorAll('input[name="traits"]'))
+            .map((input) => input.value.trim())
+            .filter(Boolean);
+
+        warenkorb.push({
+            id: Date.now().toString(36) + Math.random().toString(36).slice(2, 7),
+            kreaturId: activeCreature,
+            kreatur: tier.name,
+            bild: tier.bild,
+            level: tier.level || "Noch festzulegen",
+            preis: tier.preisNormal || "Noch festzulegen",
+            geschlecht: genderRadio ? genderRadio.value : (tier.geschlecht || "Neutral"),
+            sattel: saddleRadio ? saddleRadio.value : "Nein",
+            variante: selectedVariant.value || "Keine Variante ausgewaehlt",
+            traits,
+            element: elementRegler.value + " %",
+            spielername,
+            nachricht: document.getElementById("nachricht").value.trim()
+        });
+
+        saveWarenkorb();
+        openWarenkorb();
+    }
+
+    document.getElementById("warenkorb-hinzufuegen").addEventListener("click", addCurrentSelectionToCart);
+    warenkorbToggle.addEventListener("click", openWarenkorb);
+    document.getElementById("warenkorb-schliessen").addEventListener("click", closeWarenkorb);
+    warenkorbOverlay.addEventListener("click", closeWarenkorb);
+    document.getElementById("warenkorb-leeren").addEventListener("click", () => {
+        warenkorb = [];
+        saveWarenkorb();
+    });
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") closeWarenkorb();
+    });
+
+    bestellformular.addEventListener("change", (event) => {
+        if (event.target.matches('input[name="sattel"]')) {
+            document.getElementById("selection-sattel").textContent = event.target.value;
+        }
+    });
+
+    renderWarenkorb();
+
+
+    /* =====================================================
        INITIALISIERUNG
        ===================================================== */
 
