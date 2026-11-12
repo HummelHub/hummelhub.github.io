@@ -1,0 +1,12 @@
+{
+  "name": "Carcharodontosaurus",
+  "bild": "assets/tiere/carchar.png",
+  "level": "Noch festzulegen",
+  "preisNormal": "Noch festzulegen",
+  "preisKastriert": "Noch festzulegen",
+  "zuchtstatus": "Aktiv",
+  "geschlecht": "wahl",
+  "varianten": [],
+  "beschreibung": "Informationen zum Carchar.",
+  "zusatz": "Weitere Verkaufsinformationen werden folgen."
+}
